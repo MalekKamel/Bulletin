@@ -1,0 +1,19 @@
+apply plugin: Plugins.androidApplication
+apply from: "$rootDir/${GradleName.common}"
+apply plugin: "${Plugins.kotlinAndroid}"
+apply plugin: "${Plugins.kotlinAndroidExtensions}"
+
+android {
+    defaultConfig {
+        applicationId "com.sha.bulletin.sample"
+    }
+}
+
+dependencies {
+    implementation project(Lib.lib)
+
+    implementation Deps.androidx_appCompat
+    implementation Deps.android_material
+    implementation Deps.androidx_core_ktx
+    implementation Deps.multidex
+}

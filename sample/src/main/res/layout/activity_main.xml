@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="40dp">
+
+        <Button
+            android:id="@+id/btnMessageSheet"
+            android:text="Message Sheet"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnWarningSheet"
+            android:text="Warning Sheet"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnErrorSheet"
+            android:text="Error Sheet"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnMessageDialog"
+            android:text="Message Dialog"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+        <Button
+            android:id="@+id/btnWarningDialog"
+            android:text="Warning Dialog"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnErrorDialog"
+            android:text="Error Dialog"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnRetryDialog"
+            android:text="Retry Dialog"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnRetrySheet"
+            android:text="Retry Sheet"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnFlashBar"
+            android:text="FlashBar"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

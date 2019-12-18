@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: 'versions.gradle'
+
+ext.versions = [
+        sdkMin        : 14,
+        sdkTarget     : 27,
+        kotlin        : '1.2.50',
+        supportVersion: '27.1.1'
+]
+
+android {
+    compileSdkVersion versions.sdkTarget
+
+    defaultConfig {
+        minSdkVersion versions.sdkMin
+        targetSdkVersion versions.sdkTarget
+        versionCode 3
+        versionName "1.0.2"
+
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:$versions.supportVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+}
