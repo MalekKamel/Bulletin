@@ -10,9 +10,31 @@ import com.sha.bulletin.dialog.RetryDialog
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
 
+interface Alertable: InfoAlertable, RetryAlertable, ToastAlertable, FlashBarAlertable
 
-interface Alertable {
+interface ToastAlertable {
     fun activity(): FragmentActivity?
+
+    fun longToast(@StringRes message: Int) {
+        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
+    }
+
+    fun longToast(message: String) {
+        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
+    }
+
+    fun shortToast(message: String) {
+        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun shortToast(@StringRes message: Int) {
+        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
+    }
+}
+
+interface RetryAlertable {
+    fun activity(): FragmentActivity?
+
 
     /// >>>>>>>>>  Retry Dialog
 
@@ -31,7 +53,7 @@ interface Alertable {
             options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
         activity()?.run { showRetryDialog(getString(messageRes), options) }
     }
-
+    
     /// >>>>>>>>>  Retry Sheet
 
     fun showRetrySheet(
@@ -49,16 +71,10 @@ interface Alertable {
             options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
         activity()?.run { showRetrySheet(getString(messageRes), options) }
     }
+}
 
-    /// >>>>>>>>>  TOAST
-
-    fun toast(messageRes: String, length: Int = Toast.LENGTH_LONG) {
-        Toast.makeText(activity(), messageRes, length).show()
-    }
-
-    fun toast(@StringRes messageRes: Int, length: Int = Toast.LENGTH_LONG) {
-        Toast.makeText(activity(), messageRes, length).show()
-    }
+interface InfoAlertable {
+    fun activity(): FragmentActivity?
 
     /// >>>>>>>>>  INFO DIALOG
 
@@ -123,8 +139,10 @@ interface Alertable {
     fun showErrorSheet(error: String?) {
         showInfoSheet(InfoSheet.Options.create(MessageType.EXCEPTION) { message = error })
     }
+}
 
-    /// >>>>>>>>>  FlashBar
+interface FlashBarAlertable {
+    fun activity(): FragmentActivity?
 
     fun showErrorInFlashBar(message: String, duration: Long = 6000) {
         activity()?.run {
@@ -147,3 +165,4 @@ interface Alertable {
         activity()?.run { builder.build().show() }
     }
 }
+

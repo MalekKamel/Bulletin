@@ -26,8 +26,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
         btnRetryDialog.setOnClickListener { showRetryDialog(message) }
         btnRetrySheet.setOnClickListener { showRetrySheet(message) }
+
         btnFlashBar.setOnClickListener { showErrorInFlashBar(message) }
 
+        btnToast.setOnClickListener { longToast(message) }
     }
 
     override fun activity(): FragmentActivity?  = this
