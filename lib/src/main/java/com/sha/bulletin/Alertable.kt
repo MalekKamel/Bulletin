@@ -10,73 +10,16 @@ import com.sha.bulletin.dialog.RetryDialog
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
 
-interface Alertable: InfoAlertable, RetryAlertable, ToastAlertable, FlashBarAlertable
+interface Alertable:
+        InfoDialogAlertable,
+        InfoSheetAlertable,
+        RetryDialogAlertable,
+        RetrySheetAlertable,
+        ToastAlertable,
+        FlashBarAlertable
 
-interface ToastAlertable {
+interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
-
-    fun longToast(@StringRes message: Int) {
-        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
-    }
-
-    fun longToast(message: String) {
-        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
-    }
-
-    fun shortToast(message: String) {
-        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    fun shortToast(@StringRes message: Int) {
-        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
-    }
-}
-
-interface RetryAlertable {
-    fun activity(): FragmentActivity?
-
-
-    /// >>>>>>>>>  Retry Dialog
-
-    fun showRetryDialog(
-            message: String,
-            options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
-        activity()?.run {
-            options.message = message
-            RetryDialog.options = options
-            RetryDialog.show(this)
-        }
-    }
-
-    fun showRetryDialog(
-            @StringRes messageRes: Int,
-            options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
-        activity()?.run { showRetryDialog(getString(messageRes), options) }
-    }
-    
-    /// >>>>>>>>>  Retry Sheet
-
-    fun showRetrySheet(
-            message: String,
-            options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
-        activity()?.run {
-            options.message = message
-            RetrySheet.options = options
-            RetrySheet.show(this)
-        }
-    }
-
-    fun showRetrySheet(
-            @StringRes messageRes: Int,
-            options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
-        activity()?.run { showRetrySheet(getString(messageRes), options) }
-    }
-}
-
-interface InfoAlertable {
-    fun activity(): FragmentActivity?
-
-    /// >>>>>>>>>  INFO DIALOG
 
     private fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.defaultOptions()) {
         if (options.message == null) return
@@ -107,8 +50,10 @@ interface InfoAlertable {
     fun showErrorDialog(error: String?) {
         showInfoDialog(InfoDialog.Options.create(MessageType.EXCEPTION) { message = error })
     }
+}
 
-    /// >>>>>>>>>  INFO SHEET
+interface InfoSheetAlertable {
+    fun activity(): FragmentActivity?
 
     private fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.defaultOptions()) {
         if (options.message == null) return
@@ -141,6 +86,66 @@ interface InfoAlertable {
     }
 }
 
+interface RetryDialogAlertable {
+    fun activity(): FragmentActivity?
+
+    fun showRetryDialog(
+            message: String,
+            options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
+        activity()?.run {
+            options.message = message
+            RetryDialog.options = options
+            RetryDialog.show(this)
+        }
+    }
+
+    fun showRetryDialog(
+            @StringRes messageRes: Int,
+            options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
+        activity()?.run { showRetryDialog(getString(messageRes), options) }
+    }
+}
+
+interface RetrySheetAlertable {
+    fun activity(): FragmentActivity?
+
+    fun showRetrySheet(
+            message: String,
+            options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
+        activity()?.run {
+            options.message = message
+            RetrySheet.options = options
+            RetrySheet.show(this)
+        }
+    }
+
+    fun showRetrySheet(
+            @StringRes messageRes: Int,
+            options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
+        activity()?.run { showRetrySheet(getString(messageRes), options) }
+    }
+}
+
+interface ToastAlertable {
+    fun activity(): FragmentActivity?
+
+    fun longToast(@StringRes message: Int) {
+        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
+    }
+
+    fun longToast(message: String) {
+        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
+    }
+
+    fun shortToast(message: String) {
+        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun shortToast(@StringRes message: Int) {
+        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
+    }
+}
+
 interface FlashBarAlertable {
     fun activity(): FragmentActivity?
 
@@ -157,7 +162,7 @@ interface FlashBarAlertable {
         }
     }
 
-    fun showErrorInFlashBar(@StringRes messageRes: Int, duration: Long = 600) {
+    fun showErrorInFlashBar(@StringRes messageRes: Int, duration: Long = 6000) {
         activity()?.run { showErrorInFlashBar(getString(messageRes), duration) }
     }
 
@@ -165,4 +170,3 @@ interface FlashBarAlertable {
         activity()?.run { builder.build().show() }
     }
 }
-
