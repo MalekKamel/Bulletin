@@ -56,7 +56,6 @@ object InfoDialog : AbstractDialog() {
             var isCancellable: Boolean = true,
             var messageType: MessageType? = null
     ){
-
         class Builder {
             private val options = Options()
 
@@ -92,7 +91,8 @@ object InfoDialog : AbstractDialog() {
             fun defaultOptions(): Options = Builder().build()
             fun create(type: MessageType, block: Options.() -> Unit) = Options().apply {
                 messageType = type
-                block() }
+                block()
+            }
         }
     }
 

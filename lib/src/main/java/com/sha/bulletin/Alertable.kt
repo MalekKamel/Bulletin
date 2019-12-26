@@ -21,20 +21,6 @@ interface Alertable:
 interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
 
-    private fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.defaultOptions()) {
-        if (options.message == null) return
-        activity()?.run {
-            InfoDialog.options = options
-            InfoDialog.show(this)
-        }
-    }
-
-    fun showWarningDialog(msg: String?) {
-        showInfoDialog(InfoDialog.Options.create(MessageType.WARNING) { message = msg })
-    }
-
-    fun showWarningDialog(msgRes: Int) = showWarningDialog(activity()?.getString(msgRes))
-
     fun showMessageDialog(msg: String?) {
         showInfoDialog(InfoDialog.Options.create(MessageType.INFO) { message = msg })
     }
@@ -45,29 +31,29 @@ interface InfoDialogAlertable {
         })
     }
 
+    fun showWarningDialog(msg: String?) {
+        showInfoDialog(InfoDialog.Options.create(MessageType.WARNING) { message = msg })
+    }
+
+    fun showWarningDialog(msgRes: Int) = showWarningDialog(activity()?.getString(msgRes))
+
     fun showErrorDialog(@StringRes errorRes: Int) = showErrorDialog(activity()?.getString(errorRes))
 
     fun showErrorDialog(error: String?) {
         showInfoDialog(InfoDialog.Options.create(MessageType.EXCEPTION) { message = error })
     }
+
+    fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.defaultOptions()) {
+        if (options.message == null) return
+        activity()?.run {
+            InfoDialog.options = options
+            InfoDialog.show(this)
+        }
+    }
 }
 
 interface InfoSheetAlertable {
     fun activity(): FragmentActivity?
-
-    private fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.defaultOptions()) {
-        if (options.message == null) return
-        activity()?.run {
-            InfoSheet.options = options
-            InfoSheet.show(this)
-        }
-    }
-
-    fun showWarningSheet(msg: String?) {
-        showInfoSheet(InfoSheet.Options.create(MessageType.WARNING) { message = msg })
-    }
-
-    fun showWarningSheet(@StringRes msgRes: Int) = showWarningSheet(activity()?.getString(msgRes))
 
     fun showMessageSheet(msg: String?) {
         showInfoSheet(InfoSheet.Options.create(MessageType.INFO) { message = msg })
@@ -79,11 +65,26 @@ interface InfoSheetAlertable {
         })
     }
 
+    fun showWarningSheet(msg: String?) {
+        showInfoSheet(InfoSheet.Options.create(MessageType.WARNING) { message = msg })
+    }
+
+    fun showWarningSheet(@StringRes msgRes: Int) = showWarningSheet(activity()?.getString(msgRes))
+
     fun showErrorSheet(@StringRes errorRes: Int) = showErrorSheet(activity()?.getString(errorRes))
 
     fun showErrorSheet(error: String?) {
         showInfoSheet(InfoSheet.Options.create(MessageType.EXCEPTION) { message = error })
     }
+
+    private fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.defaultOptions()) {
+        if (options.message == null) return
+        activity()?.run {
+            InfoSheet.options = options
+            InfoSheet.show(this)
+        }
+    }
+
 }
 
 interface RetryDialogAlertable {
@@ -149,6 +150,10 @@ interface ToastAlertable {
 interface FlashBarAlertable {
     fun activity(): FragmentActivity?
 
+    fun showMessageInFlashBar(builder: Flashbar.Builder) {
+        activity()?.run { builder.build().show() }
+    }
+
     fun showErrorInFlashBar(message: String, duration: Long = 6000) {
         activity()?.run {
             showMessageInFlashBar(
@@ -164,9 +169,5 @@ interface FlashBarAlertable {
 
     fun showErrorInFlashBar(@StringRes messageRes: Int, duration: Long = 6000) {
         activity()?.run { showErrorInFlashBar(getString(messageRes), duration) }
-    }
-
-    fun showMessageInFlashBar(builder: Flashbar.Builder) {
-        activity()?.run { builder.build().show() }
     }
 }

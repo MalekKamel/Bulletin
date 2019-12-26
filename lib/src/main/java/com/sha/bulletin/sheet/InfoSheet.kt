@@ -91,7 +91,8 @@ object InfoSheet : AbstractSheet() {
             fun defaultOptions(): Options = Builder().build()
             fun create(type: MessageType, block: Options.() -> Unit) = Options().apply {
                 messageType = type
-                block() }
+                block()
+            }
         }
     }
 
