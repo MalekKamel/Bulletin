@@ -12,12 +12,14 @@ import android.view.Window
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import com.sha.bulletin.Bulletin
+import com.sha.bulletin.bulletins
 
 /**
- * Created by Sha on 9/24/17.
+ * Created by Sha on 12/24/19.
  */
 
-abstract class AbstractDialog : DialogFragment() {
+abstract class AbstractDialog : DialogFragment(), Bulletin {
     protected open var transparentWindow: Boolean  = true
     protected open var isCanceledOnTouchOutside: Boolean = false
     private var onDismissListener: (() -> Unit)? = null
@@ -48,11 +50,11 @@ abstract class AbstractDialog : DialogFragment() {
         return dialog
     }
 
-    open fun show(activity: FragmentActivity, tag: String = javaClass.name): AbstractDialog {
-        if (isDisplayed) return this
+    open fun show(activity: FragmentActivity, tag: String = javaClass.name) {
+        if (isDisplayed) return
         show(activity.supportFragmentManager, tag)
         isDisplayed = true
-        return this
+        bulletins.add(this)
     }
 
     fun onDismissListener(callback: () -> Unit): AbstractDialog {
@@ -64,10 +66,12 @@ abstract class AbstractDialog : DialogFragment() {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
         isDisplayed = false
+        bulletins.remove(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isDisplayed = false
+        bulletins.remove(this)
     }
 }

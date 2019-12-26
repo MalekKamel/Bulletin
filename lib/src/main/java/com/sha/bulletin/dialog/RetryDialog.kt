@@ -1,65 +1,50 @@
 package com.sha.bulletin.dialog
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.R
+import com.sha.bulletin.isBulletinWithContentDisplayed
 
-object RetryDialog : AbstractDialog() {
-    var options: Options? = Options.defaultOptions()
+class RetryDialog : AbstractDialog() {
+    var options: Options = Options.defaultOptions()
         set(value) {
             if (isDisplayed) return
             field = value
         }
-
+    override val name: String = javaClass.name
+    override val content: String = options.content ?: ""
     override var layoutId: Int = R.layout.frag_dialog_retry
 
-    private val tvMessage: TextView
-        get() = view!!.findViewById(R.id.tvMessage)
-
-    private val btnRetry: Button
-        get() = view!!.findViewById(R.id.btnRetry)
-
-    private val btnDismiss: TextView
-        get() = view!!.findViewById(R.id.btnDismiss)
+    private val tvTitle: TextView? = view?.findViewById(R.id.tvTitle)
+    private val tvContent: TextView? = view?.findViewById(R.id.tvContent)
+    private val btnRetry: Button = view!!.findViewById(R.id.btnRetry)
+    private val btnDismiss: TextView = view!!.findViewById(R.id.btnDismiss)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        options?.message?.let { tvMessage.text = it }
+        dialog?.setCanceledOnTouchOutside(options.isCancellable)
+        options.content?.let { tvContent?.text = it }
         btnRetry.setOnClickListener {
-            options?.retryCallback?.invoke()
+            options.retryCallback?.invoke()
             dismiss()
         }
 
         btnDismiss.setOnClickListener {
-            options?.dismissCallback?.invoke()
+            options.dismissCallback?.invoke()
             dismiss()
         }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        cleanup()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanup()
-    }
-
-    private fun cleanup() {
-        options = null
     }
 
     data class Options(
             var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = true,
-            var message: String? = null
+            var ignoreIfSameContentDisplayed: Boolean = true,
+            var title: String? = null,
+            var content: String? = null
     ){
-
         class Builder {
             private val options = Options()
 
@@ -78,8 +63,18 @@ object RetryDialog : AbstractDialog() {
                 return this
             }
 
-            fun message(message: String?): Builder {
-                options.message = message
+            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
+                options.ignoreIfSameContentDisplayed = ignore
+                return this
+            }
+
+            fun content(content: String?): Builder {
+                options.content = content
+                return this
+            }
+
+            fun title(title: String?): Options.Builder {
+                options.title = title
                 return this
             }
 
@@ -88,15 +83,23 @@ object RetryDialog : AbstractDialog() {
 
         companion object {
             fun defaultOptions(): Options = Builder().build()
-            fun create(message: String?, block: Options.() -> Unit) = Options().apply {
-                this.message = message
+            fun create(content: String?, block: Options.() -> Unit) = Options().apply {
+                this.content = content
                 block()
             }
         }
     }
 
-    fun show(activity: FragmentActivity) = super.show(activity, javaClass.name)
+    companion object {
+        fun create(block: Options.() -> Unit) = RetryDialog().apply { options = Options().apply { block() } }
 
+        fun create(options: Options) = RetryDialog().apply { this.options = options }
+    }
+
+    fun show(activity: FragmentActivity) {
+        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content)) return
+        super.show(activity, javaClass.name)
+    }
 }
 
 

@@ -12,13 +12,15 @@ import android.view.Window
 import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.sha.bulletin.Bulletin
 import com.sha.bulletin.R
+import com.sha.bulletin.bulletins
 
 /**
  * Created by Sha on 9/24/17.
  */
 
-abstract class AbstractSheet : BottomSheetDialogFragment() {
+abstract class AbstractSheet : BottomSheetDialogFragment(), Bulletin {
     open var transparentWindow: Boolean  = true
     open var isCanceledOnTouchOutside: Boolean = false
     private var onDismissListener: (() -> Unit)? = null
@@ -29,7 +31,7 @@ abstract class AbstractSheet : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       if(transparentBackground) setStyle(STYLE_NORMAL, R.style.SheetDialogTheme);
+       if(transparentBackground) setStyle(STYLE_NORMAL, R.style.SheetDialogTheme)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,11 +56,11 @@ abstract class AbstractSheet : BottomSheetDialogFragment() {
         return dialog
     }
 
-    open fun show(activity: FragmentActivity, tag: String = javaClass.name): AbstractSheet {
-        if (isDisplayed) return this
+    open fun show(activity: FragmentActivity, tag: String = javaClass.name) {
+        if (isDisplayed) return
         show(activity.supportFragmentManager, tag)
         isDisplayed = true
-        return this
+        bulletins.add(this)
     }
 
     fun onDismissListener(callback: () -> Unit): AbstractSheet {
@@ -70,10 +72,12 @@ abstract class AbstractSheet : BottomSheetDialogFragment() {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
         isDisplayed = false
+        bulletins.remove(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isDisplayed = false
+        bulletins.remove(this)
     }
 }

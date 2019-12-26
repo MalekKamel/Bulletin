@@ -1,9 +1,11 @@
 package com.sha.sample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Alertable
+import com.sha.bulletin.bulletins
 import com.sha.formvalidatorsample.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,7 +18,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnMessageSheet.setOnClickListener { showMessageSheet(message) }
+        btnPrint.setOnClickListener { bulletins.forEach { Log.e("Bulletin Name: ${it?.name}", "Bulletin: $it") } }
+
+        btnMessageSheet.setOnClickListener {
+            showMessageSheet(message)
+            showMessageSheet(message)
+        }
+
         btnWarningSheet.setOnClickListener { showWarningSheet(message) }
         btnErrorSheet.setOnClickListener { showErrorSheet(message) }
 
@@ -24,7 +32,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         btnWarningDialog.setOnClickListener { showWarningDialog(message) }
         btnErrorDialog.setOnClickListener { showErrorDialog(message) }
 
-        btnRetryDialog.setOnClickListener { showRetryDialog(message) }
+        btnRetryDialog.setOnClickListener {
+            showRetryDialog(message)
+            showRetryDialog(message)
+        }
+
         btnRetrySheet.setOnClickListener { showRetrySheet(message) }
 
         btnFlashBar.setOnClickListener { showErrorInFlashBar(message) }

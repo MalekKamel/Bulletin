@@ -11,6 +11,15 @@
         android:padding="40dp">
 
         <Button
+            android:id="@+id/btnPrint"
+            android:text="PRINT"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            />
+        <Button
             android:id="@+id/btnMessageSheet"
             android:text="Message Sheet"
             android:textAllCaps="false"

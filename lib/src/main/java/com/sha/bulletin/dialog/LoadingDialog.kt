@@ -1,45 +1,55 @@
 package com.sha.bulletin.dialog
 
-import android.content.DialogInterface
+import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.R
+import com.sha.bulletin.isBulletinWithContentDisplayed
 
-object LoadingDialog : AbstractDialog() {
+class LoadingDialog : AbstractDialog() {
 
-    override var layoutId: Int = R.layout.frag_dialog_loading
-    var options: Options? = Options.defaultOptions()
+    var options: Options = Options.defaultOptions()
         set(value) {
             if (isDisplayed) return
             field = value
         }
+    override val name: String = javaClass.name
+    override val content: String = options.content ?: ""
+    override var layoutId: Int = R.layout.frag_dialog_loading
+    override fun isCancelable(): Boolean  = options.isCancellable
+    private val tvContent: TextView? = view?.findViewById(R.id.tvContent)
 
-    override fun isCancelable(): Boolean  = options?.isCancellable ?: false
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        cleanup()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        dialog?.setCanceledOnTouchOutside(options.isCancellable)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanup()
-    }
-
-    private fun cleanup() {
-        options = null
-    }
-
+    
     data class Options(
-            var retryCallback: (() -> Unit)? = null,
+            var content: String? = null,
             var dismissCallback: (() -> Unit)? = null,
+            var ignoreIfSameContentDisplayed: Boolean = true,
             var isCancellable: Boolean = false
     ){
 
         class Builder {
             private val options = Options()
 
+            fun content(content: String?): Options.Builder {
+                options.content = content
+                return this
+            }
             fun isCancellable(cancellable: Boolean): Builder {
                 options.isCancellable = cancellable
+                return this
+            }
+
+            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
+                options.ignoreIfSameContentDisplayed = ignore
+                return this
+            }
+
+            fun dismissCallback(callback: (() -> Unit)?): Builder {
+                options.dismissCallback = callback
                 return this
             }
 
@@ -52,6 +62,14 @@ object LoadingDialog : AbstractDialog() {
         }
     }
 
-    fun show(activity: FragmentActivity) = super.show(activity, javaClass.name)
+    companion object {
+        fun create(block: Options.() -> Unit) = LoadingDialog().apply { options = Options().apply { block() } }
 
+        fun create(options: Options) = LoadingDialog().apply { this.options = options }
+    }
+
+    fun show(activity: FragmentActivity) {
+        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content)) return
+        super.show(activity, javaClass.name)
+    }
 }

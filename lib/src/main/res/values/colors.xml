@@ -1,5 +1,7 @@
 <resources>
     <color name="black_light">#545554</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
     <color name="transparent">#0014E158</color>
 
     <color name="warning">#b1a01e</color>

@@ -2,10 +2,12 @@ package com.sha.bulletin
 
 
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentActivity
 import com.andrognito.flashbar.Flashbar
 import com.sha.bulletin.dialog.InfoDialog
+import com.sha.bulletin.dialog.LoadingDialog
 import com.sha.bulletin.dialog.RetryDialog
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
@@ -21,89 +23,97 @@ interface Alertable:
 interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
 
-    fun showMessageDialog(msg: String?) {
-        showInfoDialog(InfoDialog.Options.create(MessageType.INFO) { message = msg })
+    fun showMessageDialog(content: String?) {
+        showInfoDialog(InfoDialog.Options.create(ContentType.INFO) { this.content = content })
     }
 
-    fun showMessageDialog(@StringRes msgRes: Int) {
-        showInfoDialog(InfoDialog.Options.create(MessageType.INFO) {
-            message = activity()?.getString(msgRes)
+    fun showMessageDialog(@StringRes contentRes: Int) {
+        showInfoDialog(InfoDialog.Options.create(ContentType.INFO) {
+            content = activity()?.getString(contentRes)
         })
     }
 
-    fun showWarningDialog(msg: String?) {
-        showInfoDialog(InfoDialog.Options.create(MessageType.WARNING) { message = msg })
+    fun showWarningDialog(content: String?) {
+        showInfoDialog(InfoDialog.Options.create(ContentType.WARNING) { this.content = content })
     }
 
-    fun showWarningDialog(msgRes: Int) = showWarningDialog(activity()?.getString(msgRes))
+    fun showWarningDialog(contentRes: Int) = showWarningDialog(activity()?.getString(contentRes))
 
     fun showErrorDialog(@StringRes errorRes: Int) = showErrorDialog(activity()?.getString(errorRes))
 
     fun showErrorDialog(error: String?) {
-        showInfoDialog(InfoDialog.Options.create(MessageType.EXCEPTION) { message = error })
+        showInfoDialog(InfoDialog.Options.create(ContentType.ERROR) { this.content = error })
     }
 
     fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.defaultOptions()) {
-        if (options.message == null) return
-        activity()?.run {
-            InfoDialog.options = options
-            InfoDialog.show(this)
-        }
+        activity()?.let { InfoDialog.create(options).show(it) }
+    }
+}
+
+interface LoadingDialogAlertable {
+    fun activity(): FragmentActivity?
+
+    fun showLoadingDialog(content: String? = null) {
+        showInfoDialog(LoadingDialog.Options.create { this.content = content })
+    }
+
+    fun showLoadingDialog(@StringRes contentRes: Int) {
+        showInfoDialog(LoadingDialog.Options.create { content = activity()?.getString(contentRes) })
+    }
+
+    fun showErrorDialog(error: String?) {
+        showInfoDialog(LoadingDialog.Options.create { this.content = error })
+    }
+
+    fun showInfoDialog(options: LoadingDialog.Options = LoadingDialog.Options.defaultOptions()) {
+        activity()?.let { LoadingDialog.create(options).show(it) }
     }
 }
 
 interface InfoSheetAlertable {
     fun activity(): FragmentActivity?
 
-    fun showMessageSheet(msg: String?) {
-        showInfoSheet(InfoSheet.Options.create(MessageType.INFO) { message = msg })
+    fun showMessageSheet(content: String?) {
+        showInfoSheet(InfoSheet.Options.create(ContentType.INFO) { this.content = content })
     }
 
-    fun showMessageSheet(@StringRes msgRes: Int) {
-        showInfoSheet(InfoSheet.Options.create(MessageType.INFO) {
-            message = activity()?.getString(msgRes)
+    fun showMessageSheet(@StringRes contentRes: Int) {
+        showInfoSheet(InfoSheet.Options.create(ContentType.INFO) {
+            content = activity()?.getString(contentRes)
         })
     }
 
-    fun showWarningSheet(msg: String?) {
-        showInfoSheet(InfoSheet.Options.create(MessageType.WARNING) { message = msg })
+    fun showWarningSheet(content: String?) {
+        showInfoSheet(InfoSheet.Options.create(ContentType.WARNING) { this.content = content })
     }
 
-    fun showWarningSheet(@StringRes msgRes: Int) = showWarningSheet(activity()?.getString(msgRes))
+    fun showWarningSheet(@StringRes contentRes: Int) = showWarningSheet(activity()?.getString(contentRes))
 
     fun showErrorSheet(@StringRes errorRes: Int) = showErrorSheet(activity()?.getString(errorRes))
 
     fun showErrorSheet(error: String?) {
-        showInfoSheet(InfoSheet.Options.create(MessageType.EXCEPTION) { message = error })
+        showInfoSheet(InfoSheet.Options.create(ContentType.ERROR) { content = error })
     }
 
     private fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.defaultOptions()) {
-        if (options.message == null) return
-        activity()?.run {
-            InfoSheet.options = options
-            InfoSheet.show(this)
-        }
+        activity()?.let { InfoSheet.create(options).show(it) }
     }
-
 }
 
 interface RetryDialogAlertable {
     fun activity(): FragmentActivity?
 
     fun showRetryDialog(
-            message: String,
+            @StringRes contentRes: Int,
             options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
-        activity()?.run {
-            options.message = message
-            RetryDialog.options = options
-            RetryDialog.show(this)
-        }
+        activity()?.run { showRetryDialog(getString(contentRes), options) }
     }
 
     fun showRetryDialog(
-            @StringRes messageRes: Int,
+            content: String,
             options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
-        activity()?.run { showRetryDialog(getString(messageRes), options) }
+        options.content = content
+        activity()?.let { RetryDialog.create(options).show(it) }
     }
 }
 
@@ -111,63 +121,79 @@ interface RetrySheetAlertable {
     fun activity(): FragmentActivity?
 
     fun showRetrySheet(
-            message: String,
+            @StringRes contentRes: Int,
             options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
-        activity()?.run {
-            options.message = message
-            RetrySheet.options = options
-            RetrySheet.show(this)
-        }
+        activity()?.run { showRetrySheet(getString(contentRes), options) }
     }
 
     fun showRetrySheet(
-            @StringRes messageRes: Int,
+            content: String,
             options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
-        activity()?.run { showRetrySheet(getString(messageRes), options) }
+        options.content = content
+        activity()?.let { RetrySheet.create(options).show(it) }
     }
+
 }
 
 interface ToastAlertable {
     fun activity(): FragmentActivity?
 
-    fun longToast(@StringRes message: Int) {
-        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
+    fun longToast(@StringRes content: Int) {
+        Toast.makeText(activity(), content, Toast.LENGTH_LONG).show()
     }
 
-    fun longToast(message: String) {
-        Toast.makeText(activity(), message, Toast.LENGTH_LONG).show()
+    fun longToast(content: String) {
+        Toast.makeText(activity(), content, Toast.LENGTH_LONG).show()
     }
 
-    fun shortToast(message: String) {
-        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
+    fun shortToast(content: String) {
+        Toast.makeText(activity(), content, Toast.LENGTH_SHORT).show()
     }
 
-    fun shortToast(@StringRes message: Int) {
-        Toast.makeText(activity(), message, Toast.LENGTH_SHORT).show()
+    fun shortToast(@StringRes content: Int) {
+        Toast.makeText(activity(), content, Toast.LENGTH_SHORT).show()
     }
 }
 
 interface FlashBarAlertable {
     fun activity(): FragmentActivity?
 
-    fun showMessageInFlashBar(builder: Flashbar.Builder) {
-        activity()?.run { builder.build().show() }
+    fun showMessageInFlashBar(content: String, duration: Long = 6000) {
+        activity()?.run { showFlashBar(content, duration, R.color.white) }
     }
 
-    fun showErrorInFlashBar(message: String, duration: Long = 6000) {
+    fun showMessageInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
+        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.white) }
+    }
+
+    fun showWarningInFlashBar(content: String, duration: Long = 6000) {
+        activity()?.run { showFlashBar(content, duration, R.color.warning) }
+    }
+
+    fun showWarningInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
+        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.warning) }
+    }
+
+    fun showErrorInFlashBar(content: String, duration: Long = 6000) {
+        activity()?.run { showFlashBar(content, duration, R.color.exception) }
+    }
+
+    fun showErrorInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
+        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.exception) }
+    }
+
+    private fun showFlashBar(content: String, duration: Long, @ColorRes backgroundColor: Int) {
         activity()?.run {
-            showMessageInFlashBar(
+            showFlashBar(
                     Flashbar.Builder(this)
-                            .message(message)
+                            .message(content)
                             .gravity(Flashbar.Gravity.TOP)
                             .duration(duration)
                             .dismissOnTapOutside()
                             .enableSwipeToDismiss()
-                            .backgroundColorRes(R.color.orange_light))
+                            .backgroundColorRes(backgroundColor))
         }
     }
 
-    fun showErrorInFlashBar(@StringRes messageRes: Int, duration: Long = 6000) {
-        activity()?.run { showErrorInFlashBar(getString(messageRes), duration) }
-    }
+    fun showFlashBar(builder: Flashbar.Builder) = activity()?.run { builder.build().show() }
 }

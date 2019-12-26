@@ -6,61 +6,62 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.sha.bulletin.MessageType
+import com.sha.bulletin.ContentType
 import com.sha.bulletin.R
+import com.sha.bulletin.isBulletinWithContentDisplayed
 
-
-object InfoDialog : AbstractDialog() {
-    var options: Options? = Options.defaultOptions()
+class InfoDialog : AbstractDialog() {
+    var options: Options = Options.defaultOptions()
         set(value) {
             if (isDisplayed) return
             field = value
         }
 
+    override val name: String = javaClass.name
+    override val content: String = options.content ?: ""
     override var layoutId: Int = R.layout.frag_dialog_info
 
-    private val tvMessage: TextView
-    get() = view!!.findViewById(R.id.tvMessage)
-
-    private val btnDismiss: Button
-        get() = view!!.findViewById(R.id.btnDismiss)
+    private val tvTitle: TextView? = view?.findViewById(R.id.tvTitle)
+    private val tvContent: TextView? =  view?.findViewById(R.id.tvContent)
+    private val btnDismiss: Button = view!!.findViewById(R.id.btnDismiss)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dialog?.setCanceledOnTouchOutside(options?.isCancellable ?: true)
-
-        tvMessage.text = options?.message
+        dialog?.setCanceledOnTouchOutside(options.isCancellable)
+        tvContent?.text = options.content
 
         var color = -1
-            when (options?.messageType) {
-                MessageType.WARNING -> {
+            when (options.contentType) {
+                ContentType.WARNING -> {
                     color = R.color.warning
-                    tvMessage.setTextColor(ContextCompat.getColor(context!!, R.color.warning))
+                    tvContent?.setTextColor(ContextCompat.getColor(context!!, R.color.warning))
                 }
-                MessageType.EXCEPTION -> color = R.color.exception
+                ContentType.ERROR -> color = R.color.exception
                 else -> {}
             }
 
-        if (color != -1) tvMessage.setTextColor(ContextCompat.getColor(context!!, color))
+        if (color != -1) tvContent?.setTextColor(ContextCompat.getColor(context!!, color))
 
         btnDismiss.setOnClickListener {
-            options?.dismissCallback?.invoke()
+            options.dismissCallback?.invoke()
             // Try to close all dialogs if duplicated
             dismiss()
         }
     }
-
+    
     data class Options(
-            var message: String? = null,
+            var title: String? = null,
+            var content: String? = null,
             var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = true,
-            var messageType: MessageType? = null
+            var ignoreIfSameContentDisplayed: Boolean = true,
+            var contentType: ContentType? = null
     ){
         class Builder {
             private val options = Options()
 
-            fun message(message: String?): Builder {
-                options.message = message
+            fun content(content: String?): Builder {
+                options.content = content
                 return this
             }
 
@@ -79,8 +80,18 @@ object InfoDialog : AbstractDialog() {
                 return this
             }
 
-            fun messageType(type: MessageType?): Builder {
-                options.messageType = type
+            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
+                options.ignoreIfSameContentDisplayed = ignore
+                return this
+            }
+
+            fun contentType(type: ContentType?): Builder {
+                options.contentType = type
+                return this
+            }
+
+            fun title(title: String?): Builder {
+                options.title = title
                 return this
             }
 
@@ -89,13 +100,22 @@ object InfoDialog : AbstractDialog() {
 
         companion object {
             fun defaultOptions(): Options = Builder().build()
-            fun create(type: MessageType, block: Options.() -> Unit) = Options().apply {
-                messageType = type
+            fun create(type: ContentType, block: Options.() -> Unit) = Options().apply {
+                contentType = type
                 block()
             }
         }
     }
 
-    fun show(activity: FragmentActivity) = super.show(activity, javaClass.name)
+    companion object {
+        fun create(block: Options.() -> Unit) = InfoDialog().apply { options = Options().apply { block() } }
+
+        fun create(options: Options) = InfoDialog().apply { this.options = options }
+    }
+
+    fun show(activity: FragmentActivity) {
+        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content)) return
+        super.show(activity, javaClass.name)
+    }
 }
 
