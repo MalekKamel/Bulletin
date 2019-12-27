@@ -27,7 +27,7 @@
             android:layout_gravity="center_horizontal"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Message" />
+            tools:text="Content" />
 
     </LinearLayout>
 

@@ -23,3 +23,7 @@ fun dismissBulletinWithName(name: String) {
 fun dismissBulletinWithContent(content: String) {
     bulletins.firstOrNull { it?.content == content }?.run { bulletins.remove(this) }
 }
+
+object BulletinConfig {
+    var defaultColor = R.color.blue
+}

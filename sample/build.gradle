@@ -7,6 +7,10 @@ android {
     defaultConfig {
         applicationId "com.sha.bulletin.sample"
     }
+    kotlinOptions {
+        jvmTarget = Config.javaVersion
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
+    }
 }
 
 dependencies {

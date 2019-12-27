@@ -5,11 +5,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import com.sha.bulletin.IconContainer
+import com.sha.bulletin.IconSetup
 import com.sha.bulletin.R
 import com.sha.bulletin.isBulletinWithContentDisplayed
 
 class RetryDialog : AbstractDialog() {
-    var options: Options = Options.defaultOptions()
+    var options: Options = Options.default()
         set(value) {
             if (isDisplayed) return
             field = value
@@ -18,15 +20,23 @@ class RetryDialog : AbstractDialog() {
     override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_retry
 
-    private val tvTitle: TextView = view!!.findViewById(R.id.tvTitle)
-    private val tvContent: TextView? = view?.findViewById(R.id.tvContent)
-    private val btnRetry: Button = view!!.findViewById(R.id.btnRetry)
-    private val btnDismiss: TextView = view!!.findViewById(R.id.btnDismiss)
+    private val tvTitle: TextView by lazy { view!!.findViewById<TextView>(R.id.tvTitle) }
+    private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
+    private val btnDismiss: Button by lazy { view!!.findViewById<Button>(R.id.btnDismiss) }
+    private val btnRetry: Button by lazy { view!!.findViewById<Button>(R.id.btnRetry) }
+    private val iconContainer: IconContainer by lazy { view!!.findViewById<IconContainer>(R.id.iconContainer) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellable)
-        tvContent?.text = options.content
-        tvTitle.text = options.title
+
+        iconContainer.setup(options.iconSetup)
+
+        tvTitle.apply {
+            if(options.title.isEmpty()) this.visibility = View.GONE
+            else text = options.title
+        }
+
+        tvContent.text = options.content
 
         btnRetry.setOnClickListener {
             options.retryCallback?.invoke()
@@ -45,7 +55,8 @@ class RetryDialog : AbstractDialog() {
             var isCancellable: Boolean = true,
             var ignoreIfSameContentDisplayed: Boolean = true,
             var title: String = "",
-            var content: String = ""
+            var content: String = "",
+            var iconSetup: IconSetup = IconSetup.default()
     ){
         class Builder {
             private val options = Options()
@@ -75,8 +86,13 @@ class RetryDialog : AbstractDialog() {
                 return this
             }
 
-            fun title(title: String): Options.Builder {
+            fun title(title: String): Builder {
                 options.title = title
+                return this
+            }
+
+            fun iconSetup(setup: IconSetup): Builder {
+                options.iconSetup = setup
                 return this
             }
 
@@ -84,7 +100,7 @@ class RetryDialog : AbstractDialog() {
         }
 
         companion object {
-            fun defaultOptions(): Options = Builder().build()
+            fun default(): Options = Builder().build()
             fun create(content: String, block: Options.() -> Unit) = Options().apply {
                 this.content = content
                 block()

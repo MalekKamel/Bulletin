@@ -8,7 +8,7 @@ import com.sha.bulletin.R
 import com.sha.bulletin.isBulletinWithContentDisplayed
 
 class LoadingDialog : AbstractDialog() {
-    var options: Options = Options.defaultOptions()
+    var options: Options = Options.default()
         set(value) {
             if (isDisplayed) return
             field = value
@@ -17,7 +17,7 @@ class LoadingDialog : AbstractDialog() {
     override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_loading
     override fun isCancelable(): Boolean  = options.isCancellable
-    private val tvContent: TextView = view!!.findViewById(R.id.tvContent)
+    private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellable)
@@ -58,7 +58,7 @@ class LoadingDialog : AbstractDialog() {
         }
 
         companion object {
-            fun defaultOptions(): Options = Builder().build()
+            fun default(): Options = Builder().build()
             fun create(block: Options.() -> Unit) = Options().apply { block() }
         }
     }

@@ -20,7 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingBottom="20dp">
+
+            <include layout="@layout/icon_container"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -29,11 +31,10 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="Title" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                tools:text="Title"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"/>
 
             <TextView
                 android:id="@+id/tvContent"
@@ -42,7 +43,10 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="Message Message Message Message Message Message Message Message Message Message Message Message Message Message Message Message Message Message " />
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                tools:text="Content" />
 
             <Space
                 android:layout_width="match_parent"
@@ -52,6 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 >
 
                 <Button
@@ -61,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:background="@color/transparent"
+                    android:background="?selectableItemBackground"
                     />
 
                 <Button
@@ -72,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:background="@color/transparent"
+                    android:background="?selectableItemBackground"
                     />
 
             </LinearLayout>

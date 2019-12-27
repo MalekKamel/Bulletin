@@ -4,6 +4,15 @@ apply plugin: "${Plugins.kotlinAndroid}"
 apply plugin: "${Plugins.kotlinAndroidExtensions}"
 apply plugin: "${Plugins.dcendents}"
 
+android {
+    // These options are added to enable using @JvmDefault annotation
+    // to compile default methods for Java developers
+    kotlinOptions {
+        jvmTarget = Config.javaVersion
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
+    }
+}
+
 dependencies {
     implementation project(Lib.flashBar)
 

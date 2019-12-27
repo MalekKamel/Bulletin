@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sha.bulletin.IconContainer
+    android:id="@+id/iconContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    tools:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rectangleView"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:background="#0022FF">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            tools:src="@drawable/ic_help" />
+
+    </RelativeLayout>
+
+    <com.sha.bulletin.TriangleImageView
+        android:id="@+id/ivTriangle"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+</com.sha.bulletin.IconContainer>

@@ -15,14 +15,15 @@
         android:clipChildren="true"
         app:cardCornerRadius="6dp"
         android:layout_margin="20dp"
-        android:paddingTop="20dp"
         android:paddingBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingBottom="20dp">
+
+            <include layout="@layout/icon_container"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -31,11 +32,10 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="Title" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                tools:text="Title"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="15dp"/>
 
             <TextView
                 android:id="@+id/tvContent"
@@ -44,7 +44,10 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="Message" />
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                tools:text="Content" />
 
             <Space
                 android:layout_width="match_parent"
@@ -56,6 +59,8 @@
                 android:layout_height="wrap_content"
                 android:text="Don't show again"
                 android:textSize="15sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
@@ -66,7 +71,9 @@
                 android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
+                android:background="?selectableItemBackground"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 />
 
 

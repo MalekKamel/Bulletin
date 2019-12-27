@@ -3,6 +3,7 @@ package com.sha.bulletin
 
 import android.widget.Toast
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentActivity
 import com.andrognito.flashbar.Flashbar
@@ -24,75 +25,121 @@ interface Alertable:
 interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
 
-    fun showMessageDialog(content: String?) {
-        showInfoDialog(InfoDialog.Options.create(ContentType.INFO) { this.content = content })
+    @JvmDefault
+    fun showMessageDialog(content: String, @DrawableRes iconRes: Int = R.drawable.ic_info,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        showInfoDialog(content, iconRes, iconContainerColorRes)
     }
 
-    fun showMessageDialog(@StringRes contentRes: Int) {
-        showInfoDialog(InfoDialog.Options.create(ContentType.INFO) {
-            content = activity()?.getString(contentRes)
-        })
+    @JvmDefault
+    fun showMessageDialog(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        activity()?.run { showMessageDialog(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
-    fun showWarningDialog(content: String?) {
-        showInfoDialog(InfoDialog.Options.create(ContentType.WARNING) { this.content = content })
+    @JvmDefault
+    fun showWarningDialog(content: String, @DrawableRes iconRes: Int = R.drawable.ic_warning,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        showInfoDialog(content, iconRes, iconContainerColorRes)
     }
 
-    fun showWarningDialog(contentRes: Int) = showWarningDialog(activity()?.getString(contentRes))
-
-    fun showErrorDialog(@StringRes errorRes: Int) = showErrorDialog(activity()?.getString(errorRes))
-
-    fun showErrorDialog(error: String?) {
-        showInfoDialog(InfoDialog.Options.create(ContentType.ERROR) { this.content = error })
+    @JvmDefault
+    fun showWarningDialog(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        activity()?.run { showWarningDialog(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
-    fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.defaultOptions()) {
+    @JvmDefault
+    fun showErrorDialog(content: String, @DrawableRes iconRes: Int = R.drawable.ic_error,
+                       @ColorRes iconContainerColorRes: Int = -1) {
+        showInfoDialog(content, iconRes, iconContainerColorRes)
+    }
+
+    @JvmDefault
+    fun showErrorDialog(@StringRes errorRes: Int, @DrawableRes iconRes: Int,
+                       @ColorRes iconContainerColorRes: Int = -1) {
+        activity()?.run { showErrorDialog(getString(errorRes), iconRes, iconContainerColorRes) }
+    }
+
+    @JvmDefault
+    fun showInfoDialog(
+            content: String,
+            @DrawableRes iconRes: Int,
+            @ColorRes iconContainerColorRes: Int) {
+        activity()?.let {
+            showInfoDialog(InfoDialog.Options.create {
+                this.content = content
+                iconSetup = IconSetup.create {
+                    this.iconRes = iconRes
+                    containerColorRes = iconContainerColorRes
+                }
+            })
+        }
+    }
+
+    @JvmDefault
+    fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.default()) {
         activity()?.let { InfoDialog.create(options).show(it) }
-    }
-}
-
-interface LoadingDialogAlertable {
-    fun activity(): FragmentActivity?
-
-    fun showLoadingDialog(content: String? = null) {
-        showLoadingDialog(LoadingDialog.Options.create { this.content = content })
-    }
-
-    fun showLoadingDialog(@StringRes contentRes: Int) {
-        showLoadingDialog(LoadingDialog.Options.create { content = activity()?.getString(contentRes) })
-    }
-
-    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.defaultOptions()) {
-        activity()?.let { LoadingDialog.create(options).show(it) }
     }
 }
 
 interface InfoSheetAlertable {
     fun activity(): FragmentActivity?
 
-    fun showMessageSheet(content: String?) {
-        showInfoSheet(InfoSheet.Options.create(ContentType.INFO) { this.content = content })
+    @JvmDefault
+    fun showMessageSheet(content: String, @DrawableRes iconRes: Int = R.drawable.ic_info,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        showInfoSheet(content, iconRes, iconContainerColorRes)
     }
 
-    fun showMessageSheet(@StringRes contentRes: Int) {
-        showInfoSheet(InfoSheet.Options.create(ContentType.INFO) {
-            content = activity()?.getString(contentRes)
-        })
+    @JvmDefault
+    fun showMessageSheet(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        activity()?.run { showMessageSheet(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
-    fun showWarningSheet(content: String?) {
-        showInfoSheet(InfoSheet.Options.create(ContentType.WARNING) { this.content = content })
+    @JvmDefault
+    fun showWarningSheet(content: String, @DrawableRes iconRes: Int = R.drawable.ic_warning,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        showInfoSheet(content, iconRes, iconContainerColorRes)
     }
 
-    fun showWarningSheet(@StringRes contentRes: Int) = showWarningSheet(activity()?.getString(contentRes))
-
-    fun showErrorSheet(@StringRes errorRes: Int) = showErrorSheet(activity()?.getString(errorRes))
-
-    fun showErrorSheet(error: String?) {
-        showInfoSheet(InfoSheet.Options.create(ContentType.ERROR) { content = error })
+    @JvmDefault
+    fun showWarningSheet(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
+                         @ColorRes iconContainerColorRes: Int = -1) {
+        activity()?.run { showWarningSheet(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
-    private fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.defaultOptions()) {
+    @JvmDefault
+    fun showErrorSheet(content: String, @DrawableRes iconRes: Int = R.drawable.ic_error,
+                       @ColorRes iconContainerColorRes: Int = -1) {
+        showInfoSheet(content, iconRes, iconContainerColorRes)
+    }
+
+    @JvmDefault
+    fun showErrorSheet(@StringRes errorRes: Int, @DrawableRes iconRes: Int,
+                       @ColorRes iconContainerColorRes: Int = -1) {
+        activity()?.run { showErrorSheet(getString(errorRes), iconRes, iconContainerColorRes) }
+    }
+
+    @JvmDefault
+    fun showInfoSheet(
+            content: String,
+            @DrawableRes iconRes: Int,
+            @ColorRes iconContainerColorRes: Int) {
+        activity()?.let {
+            showInfoSheet(InfoSheet.Options.create {
+                this.content = content
+                iconSetup = IconSetup.create {
+                    this.iconRes = iconRes
+                    containerColorRes = iconContainerColorRes
+                }
+            })
+        }
+    }
+
+    @JvmDefault
+    fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.default()) {
         activity()?.let { InfoSheet.create(options).show(it) }
     }
 }
@@ -100,15 +147,17 @@ interface InfoSheetAlertable {
 interface RetryDialogAlertable {
     fun activity(): FragmentActivity?
 
+    @JvmDefault
     fun showRetryDialog(
             @StringRes contentRes: Int,
-            options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
+            options: RetryDialog.Options = RetryDialog.Options.default()) {
         activity()?.run { showRetryDialog(getString(contentRes), options) }
     }
 
+    @JvmDefault
     fun showRetryDialog(
             content: String,
-            options: RetryDialog.Options = RetryDialog.Options.defaultOptions()) {
+            options: RetryDialog.Options = RetryDialog.Options.default()) {
         options.content = content
         activity()?.let { RetryDialog.create(options).show(it) }
     }
@@ -117,15 +166,17 @@ interface RetryDialogAlertable {
 interface RetrySheetAlertable {
     fun activity(): FragmentActivity?
 
+    @JvmDefault
     fun showRetrySheet(
             @StringRes contentRes: Int,
-            options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
+            options: RetrySheet.Options = RetrySheet.Options.default()) {
         activity()?.run { showRetrySheet(getString(contentRes), options) }
     }
 
+    @JvmDefault
     fun showRetrySheet(
             content: String,
-            options: RetrySheet.Options = RetrySheet.Options.defaultOptions()) {
+            options: RetrySheet.Options = RetrySheet.Options.default()) {
         options.content = content
         activity()?.let { RetrySheet.create(options).show(it) }
     }
@@ -135,18 +186,22 @@ interface RetrySheetAlertable {
 interface ToastAlertable {
     fun activity(): FragmentActivity?
 
+    @JvmDefault
     fun longToast(@StringRes content: Int) {
         Toast.makeText(activity(), content, Toast.LENGTH_LONG).show()
     }
 
+    @JvmDefault
     fun longToast(content: String) {
         Toast.makeText(activity(), content, Toast.LENGTH_LONG).show()
     }
 
+    @JvmDefault
     fun shortToast(content: String) {
         Toast.makeText(activity(), content, Toast.LENGTH_SHORT).show()
     }
 
+    @JvmDefault
     fun shortToast(@StringRes content: Int) {
         Toast.makeText(activity(), content, Toast.LENGTH_SHORT).show()
     }
@@ -155,31 +210,38 @@ interface ToastAlertable {
 interface FlashBarAlertable {
     fun activity(): FragmentActivity?
 
+    @JvmDefault
     fun showMessageInFlashBar(content: String, duration: Long = 6000) {
         activity()?.run { showFlashBar(content, duration, R.color.white) }
     }
 
+    @JvmDefault
     fun showMessageInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
         activity()?.run { showFlashBar(getString(contentRes), duration, R.color.white) }
     }
 
+    @JvmDefault
     fun showWarningInFlashBar(content: String, duration: Long = 6000) {
         activity()?.run { showFlashBar(content, duration, R.color.warning) }
     }
 
+    @JvmDefault
     fun showWarningInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
         activity()?.run { showFlashBar(getString(contentRes), duration, R.color.warning) }
     }
 
+    @JvmDefault
     fun showErrorInFlashBar(content: String, duration: Long = 6000) {
         activity()?.run { showFlashBar(content, duration, R.color.exception) }
     }
 
+    @JvmDefault
     fun showErrorInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
         activity()?.run { showFlashBar(getString(contentRes), duration, R.color.exception) }
     }
 
-    private fun showFlashBar(content: String, duration: Long, @ColorRes backgroundColor: Int) {
+    @JvmDefault
+    fun showFlashBar(content: String, duration: Long, @ColorRes backgroundColor: Int) {
         activity()?.run {
             showFlashBar(
                     Flashbar.Builder(this)
@@ -192,5 +254,27 @@ interface FlashBarAlertable {
         }
     }
 
+    @JvmDefault
     fun showFlashBar(builder: Flashbar.Builder) = activity()?.run { builder.build().show() }
+}
+
+interface LoadingDialogAlertable {
+    fun activity(): FragmentActivity?
+
+    @JvmDefault
+    fun showLoadingDialog(content: String = "") {
+        showLoadingDialog(LoadingDialog.Options.create { this.content = content })
+    }
+
+    @JvmDefault
+    fun showLoadingDialog(@StringRes contentRes: Int) {
+        activity()?.run {
+            showLoadingDialog(LoadingDialog.Options.create { content = getString(contentRes) })
+        }
+    }
+
+    @JvmDefault
+    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()) {
+        activity()?.let { LoadingDialog.create(options).show(it) }
+    }
 }

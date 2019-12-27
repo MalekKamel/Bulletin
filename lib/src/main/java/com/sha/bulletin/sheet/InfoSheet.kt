@@ -6,41 +6,30 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.sha.bulletin.ContentType
-import com.sha.bulletin.R
-import com.sha.bulletin.isBulletinWithContentDisplayed
+import com.sha.bulletin.*
 
 class InfoSheet : AbstractSheet() {
-    var options: Options = Options.defaultOptions()
-        set(value) {
-            if (isDisplayed) return
-            field = value
-        }
+    var options: Options = Options.default()
     override val name: String = javaClass.name
-    override val content: String = options.content ?: ""
+    override val content: String = options.content
     override var layoutId: Int = R.layout.frag_sheet_info
 
-    private val tvTitle: TextView = view!!.findViewById(R.id.tvTitle)
-    private val tvContent: TextView = view!!.findViewById(R.id.tvContent)
-    private val btnDismiss: Button = view!!.findViewById(R.id.btnDismiss)
+    private val tvTitle: TextView by lazy { view!!.findViewById<TextView>(R.id.tvTitle) }
+    private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
+    private val btnDismiss: Button by lazy { view!!.findViewById<Button>(R.id.btnDismiss) }
+    private val iconContainer: IconContainer by lazy { view!!.findViewById<IconContainer>(R.id.iconContainer) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellable)
 
-        tvTitle.text = options.title
+        iconContainer.setup(options.iconSetup)
+
+        tvTitle.apply {
+            if(options.title.isEmpty()) this.visibility = View.GONE
+            else text = options.title
+        }
+
         tvContent.text = options.content
-
-        var color = -1
-            when (options.contentType) {
-                ContentType.WARNING -> {
-                    color = R.color.warning
-                    tvContent.setTextColor(ContextCompat.getColor(context!!, R.color.warning))
-                }
-                ContentType.ERROR -> color = R.color.exception
-                else -> {}
-            }
-
-        if (color != -1) tvContent.setTextColor(ContextCompat.getColor(context!!, color))
 
         btnDismiss.setOnClickListener {
             options.dismissCallback?.invoke()
@@ -49,18 +38,19 @@ class InfoSheet : AbstractSheet() {
     }
 
     data class Options(
-            var title: String? = null,
-            var content: String? = null,
+            var title: String = "",
+            var content: String = "",
             var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = true,
             var ignoreIfSameContentDisplayed: Boolean = true,
-            var contentType: ContentType? = null
+            var contentType: ContentType = ContentType.INFO,
+            var iconSetup: IconSetup = IconSetup.default()
     ){
         class Builder {
             private val options = Options()
 
-            fun content(content: String?): Builder {
+            fun content(content: String): Builder {
                 options.content = content
                 return this
             }
@@ -85,13 +75,18 @@ class InfoSheet : AbstractSheet() {
                 return this
             }
 
-            fun contentType(type: ContentType?): Builder {
+            fun contentType(type: ContentType): Builder {
                 options.contentType = type
                 return this
             }
 
-            fun title(title: String?): Builder {
+            fun title(title: String): Builder {
                 options.title = title
+                return this
+            }
+
+            fun iconSetup(setup: IconSetup): Builder {
+                options.iconSetup = setup
                 return this
             }
 
@@ -99,11 +94,8 @@ class InfoSheet : AbstractSheet() {
         }
 
         companion object {
-            fun defaultOptions(): Options = Builder().build()
-            fun create(type: ContentType, block: Options.() -> Unit) = Options().apply {
-                contentType = type
-                block()
-            }
+            fun default(): Options = Builder().build()
+            fun create(block: Options.() -> Unit) = Options().apply { block() }
         }
     }
 

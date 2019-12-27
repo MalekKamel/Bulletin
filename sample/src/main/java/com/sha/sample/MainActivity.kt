@@ -5,7 +5,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Alertable
+import com.sha.bulletin.ContentType
+import com.sha.bulletin.IconSetup
 import com.sha.bulletin.bulletins
+import com.sha.bulletin.sheet.InfoSheet
 import com.sha.formvalidatorsample.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,7 +28,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             showMessageSheet(message)
         }
 
-        btnWarningSheet.setOnClickListener { showWarningSheet(message) }
+        btnWarningSheet.setOnClickListener {
+            showInfoSheet(InfoSheet.Options.create {
+                title = "InfoSheet"
+                content = message
+                iconSetup = IconSetup.create {
+                    iconRes = R.drawable.ic_error
+                    containerColorRes = R.color.colorPrimary
+                }
+            })
+            showWarningSheet(message)
+        }
+
         btnErrorSheet.setOnClickListener { showErrorSheet(message) }
 
         btnMessageDialog.setOnClickListener { showMessageDialog(message)  }
