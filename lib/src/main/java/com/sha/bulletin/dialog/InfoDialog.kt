@@ -17,40 +17,40 @@ class InfoDialog : AbstractDialog() {
             field = value
         }
 
-    override val name: String = javaClass.name
-    override val content: String = options.content ?: ""
     override var layoutId: Int = R.layout.frag_dialog_info
+    override val name: String = javaClass.name
+    override val content: String = options.content
 
-    private val tvTitle: TextView? = view?.findViewById(R.id.tvTitle)
-    private val tvContent: TextView? =  view?.findViewById(R.id.tvContent)
+    private val tvTitle: TextView = view!!.findViewById(R.id.tvTitle)
+    private val tvContent: TextView =  view!!.findViewById(R.id.tvContent)
     private val btnDismiss: Button = view!!.findViewById(R.id.btnDismiss)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellable)
-        tvContent?.text = options.content
+        tvContent.text = options.content
+        tvTitle.text = options.title
 
         var color = -1
             when (options.contentType) {
                 ContentType.WARNING -> {
                     color = R.color.warning
-                    tvContent?.setTextColor(ContextCompat.getColor(context!!, R.color.warning))
+                    tvContent.setTextColor(ContextCompat.getColor(context!!, R.color.warning))
                 }
                 ContentType.ERROR -> color = R.color.exception
                 else -> {}
             }
 
-        if (color != -1) tvContent?.setTextColor(ContextCompat.getColor(context!!, color))
+        if (color != -1) tvContent.setTextColor(ContextCompat.getColor(context!!, color))
 
         btnDismiss.setOnClickListener {
             options.dismissCallback?.invoke()
-            // Try to close all dialogs if duplicated
             dismiss()
         }
     }
     
     data class Options(
-            var title: String? = null,
-            var content: String? = null,
+            var title: String = "",
+            var content: String = "",
             var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = true,
@@ -60,7 +60,7 @@ class InfoDialog : AbstractDialog() {
         class Builder {
             private val options = Options()
 
-            fun content(content: String?): Builder {
+            fun content(content: String): Builder {
                 options.content = content
                 return this
             }
@@ -90,7 +90,7 @@ class InfoDialog : AbstractDialog() {
                 return this
             }
 
-            fun title(title: String?): Builder {
+            fun title(title: String): Builder {
                 options.title = title
                 return this
             }
@@ -109,7 +109,6 @@ class InfoDialog : AbstractDialog() {
 
     companion object {
         fun create(block: Options.() -> Unit) = InfoDialog().apply { options = Options().apply { block() } }
-
         fun create(options: Options) = InfoDialog().apply { this.options = options }
     }
 

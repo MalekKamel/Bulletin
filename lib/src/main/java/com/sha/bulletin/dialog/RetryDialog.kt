@@ -15,17 +15,19 @@ class RetryDialog : AbstractDialog() {
             field = value
         }
     override val name: String = javaClass.name
-    override val content: String = options.content ?: ""
+    override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_retry
 
-    private val tvTitle: TextView? = view?.findViewById(R.id.tvTitle)
+    private val tvTitle: TextView = view!!.findViewById(R.id.tvTitle)
     private val tvContent: TextView? = view?.findViewById(R.id.tvContent)
     private val btnRetry: Button = view!!.findViewById(R.id.btnRetry)
     private val btnDismiss: TextView = view!!.findViewById(R.id.btnDismiss)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellable)
-        options.content?.let { tvContent?.text = it }
+        tvContent?.text = options.content
+        tvTitle.text = options.title
+
         btnRetry.setOnClickListener {
             options.retryCallback?.invoke()
             dismiss()
@@ -42,8 +44,8 @@ class RetryDialog : AbstractDialog() {
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = true,
             var ignoreIfSameContentDisplayed: Boolean = true,
-            var title: String? = null,
-            var content: String? = null
+            var title: String = "",
+            var content: String = ""
     ){
         class Builder {
             private val options = Options()
@@ -68,12 +70,12 @@ class RetryDialog : AbstractDialog() {
                 return this
             }
 
-            fun content(content: String?): Builder {
+            fun content(content: String): Builder {
                 options.content = content
                 return this
             }
 
-            fun title(title: String?): Options.Builder {
+            fun title(title: String): Options.Builder {
                 options.title = title
                 return this
             }
@@ -83,7 +85,7 @@ class RetryDialog : AbstractDialog() {
 
         companion object {
             fun defaultOptions(): Options = Builder().build()
-            fun create(content: String?, block: Options.() -> Unit) = Options().apply {
+            fun create(content: String, block: Options.() -> Unit) = Options().apply {
                 this.content = content
                 block()
             }
@@ -92,7 +94,6 @@ class RetryDialog : AbstractDialog() {
 
     companion object {
         fun create(block: Options.() -> Unit) = RetryDialog().apply { options = Options().apply { block() } }
-
         fun create(options: Options) = RetryDialog().apply { this.options = options }
     }
 

@@ -18,7 +18,8 @@ interface Alertable:
         RetryDialogAlertable,
         RetrySheetAlertable,
         ToastAlertable,
-        FlashBarAlertable
+        FlashBarAlertable,
+        LoadingDialogAlertable
 
 interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
@@ -54,18 +55,14 @@ interface LoadingDialogAlertable {
     fun activity(): FragmentActivity?
 
     fun showLoadingDialog(content: String? = null) {
-        showInfoDialog(LoadingDialog.Options.create { this.content = content })
+        showLoadingDialog(LoadingDialog.Options.create { this.content = content })
     }
 
     fun showLoadingDialog(@StringRes contentRes: Int) {
-        showInfoDialog(LoadingDialog.Options.create { content = activity()?.getString(contentRes) })
+        showLoadingDialog(LoadingDialog.Options.create { content = activity()?.getString(contentRes) })
     }
 
-    fun showErrorDialog(error: String?) {
-        showInfoDialog(LoadingDialog.Options.create { this.content = error })
-    }
-
-    fun showInfoDialog(options: LoadingDialog.Options = LoadingDialog.Options.defaultOptions()) {
+    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.defaultOptions()) {
         activity()?.let { LoadingDialog.create(options).show(it) }
     }
 }

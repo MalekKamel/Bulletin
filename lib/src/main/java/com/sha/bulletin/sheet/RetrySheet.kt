@@ -15,17 +15,20 @@ class RetrySheet : AbstractSheet() {
             field = value
         }
     override val name: String = javaClass.name
-    override val content: String = options.content ?: ""
+    override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_retry
 
-    private val tvTitle: TextView? = view?.findViewById(R.id.tvTitle)
-    private val tvContent: TextView? = view?.findViewById(R.id.tvContent)
+    private val tvTitle: TextView = view!!.findViewById(R.id.tvTitle)
+    private val tvContent: TextView = view!!.findViewById(R.id.tvContent)
     private val btnRetry: Button = view!!.findViewById(R.id.btnRetry)
     private val btnDismiss: TextView = view!!.findViewById(R.id.btnDismiss)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellable)
-        options.content?.let { tvContent?.text = it }
+       
+        tvTitle.text = options.title
+        tvContent.text = options.content
+     
         btnRetry.setOnClickListener {
             options.retryCallback?.invoke()
             dismiss()
@@ -42,8 +45,8 @@ class RetrySheet : AbstractSheet() {
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = true,
             var ignoreIfSameContentDisplayed: Boolean = true,
-            var title: String? = null,
-            var content: String? = null
+            var title: String = "",
+            var content: String = ""
     ){
 
         class Builder {
@@ -69,12 +72,12 @@ class RetrySheet : AbstractSheet() {
                 return this
             }
 
-            fun content(content: String?): Builder {
+            fun content(content: String): Builder {
                 options.content = content
                 return this
             }
 
-            fun title(title: String?): Builder {
+            fun title(title: String): Builder {
                 options.title = title
                 return this
             }
@@ -84,7 +87,7 @@ class RetrySheet : AbstractSheet() {
 
         companion object {
             fun defaultOptions(): Options = Builder().build()
-            fun create(message: String?, block: Options.() -> Unit) = Options().apply {
+            fun create(message: String, block: Options.() -> Unit) = Options().apply {
                 this.content = message
                 block()
             }
@@ -93,7 +96,6 @@ class RetrySheet : AbstractSheet() {
 
     companion object {
         fun create(block: Options.() -> Unit) = RetrySheet().apply { options = Options().apply { block() } }
-
         fun create(options: Options) = RetrySheet().apply { this.options = options }
     }
 
