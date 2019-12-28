@@ -16,7 +16,6 @@ class IconContainer: LinearLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-
     override fun onFinishInflate() {
         super.onFinishInflate()
         rectangleView = findViewById(R.id.rectangleView)

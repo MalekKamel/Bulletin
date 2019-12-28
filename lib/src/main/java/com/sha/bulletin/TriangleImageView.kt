@@ -29,7 +29,7 @@ class TriangleImageView: AppCompatImageView {
 
     private fun createTriangle(canvas: Canvas, width: Int, height: Int) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        if (color == -1) color = ColorHelper.accentColor(context)
+        if (color == -1) color = BulletinConfig.iconSetup.containerColorRes
         paint.color = color
         val path = Path()
         path.moveTo(0f, 0f)

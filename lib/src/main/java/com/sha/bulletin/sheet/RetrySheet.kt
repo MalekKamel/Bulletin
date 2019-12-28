@@ -9,10 +9,6 @@ import com.sha.bulletin.*
 
 class RetrySheet : AbstractSheet() {
     var options: Options = Options.default()
-        set(value) {
-            if (isDisplayed) return
-            field = value
-        }
     override val name: String = javaClass.name
     override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_retry
@@ -45,7 +41,6 @@ class RetrySheet : AbstractSheet() {
             dismiss()
         }
     }
-
 
     data class Options(
             var title: String = "",

@@ -39,7 +39,6 @@ class InfoSheet : AbstractSheet() {
     data class Options(
             var title: String = "",
             var content: String = "",
-            var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = BulletinConfig.isCancellable,
             var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
@@ -50,11 +49,6 @@ class InfoSheet : AbstractSheet() {
 
             fun content(content: String): Builder {
                 options.content = content
-                return this
-            }
-
-            fun retryCallback(callback: (() -> Unit)?): Builder {
-                options.retryCallback = callback
                 return this
             }
 

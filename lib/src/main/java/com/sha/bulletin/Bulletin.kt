@@ -27,8 +27,30 @@ fun dismissBulletinWithContent(content: String) {
 }
 
 object BulletinConfig {
-    var defaultColor = R.color.blue
     var isCancellable: Boolean = true
     var ignoreIfSameContentDisplayed: Boolean = true
     var iconSetup: IconSetup = IconSetup.default()
+
+    class Builder {
+
+        fun isCancellable(cancellable: Boolean): Builder {
+            isCancellable = cancellable
+            return this
+        }
+
+        fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
+            ignoreIfSameContentDisplayed = ignore
+            return this
+        }
+
+        fun iconSetup(setup: IconSetup): Builder {
+            iconSetup = setup
+            return this
+        }
+
+        fun build() = BulletinConfig
+    }
+
+    fun default(): BulletinConfig = Builder().build()
+    fun create(block: BulletinConfig.() -> Unit) = BulletinConfig.apply { block() }
 }
