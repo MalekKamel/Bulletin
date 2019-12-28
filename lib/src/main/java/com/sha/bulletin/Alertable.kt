@@ -13,6 +13,7 @@ import com.sha.bulletin.dialog.RetryDialog
 import com.sha.bulletin.flashbar.BulletinFlashBar
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
+import com.sha.bulletin.toast.BulletinToast
 
 interface Alertable:
         InfoDialogAlertable,
@@ -188,23 +189,37 @@ interface ToastAlertable {
     fun activity(): FragmentActivity?
 
     @JvmDefault
-    fun longToast(@StringRes content: Int) {
-        Toast.makeText(activity(), content, Toast.LENGTH_LONG).show()
+    fun longToast(@StringRes content: Int,
+                  options: BulletinToast.Options = BulletinToast.Options.default()) {
+        activity()?.run { toast(getString(content), Toast.LENGTH_LONG, options) }
     }
 
     @JvmDefault
-    fun longToast(content: String) {
-        Toast.makeText(activity(), content, Toast.LENGTH_LONG).show()
+    fun longToast(content: String,
+                  options: BulletinToast.Options = BulletinToast.Options.default()) {
+        toast(content, Toast.LENGTH_LONG, options)
     }
 
     @JvmDefault
-    fun shortToast(content: String) {
-        Toast.makeText(activity(), content, Toast.LENGTH_SHORT).show()
+    fun shortToast(content: String,
+                   options: BulletinToast.Options = BulletinToast.Options.default()) {
+        toast(content, Toast.LENGTH_SHORT, options)
     }
 
     @JvmDefault
-    fun shortToast(@StringRes content: Int) {
-        Toast.makeText(activity(), content, Toast.LENGTH_SHORT).show()
+    fun shortToast(@StringRes content: Int,
+                   options: BulletinToast.Options = BulletinToast.Options.default()) {
+        activity()?.run { toast(getString(content), Toast.LENGTH_SHORT, options) }
+    }
+
+    @JvmDefault
+    fun toast(content: String,
+              duration: Int,
+              options: BulletinToast.Options = BulletinToast.Options.default()) {
+        activity()?.run {
+            options.content = content
+            BulletinToast.create(this, options) { this.duration = duration }.show()
+        }
     }
 }
 

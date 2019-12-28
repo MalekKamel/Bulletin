@@ -10,92 +10,151 @@
         android:gravity="center"
         android:padding="40dp">
 
-        <Button
-            android:id="@+id/btnPrint"
-            android:text="PRINT"
-            android:textAllCaps="false"
+        <TextView
+            android:text="SHEET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            />
-        <Button
-            android:id="@+id/btnMessageSheet"
-            android:text="Message Sheet"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
 
-        <Button
-            android:id="@+id/btnWarningSheet"
-            android:text="Warning Sheet"
-            android:textAllCaps="false"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnMessageSheet"
+                android:text="Message"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/btnWarningSheet"
+                android:text="Warning"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnErrorSheet"
+                android:text="Error"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/btnRetrySheet"
+                android:text="Retry"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="DIALOG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
 
-        <Button
-            android:id="@+id/btnErrorSheet"
-            android:text="Error Sheet"
-            android:textAllCaps="false"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnMessageDialog"
-            android:text="Message Dialog"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            />
-        <Button
-            android:id="@+id/btnWarningDialog"
-            android:text="Warning Dialog"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            />
+            <Button
+                android:id="@+id/btnMessageDialog"
+                android:text="Message"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
 
-        <Button
-            android:id="@+id/btnErrorDialog"
-            android:text="Error Dialog"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            />
+            <Button
+                android:id="@+id/btnWarningDialog"
+                android:text="Warning"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
 
-        <Button
-            android:id="@+id/btnRetryDialog"
-            android:text="Retry Dialog"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnRetrySheet"
-            android:text="Retry Sheet"
-            android:textAllCaps="false"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnErrorDialog"
+                android:text="Error"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/btnRetryDialog"
+                android:text="Retry"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="FLASH BAR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
 
         <Button
@@ -108,14 +167,54 @@
             android:layout_margin="5dp"
             />
 
-        <Button
-            android:id="@+id/btnToast"
-            android:text="Toast"
-            android:textAllCaps="false"
+        <TextView
+            android:text="TOAST"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnShortToast"
+            android:text="Short Toast"
+            android:textAllCaps="false"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/Button.Round"
             android:layout_margin="5dp"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/btnLongToast"
+            android:text="Long Toast"
+            android:textAllCaps="false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+        <TextView
+            android:text="Manage Bulletins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
 
         <Button

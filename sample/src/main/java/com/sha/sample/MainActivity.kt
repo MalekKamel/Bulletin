@@ -2,12 +2,10 @@ package com.sha.sample
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Alertable
 import com.sha.bulletin.IconSetup
-import com.sha.bulletin.bulletins
 import com.sha.bulletin.dismissAllBulletins
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.formvalidatorsample.R
@@ -22,9 +20,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sheet()
+        dialog()
+        flashBar()
+        toast()
+        manageBulletins()
+    }
 
-        btnPrint.setOnClickListener { bulletins.forEach { Log.e("Bulletin Name: ${it.name}", "Bulletin: $it") } }
-
+    private fun sheet() {
         btnMessageSheet.setOnClickListener {
             showMessageSheet(message)
             showMessageSheet(message)
@@ -43,7 +46,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         }
 
         btnErrorSheet.setOnClickListener { showErrorSheet(message) }
+        btnRetrySheet.setOnClickListener { showRetrySheet(message) }
+    }
 
+    private fun dialog() {
         btnMessageDialog.setOnClickListener { showMessageDialog(message)  }
         btnWarningDialog.setOnClickListener { showWarningDialog(message) }
         btnErrorDialog.setOnClickListener { showErrorDialog(message) }
@@ -52,22 +58,28 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             showRetryDialog(message)
             showRetryDialog(message)
         }
+    }
 
-        btnRetrySheet.setOnClickListener { showRetrySheet(message) }
-
+    private fun flashBar() {
         btnFlashBar.setOnClickListener {
             showErrorInFlashBar(message)
             showErrorInFlashBar(message)
         }
+    }
 
-        btnToast.setOnClickListener { longToast(message) }
+    private fun toast() {
+        btnShortToast.setOnClickListener { shortToast(message) }
+        btnLongToast.setOnClickListener { longToast(message) }
+    }
 
+    private fun manageBulletins() {
         btnDismissAllBulletins.setOnClickListener {
-            showErrorInFlashBar(message)
-            showMessageSheet(message)
-            showRetryDialog(message)
-            // Dismiss all bulletins after 5 seconds
-            Handler().postDelayed({ dismissAllBulletins() }, TimeUnit.SECONDS.toMillis(5))
+            showErrorInFlashBar("Will be dismissed after 2 seconds!")
+            showMessageSheet("Will be dismissed after 2 seconds!")
+            showRetryDialog("Will be dismissed after 2 seconds!")
+            longToast("Will be dismissed after 2 seconds!")
+            // Dismiss all bulletins after 2 seconds
+            Handler().postDelayed({ dismissAllBulletins() }, TimeUnit.SECONDS.toMillis(2))
         }
     }
 
