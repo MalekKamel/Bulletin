@@ -32,7 +32,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 title = "InfoSheet"
                 content = message
                 iconSetup = IconSetup.create {
-                    iconRes = R.drawable.ic_error
+                    iconDrawableRes = R.drawable.ic_error
                     containerColorRes = R.color.colorPrimary
                 }
             })

@@ -26,20 +26,20 @@ class RetryDialogTest {
 
     @Test
     fun retryCallback() {
-        options.retryCallback {}
-        assert(options.build().retryCallback != null)
+        options.onRetry {}
+        assert(options.build().onRetry != null)
     }
 
     @Test
     fun dismissCallback() {
-        options.dismissCallback {}
-        assert(options.build().dismissCallback != null)
+        options.onDismissClicked {}
+        assert(options.build().onDismissClicked != null)
     }
 
     @Test
     fun isCancellable() {
-        options.isCancellable(false)
-        assert(!options.build().isCancellable)
+        options.isCancellableOnTouchOutside(false)
+        assert(!options.build().isCancellableOnTouchOutside)
     }
 
     @Test
@@ -51,10 +51,10 @@ class RetryDialogTest {
     @Test
     fun iconSetup() {
         options.iconSetup(IconSetup.create {
-            iconRes = 2
+            iconDrawableRes = 2
             containerColorRes = 3
         })
-        assert(options.build().iconSetup.iconRes == 2)
+        assert(options.build().iconSetup.iconDrawableRes == 2)
         assert(options.build().iconSetup.containerColorRes == 3)
     }
 }

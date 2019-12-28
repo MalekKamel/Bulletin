@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.*
 
-class RetrySheet : AbstractSheet() {
+class RetrySheet : BulletinSheet() {
     var options: Options = Options.default()
     override val name: String = javaClass.name
     override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_retry
+    override var ignoreIfSameContentDisplayed: Boolean = options.ignoreIfSameContentDisplayed
 
     private val tvTitle: TextView by lazy { view!!.findViewById<TextView>(R.id.tvTitle) }
     private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
@@ -47,7 +47,7 @@ class RetrySheet : AbstractSheet() {
             var content: String = "",
             var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
-            var isCancellable: Boolean = BulletinConfig.isCancellable,
+            var isCancellable: Boolean = BulletinConfig.isCancellableOnTouchOutside,
             var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
             var iconSetup: IconSetup = BulletinConfig.iconSetup
     ){
@@ -104,11 +104,6 @@ class RetrySheet : AbstractSheet() {
     companion object {
         fun create(block: Options.() -> Unit) = RetrySheet().apply { options = Options().apply { block() } }
         fun create(options: Options) = RetrySheet().apply { this.options = options }
-    }
-
-    fun show(activity: FragmentActivity) {
-        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content, name)) return
-        super.show(activity, javaClass.name)
     }
 
 }

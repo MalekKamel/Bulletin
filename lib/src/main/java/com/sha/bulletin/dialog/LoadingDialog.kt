@@ -3,71 +3,97 @@ package com.sha.bulletin.dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.R
-import com.sha.bulletin.isBulletinWithContentDisplayed
 
-class LoadingDialog : AbstractDialog() {
+class LoadingDialog : BulletinDialog() {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
     override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_loading
-    override fun isCancelable(): Boolean  = options.isCancellable
+    override fun isCancelable(): Boolean  = options.isCancellableOnTouchOutside
     private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
+    override var ignoreIfSameContentDisplayed: Boolean = options.ignoreIfSameContentDisplayed
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dialog?.setCanceledOnTouchOutside(options.isCancellable)
+        dialog?.setCanceledOnTouchOutside(options.isCancellableOnTouchOutside)
         tvContent.text = options.content
     }
     
     data class Options(
             var content: String = "",
-            var dismissCallback: (() -> Unit)? = null,
+            var onDismissClicked: (() -> Unit)? = null,
             var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
-            var isCancellable: Boolean = BulletinConfig.isCancellable
+            var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside
     ){
 
         class Builder {
             private val options = Options()
 
+            /**
+             * Content to be displayed
+             */
             fun content(content: String): Builder {
                 options.content = content
                 return this
             }
 
-            fun isCancellable(cancellable: Boolean): Builder {
-                options.isCancellable = cancellable
+            /**
+             * If true, the bulletin can be cancelled on touch outside
+             */
+            fun isCancellableOnTouchOutside(cancellable: Boolean): Builder {
+                options.isCancellableOnTouchOutside = cancellable
                 return this
             }
 
+            /**
+             * If true, this bulletin won't be displayed if there's another bulletin displayed
+             * with the same name and content of this bulletin
+             */
             fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
                 options.ignoreIfSameContentDisplayed = ignore
                 return this
             }
 
-            fun dismissCallback(callback: (() -> Unit)?): Builder {
-                options.dismissCallback = callback
+            /**
+             * Callback invoked on clicking dismiss button
+             */
+            fun onDismissClicked(callback: (() -> Unit)?): Builder {
+                options.onDismissClicked = callback
                 return this
             }
 
+            /**
+             * Returns an instance of this bulletin
+             */
             fun build() = options
         }
 
         companion object {
+            /**
+             * Create the default options
+             */
             fun default(): Options = Builder().build()
+            /**
+             * Create the options
+             * @param block DSL for creating the options
+             */
             fun create(block: Options.() -> Unit) = Options().apply { block() }
         }
     }
 
     companion object {
+        /**
+         * Create the bulletin
+         * @param block DSL for creating the options
+         */
         fun create(block: Options.() -> Unit) = LoadingDialog().apply { options = Options().apply { block() } }
-        fun create(options: Options) = LoadingDialog().apply { this.options = options }
-    }
 
-    fun show(activity: FragmentActivity) {
-        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content, name)) return
-        super.show(activity, javaClass.name)
+        /**
+         * Create the bulletin
+         * @param options for the bulletin
+         */
+        fun create(options: Options) = LoadingDialog().apply { this.options = options }
     }
 }

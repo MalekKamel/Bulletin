@@ -10,6 +10,7 @@ import com.andrognito.flashbar.Flashbar
 import com.sha.bulletin.dialog.InfoDialog
 import com.sha.bulletin.dialog.LoadingDialog
 import com.sha.bulletin.dialog.RetryDialog
+import com.sha.bulletin.flashbar.BulletinFlashBar
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
 
@@ -70,7 +71,7 @@ interface InfoDialogAlertable {
             showInfoDialog(InfoDialog.Options.create {
                 this.content = content
                 iconSetup = IconSetup.create {
-                    this.iconRes = iconRes
+                    this.iconDrawableRes = iconRes
                     containerColorRes = iconContainerColorRes
                 }
             })
@@ -131,7 +132,7 @@ interface InfoSheetAlertable {
             showInfoSheet(InfoSheet.Options.create {
                 this.content = content
                 iconSetup = IconSetup.create {
-                    this.iconRes = iconRes
+                    this.iconDrawableRes = iconRes
                     containerColorRes = iconContainerColorRes
                 }
             })

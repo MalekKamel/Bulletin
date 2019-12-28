@@ -24,12 +24,12 @@ class IconContainer: LinearLayout {
     }
 
     fun setup(setup: IconSetup) {
-        if (setup.iconRes == -1){
+        if (setup.iconDrawableRes == -1){
             visibility = View.GONE
             return
         }
         visibility = View.VISIBLE
-        ivIcon.setImageResource(setup.iconRes)
+        ivIcon.setImageResource(setup.iconDrawableRes)
 
         if (setup.containerColorRes == -1)
             setup.containerColorRes = BulletinConfig.iconSetup.containerColorRes

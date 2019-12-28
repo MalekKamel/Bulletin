@@ -1,5 +1,6 @@
 package com.sha.bulletin
 
+import com.sha.bulletin.flashbar.BulletinFlashBar
 import org.junit.Before
 import org.junit.Test
 

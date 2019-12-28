@@ -19,8 +19,8 @@ class LoadingDialogTest {
 
     @Test
     fun dismissCallback() {
-        options.dismissCallback {}
-        assert(options.build().dismissCallback != null)
+        options.onDismissClicked {}
+        assert(options.build().onDismissClicked != null)
     }
 
     @Test
@@ -31,7 +31,7 @@ class LoadingDialogTest {
 
     @Test
     fun isCancellable() {
-        options.isCancellable(false)
-        assert(!options.build().isCancellable)
+        options.isCancellableOnTouchOutside(false)
+        assert(!options.build().isCancellableOnTouchOutside)
     }
 }

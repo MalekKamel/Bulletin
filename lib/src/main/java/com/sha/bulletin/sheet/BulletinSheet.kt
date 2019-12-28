@@ -15,12 +15,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sha.bulletin.Bulletin
 import com.sha.bulletin.R
 import com.sha.bulletin.bulletins
+import com.sha.bulletin.isBulletinDisplayed
 
 /**
  * Created by Sha on 9/24/17.
  */
 
-abstract class AbstractSheet : BottomSheetDialogFragment(), Bulletin {
+/**
+ * [BottomSheetDialogFragment] implements [BottomSheetDialogFragment]
+ */
+abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
     open var transparentWindow: Boolean  = true
     open var isCanceledOnTouchOutside: Boolean = false
     private var onDismissListener: (() -> Unit)? = null
@@ -28,6 +32,7 @@ abstract class AbstractSheet : BottomSheetDialogFragment(), Bulletin {
     open var isDisplayed: Boolean = false
     open var hasTitle: Boolean = false
     open var transparentBackground: Boolean = true
+    abstract var ignoreIfSameContentDisplayed: Boolean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,16 +61,19 @@ abstract class AbstractSheet : BottomSheetDialogFragment(), Bulletin {
         return dialog
     }
 
-    open fun show(activity: FragmentActivity, tag: String = javaClass.name) {
+    /**
+     * Show this bulletin
+     */
+    open fun show(activity: FragmentActivity) {
+        if (ignoreIfSameContentDisplayed && isBulletinDisplayed(name, content)) return
         if (isDisplayed) return
-        show(activity.supportFragmentManager, tag)
+        show(activity.supportFragmentManager, name)
         isDisplayed = true
         bulletins.add(this)
     }
 
-    fun onDismissListener(callback: () -> Unit): AbstractSheet {
+    fun onDismissListener(callback: () -> Unit) {
         this.onDismissListener = callback
-        return this
     }
 
     override fun onDismiss(dialog: DialogInterface) {

@@ -14,18 +14,24 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Bulletin
 import com.sha.bulletin.bulletins
+import com.sha.bulletin.isBulletinDisplayed
 
 /**
  * Created by Sha on 12/24/19.
  */
 
-abstract class AbstractDialog : DialogFragment(), Bulletin {
+/**
+ * [DialogFragment] implements [Bulletin]
+ */
+abstract class BulletinDialog : DialogFragment(), Bulletin {
     protected open var transparentWindow: Boolean  = true
     protected open var isCanceledOnTouchOutside: Boolean = false
     private var onDismissListener: (() -> Unit)? = null
     abstract var layoutId: Int
     open var isDisplayed: Boolean = false
     open var hasTitle: Boolean = false
+
+    abstract var ignoreIfSameContentDisplayed: Boolean
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,14 +56,18 @@ abstract class AbstractDialog : DialogFragment(), Bulletin {
         return dialog
     }
 
-    open fun show(activity: FragmentActivity, tag: String = javaClass.name) {
+    /**
+     * Show this bulletin
+     */
+    open fun show(activity: FragmentActivity) {
+        if (ignoreIfSameContentDisplayed && isBulletinDisplayed(name, content)) return
         if (isDisplayed) return
-        show(activity.supportFragmentManager, tag)
+        show(activity.supportFragmentManager, name)
         isDisplayed = true
         bulletins.add(this)
     }
 
-    fun onDismissListener(callback: () -> Unit): AbstractDialog {
+    fun onDismissListener(callback: () -> Unit): BulletinDialog {
         this.onDismissListener = callback
         return this
     }

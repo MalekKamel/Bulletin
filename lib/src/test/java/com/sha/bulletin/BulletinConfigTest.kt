@@ -13,8 +13,8 @@ class BulletinConfigTest {
 
     @Test
     fun isCancellable() {
-        options.isCancellable(false)
-        assert(!options.build().isCancellable)
+        options.isCancellableOnTouchOutside(false)
+        assert(!options.build().isCancellableOnTouchOutside)
     }
 
     @Test
@@ -26,10 +26,10 @@ class BulletinConfigTest {
     @Test
     fun iconSetup() {
         options.iconSetup(IconSetup.create {
-            iconRes = 2
+            iconDrawableRes = 2
             containerColorRes = 3
         })
-        assert(options.build().iconSetup.iconRes == 2)
+        assert(options.build().iconSetup.iconDrawableRes == 2)
         assert(options.build().iconSetup.containerColorRes == 3)
     }
 }

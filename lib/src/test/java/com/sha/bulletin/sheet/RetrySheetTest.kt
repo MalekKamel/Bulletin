@@ -51,10 +51,10 @@ class RetrySheetTest {
     @Test
     fun iconSetup() {
         options.iconSetup(IconSetup.create {
-            iconRes = 2
+            iconDrawableRes = 2
             containerColorRes = 3
         })
-        assert(options.build().iconSetup.iconRes == 2)
+        assert(options.build().iconSetup.iconDrawableRes == 2)
         assert(options.build().iconSetup.containerColorRes == 3)
     }
 }

@@ -13,8 +13,8 @@ class IconSetupTest {
 
     @Test
     fun iconRes() {
-        setup.iconRes(1)
-        assert(setup.build().iconRes == 1)
+        setup.iconDrawableRes(1)
+        assert(setup.build().iconDrawableRes == 1)
     }
 
     @Test
