@@ -20,8 +20,8 @@ interface Alertable:
         RetryDialogAlertable,
         RetrySheetAlertable,
         ToastAlertable,
-        FlashBarAlertable,
-        LoadingDialogAlertable
+        LoadingDialogAlertable,
+        FlashBarAlertable
 
 interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
