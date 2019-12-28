@@ -3,6 +3,7 @@ package com.sha.bulletin.dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.R
 
@@ -40,7 +41,7 @@ class LoadingDialog : BulletinDialog() {
             }
 
             /**
-             * If true, the bulletin can be cancelled on touch outside
+             * If true, the [Bulletin] can be cancelled on touch outside
              */
             fun isCancellableOnTouchOutside(cancellable: Boolean): Builder {
                 options.isCancellableOnTouchOutside = cancellable
@@ -48,7 +49,7 @@ class LoadingDialog : BulletinDialog() {
             }
 
             /**
-             * If true, this bulletin won't be displayed if there's another bulletin displayed
+             * If true, this [Bulletin] won't be displayed if there's another bulletin displayed
              * with the same name and content of this bulletin
              */
             fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
@@ -85,14 +86,14 @@ class LoadingDialog : BulletinDialog() {
 
     companion object {
         /**
-         * Create the bulletin
+         * Create the [Bulletin]
          * @param block DSL for creating the options
          */
         fun create(block: Options.() -> Unit) = LoadingDialog().apply { options = Options().apply { block() } }
 
         /**
-         * Create the bulletin
-         * @param options for the bulletin
+         * Create the [Bulletin]
+         * @param options for the [Bulletin]
          */
         fun create(options: Options) = LoadingDialog().apply { this.options = options }
     }

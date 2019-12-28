@@ -47,7 +47,7 @@ class InfoDialog : BulletinDialog() {
             private val options = Options()
 
             /**
-             * Title for the bulletin
+             * Title for the [Bulletin]
              */
             fun title(title: String): Builder {
                 options.title = title
@@ -79,8 +79,8 @@ class InfoDialog : BulletinDialog() {
             }
 
             /**
-             * If true, this bulletin won't be displayed if there's another bulletin displayed
-             * with the same name and content of this bulletin
+             * If true, this [Bulletin] won't be displayed if there's another [Bulletin] displayed
+             * with the same name and content of this [Bulletin]
              */
             fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
                 options.ignoreIfSameContentDisplayed = ignore
@@ -116,12 +116,12 @@ class InfoDialog : BulletinDialog() {
 
     companion object {
         /**
-         * Create the bulletin
+         * Create the [Bulletin]
          * @param block DSL for creating the options
          */
         fun create(block: Options.() -> Unit) = InfoDialog().apply { options = Options().apply { block() } }
         /**
-         * Create the bulletin
+         * Create the [Bulletin]
          * @param options for the bulletin
          */
         fun create(options: Options) = InfoDialog().apply { this.options = options }

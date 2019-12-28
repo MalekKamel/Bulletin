@@ -1,15 +1,18 @@
 package com.sha.sample
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Alertable
 import com.sha.bulletin.IconSetup
 import com.sha.bulletin.bulletins
+import com.sha.bulletin.dismissAllBulletins
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.formvalidatorsample.R
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), Alertable {
 
@@ -20,7 +23,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnPrint.setOnClickListener { bulletins.forEach { Log.e("Bulletin Name: ${it?.name}", "Bulletin: $it") } }
+        btnPrint.setOnClickListener { bulletins.forEach { Log.e("Bulletin Name: ${it.name}", "Bulletin: $it") } }
 
         btnMessageSheet.setOnClickListener {
             showMessageSheet(message)
@@ -58,6 +61,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         }
 
         btnToast.setOnClickListener { longToast(message) }
+
+        btnDismissAllBulletins.setOnClickListener {
+            showErrorInFlashBar(message)
+            showMessageSheet(message)
+            showRetryDialog(message)
+            // Dismiss all bulletins after 5 seconds
+            Handler().postDelayed({ dismissAllBulletins() }, TimeUnit.SECONDS.toMillis(5))
+        }
     }
 
     override fun activity(): FragmentActivity?  = this

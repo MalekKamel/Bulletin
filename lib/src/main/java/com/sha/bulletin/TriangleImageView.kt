@@ -7,6 +7,9 @@ import android.graphics.Path
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
+/**
+ * Triangle shape to be used for [Bulletin]'s icon container.
+ */
 class TriangleImageView: AppCompatImageView {
 
     var color = -1

@@ -56,7 +56,7 @@ class RetryDialog : BulletinDialog() {
             private val options = Options()
 
             /**
-             * Title for the bulletin
+             * Title for the [Bulletin]
              */
             fun title(title: String): Builder {
                 options.title = title
@@ -88,7 +88,7 @@ class RetryDialog : BulletinDialog() {
             }
 
             /**
-             * If true, the bulletin can be cancelled on touch outside
+             * If true, the [Bulletin] can be cancelled on touch outside
              */
             fun isCancellableOnTouchOutside(cancellable: Boolean): Builder {
                 options.isCancellableOnTouchOutside = cancellable
@@ -96,8 +96,8 @@ class RetryDialog : BulletinDialog() {
             }
 
             /**
-             * If true, this bulletin won't be displayed if there's another bulletin displayed
-             * with the same name and content of this bulletin
+             * If true, this [Bulletin] won't be displayed if there's another [Bulletin] displayed
+             * with the same name and content of this [Bulletin]
              */
             fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
                 options.ignoreIfSameContentDisplayed = ignore
@@ -136,14 +136,14 @@ class RetryDialog : BulletinDialog() {
 
     companion object {
         /**
-         * Create the bulletin
+         * Create the [Bulletin]
          * @param block DSL for creating the options
          */
         fun create(block: Options.() -> Unit) = RetryDialog().apply { options = Options().apply { block() } }
 
         /**
-         * Create the bulletin
-         * @param options for the bulletin
+         * Create the [Bulletin]
+         * @param options for the [Bulletin]
          */
         fun create(options: Options) = RetryDialog().apply { this.options = options }
     }

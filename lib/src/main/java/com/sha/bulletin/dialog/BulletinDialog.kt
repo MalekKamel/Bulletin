@@ -57,7 +57,7 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
     }
 
     /**
-     * Show this bulletin
+     * Show this [Bulletin]
      */
     open fun show(activity: FragmentActivity) {
         if (ignoreIfSameContentDisplayed && isBulletinDisplayed(name, content)) return

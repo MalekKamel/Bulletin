@@ -7,6 +7,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 
+/**
+ * [LinearLayout] that wraps the icon of the [Bulletin].
+ */
 class IconContainer: LinearLayout {
     lateinit var rectangleView: View
     private lateinit var ivIcon: ImageView

@@ -1,5 +1,8 @@
 package com.sha.bulletin
 
+/**
+ * Options of [Bulletin]'s icon.
+ */
 data class IconSetup(
         var iconDrawableRes: Int = -1,
         var containerColorRes: Int = R.color.blue

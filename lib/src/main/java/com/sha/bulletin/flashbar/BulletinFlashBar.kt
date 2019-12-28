@@ -12,7 +12,7 @@ class BulletinFlashBar(builder: Builder): Flashbar(builder), Bulletin {
     var options: Options = Options.default()
 
     /**
-     * Show this bulletin
+     * Show this [Bulletin]
      */
     override fun show() {
         if (options.ignoreIfSameContentDisplayed && isBulletinDisplayed(name, content)) return
@@ -32,8 +32,8 @@ class BulletinFlashBar(builder: Builder): Flashbar(builder), Bulletin {
             private val options = Options()
 
             /**
-             * If true, this bulletin won't be displayed if there's another bulletin displayed
-             * with the same name and content of this bulletin
+             * If true, this [Bulletin] won't be displayed if there's another [Bulletin] displayed
+             * with the same name and content of this [Bulletin]
              */
             fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
                 options.ignoreIfSameContentDisplayed = ignore

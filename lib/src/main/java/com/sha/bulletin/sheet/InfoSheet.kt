@@ -64,7 +64,7 @@ class InfoSheet : BulletinSheet() {
             }
 
             /**
-             * If true, the bulletin can be cancelled on touch outside
+             * If true, the [Bulletin] can be cancelled on touch outside
              */
             fun isCancellableOnTouchOutside(cancellable: Boolean): Builder {
                 options.isCancellableOnTouchOutside = cancellable
@@ -72,8 +72,8 @@ class InfoSheet : BulletinSheet() {
             }
 
             /**
-             * If true, this bulletin won't be displayed if there's another bulletin displayed
-             * with the same name and content of this bulletin
+             * If true, this [Bulletin] won't be displayed if there's another [Bulletin] displayed
+             * with the same name and content of this [Bulletin]
              */
             fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
                 options.ignoreIfSameContentDisplayed = ignore
@@ -81,7 +81,7 @@ class InfoSheet : BulletinSheet() {
             }
 
             /**
-             * Title for the bulletin
+             * Title for the [Bulletin]
              */
             fun title(title: String): Builder {
                 options.title = title
@@ -97,7 +97,7 @@ class InfoSheet : BulletinSheet() {
             }
 
             /**
-             * Returns an instance of this bulletin
+             * Returns an instance of this [Bulletin]
              */
             fun build() = options
         }
@@ -117,14 +117,14 @@ class InfoSheet : BulletinSheet() {
 
     companion object {
         /**
-         * Create the bulletin
+         * Create the [Bulletin]
          * @param block DSL for creating the options
          */
         fun create(block: Options.() -> Unit) = InfoSheet().apply { options = Options().apply { block() } }
 
         /**
-         * Create the bulletin
-         * @param options for the bulletin
+         * Create the [Bulletin]
+         * @param options for the [Bulletin]
          */
         fun create(options: Options) = InfoSheet().apply { this.options = options }
     }
