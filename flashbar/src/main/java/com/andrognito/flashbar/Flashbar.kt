@@ -19,7 +19,7 @@ import com.andrognito.flashbar.anim.FlashAnimIconBuilder
 private const val DEFAULT_SHADOW_STRENGTH = 4
 private const val DEFAUT_ICON_SCALE = 1.0f
 
-class Flashbar private constructor(private var builder: Builder) {
+open class Flashbar(private var builder: Builder) {
 
     private lateinit var flashbarContainerView: FlashbarContainerView
     private lateinit var flashbarView: FlashbarView
@@ -27,7 +27,7 @@ class Flashbar private constructor(private var builder: Builder) {
     /**
      * Shows a flashbar
      */
-    fun show() {
+    open fun show() {
         flashbarContainerView.show(builder.activity)
     }
 
@@ -173,7 +173,7 @@ class Flashbar private constructor(private var builder: Builder) {
         internal var titleColor: Int? = null
         internal var titleAppearance: Int? = null
 
-        internal var message: String? = null
+        var message: String? = null
         internal var messageSpanned: Spanned? = null
         internal var messageTypeface: Typeface? = null
         internal var messageSizeInPx: Float? = null
@@ -739,6 +739,15 @@ class Flashbar private constructor(private var builder: Builder) {
         }
 
         /**
+         * Builds a flashbar instance
+         */
+        fun build(flashbar: Flashbar): Flashbar {
+            configureAnimation()
+            flashbar.construct()
+            return flashbar
+        }
+
+        /**
          * Shows the flashbar
          */
         fun show() = build().show()
@@ -808,4 +817,6 @@ class Flashbar private constructor(private var builder: Builder) {
         fun onShowProgress(bar: Flashbar, progress: Float)
         fun onShown(bar: Flashbar)
     }
+
+    open fun onDestroy() {}
 }

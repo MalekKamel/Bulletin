@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.R
 import com.sha.bulletin.isBulletinWithContentDisplayed
 
@@ -27,8 +28,8 @@ class LoadingDialog : AbstractDialog() {
     data class Options(
             var content: String = "",
             var dismissCallback: (() -> Unit)? = null,
-            var ignoreIfSameContentDisplayed: Boolean = true,
-            var isCancellable: Boolean = false
+            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
+            var isCancellable: Boolean = BulletinConfig.isCancellable
     ){
 
         class Builder {
@@ -69,7 +70,7 @@ class LoadingDialog : AbstractDialog() {
     }
 
     fun show(activity: FragmentActivity) {
-        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content)) return
+        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content, name)) return
         super.show(activity, javaClass.name)
     }
 }

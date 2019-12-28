@@ -6,7 +6,7 @@
     <color name="transparent">#0014E158</color>
 
     <color name="warning">#b1a01e</color>
-    <color name="exception">#e65858</color>
+    <color name="error">#e65858</color>
     <color name="orange_light">#F06423</color>
 
 </resources>

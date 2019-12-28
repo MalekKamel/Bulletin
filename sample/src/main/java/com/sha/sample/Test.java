@@ -2,7 +2,6 @@ package com.sha.sample;
 
 import com.sha.bulletin.InfoSheetAlertable;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import androidx.fragment.app.FragmentActivity;

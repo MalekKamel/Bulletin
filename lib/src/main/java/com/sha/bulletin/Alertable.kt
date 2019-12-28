@@ -207,6 +207,27 @@ interface ToastAlertable {
     }
 }
 
+interface LoadingDialogAlertable {
+    fun activity(): FragmentActivity?
+
+    @JvmDefault
+    fun showLoadingDialog(content: String = "") {
+        showLoadingDialog(LoadingDialog.Options.create { this.content = content })
+    }
+
+    @JvmDefault
+    fun showLoadingDialog(@StringRes contentRes: Int) {
+        activity()?.run {
+            showLoadingDialog(LoadingDialog.Options.create { content = getString(contentRes) })
+        }
+    }
+
+    @JvmDefault
+    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()) {
+        activity()?.let { LoadingDialog.create(options).show(it) }
+    }
+}
+
 interface FlashBarAlertable {
     fun activity(): FragmentActivity?
 
@@ -232,49 +253,30 @@ interface FlashBarAlertable {
 
     @JvmDefault
     fun showErrorInFlashBar(content: String, duration: Long = 6000) {
-        activity()?.run { showFlashBar(content, duration, R.color.exception) }
+        activity()?.run { showFlashBar(content, duration, R.color.error) }
     }
 
     @JvmDefault
     fun showErrorInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
-        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.exception) }
+        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.error) }
     }
 
     @JvmDefault
     fun showFlashBar(content: String, duration: Long, @ColorRes backgroundColor: Int) {
         activity()?.run {
-            showFlashBar(
-                    Flashbar.Builder(this)
-                            .message(content)
-                            .gravity(Flashbar.Gravity.TOP)
-                            .duration(duration)
-                            .dismissOnTapOutside()
-                            .enableSwipeToDismiss()
-                            .backgroundColorRes(backgroundColor))
+           val builder = Flashbar.Builder(this)
+                    .message(content)
+                    .gravity(Flashbar.Gravity.TOP)
+                    .duration(duration)
+                    .enableSwipeToDismiss()
+                    .backgroundColorRes(backgroundColor)
+            showFlashBar(builder)
         }
     }
 
     @JvmDefault
-    fun showFlashBar(builder: Flashbar.Builder) = activity()?.run { builder.build().show() }
-}
-
-interface LoadingDialogAlertable {
-    fun activity(): FragmentActivity?
-
-    @JvmDefault
-    fun showLoadingDialog(content: String = "") {
-        showLoadingDialog(LoadingDialog.Options.create { this.content = content })
-    }
-
-    @JvmDefault
-    fun showLoadingDialog(@StringRes contentRes: Int) {
-        activity()?.run {
-            showLoadingDialog(LoadingDialog.Options.create { content = getString(contentRes) })
-        }
-    }
-
-    @JvmDefault
-    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()) {
-        activity()?.let { LoadingDialog.create(options).show(it) }
+    fun showFlashBar(builder: Flashbar.Builder,
+                     options: BulletinFlashBar.Options = BulletinFlashBar.Options.default()) {
+        activity()?.run { builder.build(BulletinFlashBar.create(builder, options)).show() }
     }
 }

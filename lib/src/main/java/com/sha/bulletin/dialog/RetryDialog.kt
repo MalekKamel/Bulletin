@@ -5,10 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import com.sha.bulletin.IconContainer
-import com.sha.bulletin.IconSetup
-import com.sha.bulletin.R
-import com.sha.bulletin.isBulletinWithContentDisplayed
+import com.sha.bulletin.*
 
 class RetryDialog : AbstractDialog() {
     var options: Options = Options.default()
@@ -50,16 +47,26 @@ class RetryDialog : AbstractDialog() {
     }
 
     data class Options(
-            var retryCallback: (() -> Unit)? = null,
-            var dismissCallback: (() -> Unit)? = null,
-            var isCancellable: Boolean = true,
-            var ignoreIfSameContentDisplayed: Boolean = true,
             var title: String = "",
             var content: String = "",
-            var iconSetup: IconSetup = IconSetup.default()
+            var retryCallback: (() -> Unit)? = null,
+            var dismissCallback: (() -> Unit)? = null,
+            var isCancellable: Boolean = BulletinConfig.isCancellable,
+            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
+            var iconSetup: IconSetup = BulletinConfig.iconSetup
     ){
         class Builder {
             private val options = Options()
+
+            fun content(content: String): Builder {
+                options.content = content
+                return this
+            }
+
+            fun title(title: String): Builder {
+                options.title = title
+                return this
+            }
 
             fun retryCallback(callback: (() -> Unit)?): Builder {
                 options.retryCallback = callback
@@ -78,16 +85,6 @@ class RetryDialog : AbstractDialog() {
 
             fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
                 options.ignoreIfSameContentDisplayed = ignore
-                return this
-            }
-
-            fun content(content: String): Builder {
-                options.content = content
-                return this
-            }
-
-            fun title(title: String): Builder {
-                options.title = title
                 return this
             }
 
@@ -114,7 +111,7 @@ class RetryDialog : AbstractDialog() {
     }
 
     fun show(activity: FragmentActivity) {
-        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content)) return
+        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content, name)) return
         super.show(activity, javaClass.name)
     }
 }

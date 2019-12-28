@@ -2,7 +2,7 @@ package com.sha.bulletin
 
 data class IconSetup(
         var iconRes: Int = -1,
-        var containerColorRes: Int = -1
+        var containerColorRes: Int = R.color.blue
 ) {
     class Builder {
         private val setup = IconSetup()

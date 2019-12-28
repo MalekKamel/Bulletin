@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Alertable
-import com.sha.bulletin.ContentType
 import com.sha.bulletin.IconSetup
 import com.sha.bulletin.bulletins
 import com.sha.bulletin.sheet.InfoSheet
@@ -53,7 +52,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
         btnRetrySheet.setOnClickListener { showRetrySheet(message) }
 
-        btnFlashBar.setOnClickListener { showErrorInFlashBar(message) }
+        btnFlashBar.setOnClickListener {
+            showErrorInFlashBar(message)
+            showErrorInFlashBar(message)
+        }
 
         btnToast.setOnClickListener { longToast(message) }
     }

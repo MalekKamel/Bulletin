@@ -95,6 +95,7 @@ internal class FlashbarContainerView(context: Context)
         }
 
         onBarDismissListener?.onDismissed(parentFlashbar, SWIPE)
+        parentFlashbar.onDestroy()
     }
 
     internal fun attach(flashbarView: FlashbarView) {
@@ -267,6 +268,7 @@ internal class FlashbarContainerView(context: Context)
                 }
 
                 onBarDismissListener?.onDismissed(parentFlashbar, event)
+                parentFlashbar.onDestroy()
 
                 post { (parent as? ViewGroup)?.removeView(this@FlashbarContainerView) }
             }

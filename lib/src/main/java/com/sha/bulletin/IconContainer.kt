@@ -32,7 +32,8 @@ class IconContainer: LinearLayout {
         visibility = View.VISIBLE
         ivIcon.setImageResource(setup.iconRes)
 
-        if (setup.containerColorRes == -1) setup.containerColorRes = BulletinConfig.defaultColor
+        if (setup.containerColorRes == -1)
+            setup.containerColorRes = BulletinConfig.iconSetup.containerColorRes
 
         ContextCompat.getColor(context, setup.containerColorRes).run {
             rectangleView.setBackgroundColor(this)

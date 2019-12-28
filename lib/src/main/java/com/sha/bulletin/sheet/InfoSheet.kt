@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.*
 
@@ -42,10 +41,9 @@ class InfoSheet : AbstractSheet() {
             var content: String = "",
             var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
-            var isCancellable: Boolean = true,
-            var ignoreIfSameContentDisplayed: Boolean = true,
-            var contentType: ContentType = ContentType.INFO,
-            var iconSetup: IconSetup = IconSetup.default()
+            var isCancellable: Boolean = BulletinConfig.isCancellable,
+            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
+            var iconSetup: IconSetup = BulletinConfig.iconSetup
     ){
         class Builder {
             private val options = Options()
@@ -75,11 +73,6 @@ class InfoSheet : AbstractSheet() {
                 return this
             }
 
-            fun contentType(type: ContentType): Builder {
-                options.contentType = type
-                return this
-            }
-
             fun title(title: String): Builder {
                 options.title = title
                 return this
@@ -105,7 +98,7 @@ class InfoSheet : AbstractSheet() {
     }
 
     fun show(activity: FragmentActivity) {
-        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content)) return
+        if (options.ignoreIfSameContentDisplayed && isBulletinWithContentDisplayed(content, name)) return
         super.show(activity, javaClass.name)
     }
 }
