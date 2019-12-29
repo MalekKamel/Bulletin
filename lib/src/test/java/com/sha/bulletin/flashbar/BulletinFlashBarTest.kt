@@ -1,15 +1,14 @@
-package com.sha.bulletin
+package com.sha.bulletin.flashbar
 
-import com.sha.bulletin.flashbar.BulletinFlashBar
 import org.junit.Before
 import org.junit.Test
 
-class BulletinFlashBarTest {
-    lateinit var options: BulletinFlashBar.Options.Builder
+class StandardFlashBarTest {
+    lateinit var options: StandardFlashBar.Options.Builder
 
     @Before
     fun setup() {
-        options = BulletinFlashBar.Options.Builder()
+        options = StandardFlashBar.Options.Builder()
     }
 
     @Test

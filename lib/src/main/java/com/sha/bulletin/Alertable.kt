@@ -10,10 +10,10 @@ import com.andrognito.flashbar.Flashbar
 import com.sha.bulletin.dialog.InfoDialog
 import com.sha.bulletin.dialog.LoadingDialog
 import com.sha.bulletin.dialog.RetryDialog
-import com.sha.bulletin.flashbar.BulletinFlashBar
+import com.sha.bulletin.flashbar.StandardFlashBar
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
-import com.sha.bulletin.toast.StandardBulletinToast
+import com.sha.bulletin.toast.StandardToast
 
 interface Alertable:
         InfoDialogAlertable,
@@ -190,35 +190,35 @@ interface ToastAlertable {
 
     @JvmDefault
     fun longToast(@StringRes content: Int,
-                  options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
+                  options: StandardToast.Options = StandardToast.Options.default()) {
         activity()?.run { toast(getString(content), Toast.LENGTH_LONG, options) }
     }
 
     @JvmDefault
     fun longToast(content: String,
-                  options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
+                  options: StandardToast.Options = StandardToast.Options.default()) {
         toast(content, Toast.LENGTH_LONG, options)
     }
 
     @JvmDefault
     fun shortToast(content: String,
-                   options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
+                   options: StandardToast.Options = StandardToast.Options.default()) {
         toast(content, Toast.LENGTH_SHORT, options)
     }
 
     @JvmDefault
     fun shortToast(@StringRes content: Int,
-                   options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
+                   options: StandardToast.Options = StandardToast.Options.default()) {
         activity()?.run { toast(getString(content), Toast.LENGTH_SHORT, options) }
     }
 
     @JvmDefault
     fun toast(content: String,
               duration: Int,
-              options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
+              options: StandardToast.Options = StandardToast.Options.default()) {
         activity()?.run {
             options.content = content
-            StandardBulletinToast.create(this, options) { this.duration = duration }.show()
+            StandardToast.create(this, options) { this.duration = duration }.show()
         }
     }
 }
@@ -292,7 +292,7 @@ interface FlashBarAlertable {
 
     @JvmDefault
     fun showFlashBar(builder: Flashbar.Builder,
-                     options: BulletinFlashBar.Options = BulletinFlashBar.Options.default()) {
-        activity()?.run { builder.build(BulletinFlashBar.create(builder, options)).show() }
+                     options: StandardFlashBar.Options = StandardFlashBar.Options.default()) {
+        activity()?.run { builder.build(StandardFlashBar.create(builder, options)).show() }
     }
 }

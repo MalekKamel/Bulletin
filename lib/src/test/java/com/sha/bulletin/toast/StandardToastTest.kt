@@ -3,12 +3,12 @@ package com.sha.bulletin.toast
 import org.junit.Before
 import org.junit.Test
 
-class StandardBulletinToastTest {
-    lateinit var options: StandardBulletinToast.Options.Builder
+class StandardToastTest {
+    lateinit var options: StandardToast.Options.Builder
 
     @Before
     fun setup() {
-        options = StandardBulletinToast.Options.Builder()
+        options = StandardToast.Options.Builder()
     }
 
     @Test

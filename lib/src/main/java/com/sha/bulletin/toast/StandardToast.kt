@@ -7,7 +7,7 @@ import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.R
 
-class StandardBulletinToast(context: Context): BulletinToast(context) {
+class StandardToast(context: Context): BulletinToast(context) {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
@@ -62,14 +62,14 @@ class StandardBulletinToast(context: Context): BulletinToast(context) {
          * Create the bulletin
          * @param block DSL for creating the options
          */
-        fun create(context: Context, block: Options.() -> Unit): StandardBulletinToast {
+        fun create(context: Context, block: Options.() -> Unit): StandardToast {
            return create(context, Options().apply(block), null)
         }
 
         /**
          * Create the bulletin
          */
-        fun create(context: Context, options: Options): StandardBulletinToast {
+        fun create(context: Context, options: Options): StandardToast {
             return create(context, options, null)
         }
 
@@ -79,8 +79,8 @@ class StandardBulletinToast(context: Context): BulletinToast(context) {
          */
         fun create(context: Context,
                    options: Options,
-                   block: (StandardBulletinToast.() -> Unit)?): StandardBulletinToast {
-           return StandardBulletinToast(context).apply {
+                   block: (StandardToast.() -> Unit)?): StandardToast {
+           return StandardToast(context).apply {
                view = LayoutInflater.from(context).inflate(R.layout.toast, null)
                view.findViewById<TextView>(R.id.message).text = options.content
                block?.invoke(this)
