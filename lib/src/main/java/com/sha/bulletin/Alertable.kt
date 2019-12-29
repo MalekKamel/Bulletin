@@ -13,7 +13,7 @@ import com.sha.bulletin.dialog.RetryDialog
 import com.sha.bulletin.flashbar.BulletinFlashBar
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
-import com.sha.bulletin.toast.BulletinToast
+import com.sha.bulletin.toast.StandardBulletinToast
 
 interface Alertable:
         InfoDialogAlertable,
@@ -190,35 +190,35 @@ interface ToastAlertable {
 
     @JvmDefault
     fun longToast(@StringRes content: Int,
-                  options: BulletinToast.Options = BulletinToast.Options.default()) {
+                  options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
         activity()?.run { toast(getString(content), Toast.LENGTH_LONG, options) }
     }
 
     @JvmDefault
     fun longToast(content: String,
-                  options: BulletinToast.Options = BulletinToast.Options.default()) {
+                  options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
         toast(content, Toast.LENGTH_LONG, options)
     }
 
     @JvmDefault
     fun shortToast(content: String,
-                   options: BulletinToast.Options = BulletinToast.Options.default()) {
+                   options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
         toast(content, Toast.LENGTH_SHORT, options)
     }
 
     @JvmDefault
     fun shortToast(@StringRes content: Int,
-                   options: BulletinToast.Options = BulletinToast.Options.default()) {
+                   options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
         activity()?.run { toast(getString(content), Toast.LENGTH_SHORT, options) }
     }
 
     @JvmDefault
     fun toast(content: String,
               duration: Int,
-              options: BulletinToast.Options = BulletinToast.Options.default()) {
+              options: StandardBulletinToast.Options = StandardBulletinToast.Options.default()) {
         activity()?.run {
             options.content = content
-            BulletinToast.create(this, options) { this.duration = duration }.show()
+            StandardBulletinToast.create(this, options) { this.duration = duration }.show()
         }
     }
 }

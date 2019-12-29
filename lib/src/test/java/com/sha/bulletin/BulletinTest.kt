@@ -9,7 +9,7 @@ class BulletinTest {
     @Before
     fun setup() {
         bulletin = FakeBulletin()
-        bulletins = mutableListOf(bulletin)
+        bulletins = mutableSetOf(bulletin)
     }
 
     @Test
