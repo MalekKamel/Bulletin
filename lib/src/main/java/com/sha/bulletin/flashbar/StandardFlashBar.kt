@@ -2,26 +2,27 @@ package com.sha.bulletin.flashbar
 
 import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
+import com.sha.bulletin.DuplicateStrategy
 
 class StandardFlashBar(builder: Builder): BulletinFlashBar(builder) {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
     override val content: String = builder.message ?: ""
-    override var ignoreIfSameContentDisplayed: Boolean = options.ignoreIfSameContentDisplayed
+    override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     data class Options(
-            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed
+            var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy
     ){
         class Builder {
             private val options = Options()
 
             /**
-             * If true, this [Bulletin] won't be displayed if there's another [Bulletin] displayed
-             * with the same name and content of this [Bulletin]
+             * [DuplicateStrategy] for managing duplicate bulletins. You can choose
+             * one of many implementations in the library or implement your own strategy.
              */
-            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
-                options.ignoreIfSameContentDisplayed = ignore
+            fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
+                options.duplicateStrategy = strategy
                 return this
             }
 

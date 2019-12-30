@@ -3,13 +3,11 @@ package com.sha.bulletin.toast
 import android.content.Context
 import android.os.Handler
 import android.widget.Toast
-import com.sha.bulletin.Bulletin
-import com.sha.bulletin.BulletinManager
-import com.sha.bulletin.isDisplayed
+import com.sha.bulletin.*
 import java.util.concurrent.TimeUnit
 
 abstract class BulletinToast(context: Context): Toast(context), Bulletin {
-    abstract var ignoreIfSameContentDisplayed: Boolean
+    abstract var duplicateStrategy: DuplicateStrategy
 
     override fun dismiss() {
         cancel()
@@ -20,7 +18,7 @@ abstract class BulletinToast(context: Context): Toast(context), Bulletin {
      * Show this [Bulletin]
      */
     override fun show() {
-        if (ignoreIfSameContentDisplayed && isDisplayed(name, content)) return
+        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
         super.show()
         BulletinManager.add(this)
 

@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import com.sha.bulletin.BulletinConfig
-import com.sha.bulletin.IconContainer
-import com.sha.bulletin.IconSetup
-import com.sha.bulletin.R
+import com.sha.bulletin.*
 
 class RetrySheet : BulletinSheet() {
     var options: Options = Options.default()
     override val name: String = javaClass.name
     override val content: String = options.content
     override var layoutId: Int = R.layout.frag_dialog_retry
-    override var ignoreIfSameContentDisplayed: Boolean = options.ignoreIfSameContentDisplayed
+    override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     private val tvTitle: TextView by lazy { view!!.findViewById<TextView>(R.id.tvTitle) }
     private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
@@ -51,7 +48,7 @@ class RetrySheet : BulletinSheet() {
             var retryCallback: (() -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
             var isCancellable: Boolean = BulletinConfig.isCancellableOnTouchOutside,
-            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
+            var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
             var iconSetup: IconSetup = BulletinConfig.iconSetup
     ){
         class Builder {
@@ -72,8 +69,12 @@ class RetrySheet : BulletinSheet() {
                 return this
             }
 
-            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
-                options.ignoreIfSameContentDisplayed = ignore
+            /**
+             * [DuplicateStrategy] for managing duplicate bulletins. You can choose
+             * one of many implementations in the library or implement your own strategy.
+             */
+            fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
+                options.duplicateStrategy = strategy
                 return this
             }
 

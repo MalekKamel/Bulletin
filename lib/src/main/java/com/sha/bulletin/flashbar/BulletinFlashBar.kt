@@ -1,18 +1,16 @@
 package com.sha.bulletin.flashbar
 
 import com.andrognito.flashbar.Flashbar
-import com.sha.bulletin.Bulletin
-import com.sha.bulletin.BulletinManager
-import com.sha.bulletin.isDisplayed
+import com.sha.bulletin.*
 
 abstract class BulletinFlashBar(builder: Builder): Flashbar(builder), Bulletin {
-    abstract var ignoreIfSameContentDisplayed: Boolean
+    abstract var duplicateStrategy: DuplicateStrategy
 
     /**
      * Show this [Bulletin]
      */
     override fun show() {
-        if (ignoreIfSameContentDisplayed && isDisplayed(name, content)) return
+        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
         super.show()
         BulletinManager.add(this)
     }

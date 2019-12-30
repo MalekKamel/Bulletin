@@ -10,7 +10,7 @@ package com.sha.bulletin
  */
 object BulletinConfig {
     var isCancellableOnTouchOutside: Boolean = true
-    var ignoreIfSameContentDisplayed: Boolean = true
+    var duplicateStrategy: DuplicateStrategy = DefaultDuplicateStrategy()
     var iconSetup: IconSetup = IconSetup.default()
 
     class Builder {
@@ -24,11 +24,11 @@ object BulletinConfig {
         }
 
         /**
-         * If true, this bulletin won't be displayed if there's another bulletin displayed
-         * with the same name and content of this bulletin
+         * [DuplicateStrategy] for managing duplicate bulletins. You can choose
+         * one of many implementations in the library or implement your own strategy.
          */
-        fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
-            ignoreIfSameContentDisplayed = ignore
+        fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
+            duplicateStrategy = strategy
             return this
         }
 

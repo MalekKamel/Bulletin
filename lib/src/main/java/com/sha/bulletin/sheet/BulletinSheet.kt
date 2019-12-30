@@ -12,10 +12,7 @@ import android.view.Window
 import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sha.bulletin.Bulletin
-import com.sha.bulletin.BulletinManager
-import com.sha.bulletin.R
-import com.sha.bulletin.isDisplayed
+import com.sha.bulletin.*
 
 /**
  * Created by Sha on 9/24/17.
@@ -32,7 +29,7 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
     open var isDisplayed: Boolean = false
     open var hasTitle: Boolean = false
     open var transparentBackground: Boolean = true
-    abstract var ignoreIfSameContentDisplayed: Boolean
+    abstract var duplicateStrategy: DuplicateStrategy
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +62,7 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
      * Show this [Bulletin]
      */
     open fun show(activity: FragmentActivity) {
-        if (ignoreIfSameContentDisplayed && isDisplayed(name, content)) return
+        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
         if (isDisplayed) return
         show(activity.supportFragmentManager, name)
         isDisplayed = true

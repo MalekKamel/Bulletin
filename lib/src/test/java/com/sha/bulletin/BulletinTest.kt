@@ -14,22 +14,22 @@ class BulletinTest {
 
     @Test
     fun isBulletinDisplayedWithInstance_returnsTrue() {
-        assert(isDisplayed(bulletin))
+        assert(isAnyDisplayed(bulletin))
     }
 
     @Test
     fun isBulletinDisplayedWithName_returnsTrue() {
-        assert(isDisplayed(bulletin.name))
+        assert(isAnyDisplayed(bulletin.name))
     }
 
     @Test
     fun isBulletinDisplayedWithContent_returnsTrue() {
-        assert(isDisplayed(bulletin.name))
+        assert(isAnyDisplayed(bulletin.name))
     }
 
     @Test
     fun isBulletinDisplayedWithNameAndContent_returnsTrue() {
-        assert(isDisplayed(bulletin.name, bulletin.content))
+        assert(isAnyDisplayed(bulletin.name, bulletin.content))
     }
 
     @Test

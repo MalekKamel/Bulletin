@@ -19,8 +19,9 @@ class BulletinConfigTest {
 
     @Test
     fun ignoreIfSameContentDisplayed() {
-        options.ignoreIfSameContentDisplayed(true)
-        assert(options.build().ignoreIfSameContentDisplayed)
+        val strategy = DefaultDuplicateStrategy()
+        options.duplicateStrategy(strategy)
+        assert(options.build().duplicateStrategy == strategy)
     }
 
     @Test

@@ -29,21 +29,27 @@ class BulletinManager {
          * Returns true if the [Bulletin] is displayed
          */
         @JvmStatic
-        fun isDisplayed(bulletin: Bulletin) = bulletins.any { it == bulletin }
+        fun isAnyDisplayed(bulletin: Bulletin) = bulletins.any { it == bulletin }
+
+        /**
+         * Returns true if any [Bulletin] is displayed
+         */
+        @JvmStatic
+        fun isAnyDisplayed() = bulletins.isNotEmpty()
 
         /**
          * Returns true if the [Bulletin] is displayed
          * @param name of the bulletin
          */
         @JvmStatic
-        fun isDisplayed(name: String) = bulletins.any { it.name == name }
+        fun isAnyDisplayed(name: String) = bulletins.any { it.name == name }
 
         /**
          * Returns true if the [Bulletin] is displayed
          * @param content of the bulletin
          */
         @JvmStatic
-        fun isDisplayedWithContent(content: String) = bulletins.any { it.content == content }
+        fun isAnyDisplayedWithContent(content: String) = bulletins.any { it.content == content }
 
         /**
          * Returns true if the [Bulletin] is displayed
@@ -51,7 +57,7 @@ class BulletinManager {
          * @param content of the bulletin
          */
         @JvmStatic
-        fun isDisplayed(name: String, content: String): Boolean {
+        fun isAnyDisplayed(name: String, content: String): Boolean {
             return bulletins.filter { it.name == name }.any { it.content == content }
         }
 
@@ -112,24 +118,29 @@ class BulletinManager {
 var bulletins: MutableSet<Bulletin> = BulletinManager.bulletins
 
 /**
- * @see [BulletinManager.isDisplayed]
+ * @see [BulletinManager.isAnyDisplayed]
  */
-fun isDisplayed(bulletin: Bulletin) = BulletinManager.isDisplayed(bulletin)
+fun isAnyDisplayed(bulletin: Bulletin) = BulletinManager.isAnyDisplayed(bulletin)
 
 /**
- * @see [BulletinManager.isDisplayed]
+ * @see [BulletinManager.isAnyDisplayed]
  */
-fun isDisplayed(name: String) = BulletinManager.isDisplayed(name)
+fun isAnyDisplayed() = BulletinManager.isAnyDisplayed()
 
 /**
- * @see [BulletinManager.isDisplayedWithContent]
+ * @see [BulletinManager.isAnyDisplayed]
  */
-fun isDisplayedWithContent(content: String) = BulletinManager.isDisplayedWithContent(content)
+fun isAnyDisplayed(name: String) = BulletinManager.isAnyDisplayed(name)
 
 /**
- * @see [BulletinManager.isDisplayed]
+ * @see [BulletinManager.isAnyDisplayedWithContent]
  */
-fun isDisplayed(name: String, content: String) = BulletinManager.isDisplayed(name, content)
+fun isAnyDisplayedWithContent(content: String) = BulletinManager.isAnyDisplayedWithContent(content)
+
+/**
+ * @see [BulletinManager.isAnyDisplayed]
+ */
+fun isAnyDisplayed(name: String, content: String) = BulletinManager.isAnyDisplayed(name, content)
 
 /**
  * @see [BulletinManager.dismissAll]

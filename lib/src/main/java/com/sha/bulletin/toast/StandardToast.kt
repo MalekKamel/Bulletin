@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
+import com.sha.bulletin.DuplicateStrategy
 import com.sha.bulletin.R
 
 class StandardToast(context: Context): BulletinToast(context) {
@@ -12,11 +13,11 @@ class StandardToast(context: Context): BulletinToast(context) {
 
     override val name: String = javaClass.name
     override val content: String = options.content
-    override var ignoreIfSameContentDisplayed: Boolean = options.ignoreIfSameContentDisplayed
+    override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     data class Options(
             var content: String = "",
-            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed
+            var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy
     ){
         class Builder {
             private val options = Options()
@@ -30,11 +31,11 @@ class StandardToast(context: Context): BulletinToast(context) {
             }
 
             /**
-             * If true, this [Bulletin] won't be displayed if there's another [Bulletin] displayed
-             * with the same name and content of this [Bulletin]
+             * [DuplicateStrategy] for managing duplicate bulletins. You can choose
+             * one of many implementations in the library or implement your own strategy.
              */
-            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
-                options.ignoreIfSameContentDisplayed = ignore
+            fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
+                options.duplicateStrategy = strategy
                 return this
             }
 

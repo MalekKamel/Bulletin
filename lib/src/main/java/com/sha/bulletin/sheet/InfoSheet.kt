@@ -11,7 +11,7 @@ class InfoSheet : BulletinSheet() {
     override val name: String = javaClass.name
     override val content: String = options.content
     override var layoutId: Int = R.layout.frag_sheet_info
-    override var ignoreIfSameContentDisplayed: Boolean = options.ignoreIfSameContentDisplayed
+    override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     private val tvTitle: TextView by lazy { view!!.findViewById<TextView>(R.id.tvTitle) }
     private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
@@ -41,7 +41,7 @@ class InfoSheet : BulletinSheet() {
             var content: String = "",
             var dismissCallback: (() -> Unit)? = null,
             var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside,
-            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
+            var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
             var iconSetup: IconSetup = BulletinConfig.iconSetup
     ){
         class Builder {
@@ -72,11 +72,11 @@ class InfoSheet : BulletinSheet() {
             }
 
             /**
-             * If true, this [Bulletin] won't be displayed if there's another [Bulletin] displayed
-             * with the same name and content of this [Bulletin]
+             * [DuplicateStrategy] for managing duplicate bulletins. You can choose
+             * one of many implementations in the library or implement your own strategy.
              */
-            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
-                options.ignoreIfSameContentDisplayed = ignore
+            fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
+                options.duplicateStrategy = strategy
                 return this
             }
 

@@ -1,5 +1,6 @@
 package com.sha.bulletin.dialog
 
+import com.sha.bulletin.DefaultDuplicateStrategy
 import com.sha.bulletin.IconSetup
 import org.junit.Before
 import org.junit.Test
@@ -38,8 +39,9 @@ class InfoDialogTest {
 
     @Test
     fun ignoreIfSameContentDisplayed() {
-        options.ignoreIfSameContentDisplayed(true)
-        assert(options.build().ignoreIfSameContentDisplayed)
+        val strategy = DefaultDuplicateStrategy()
+        options.duplicateStrategy(strategy)
+        assert(options.build().duplicateStrategy == strategy)
     }
 
     @Test

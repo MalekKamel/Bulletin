@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
+import com.sha.bulletin.DuplicateStrategy
 import com.sha.bulletin.R
 
 class LoadingDialog : BulletinDialog() {
@@ -15,7 +16,7 @@ class LoadingDialog : BulletinDialog() {
     override var layoutId: Int = R.layout.frag_dialog_loading
     override fun isCancelable(): Boolean  = options.isCancellableOnTouchOutside
     private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
-    override var ignoreIfSameContentDisplayed: Boolean = options.ignoreIfSameContentDisplayed
+    override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellableOnTouchOutside)
@@ -25,7 +26,7 @@ class LoadingDialog : BulletinDialog() {
     data class Options(
             var content: String = "",
             var onDismissClicked: (() -> Unit)? = null,
-            var ignoreIfSameContentDisplayed: Boolean = BulletinConfig.ignoreIfSameContentDisplayed,
+            var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
             var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside
     ){
 
@@ -49,11 +50,11 @@ class LoadingDialog : BulletinDialog() {
             }
 
             /**
-             * If true, this [Bulletin] won't be displayed if there's another bulletin displayed
-             * with the same name and content of this bulletin
+             * [DuplicateStrategy] for managing duplicate bulletins. You can choose
+             * one of many implementations in the library or implement your own strategy.
              */
-            fun ignoreIfSameContentDisplayed(ignore: Boolean): Builder {
-                options.ignoreIfSameContentDisplayed = ignore
+            fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
+                options.duplicateStrategy = strategy
                 return this
             }
 

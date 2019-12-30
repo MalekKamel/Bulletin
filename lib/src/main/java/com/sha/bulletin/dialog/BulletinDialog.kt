@@ -12,9 +12,7 @@ import android.view.Window
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
-import com.sha.bulletin.Bulletin
-import com.sha.bulletin.BulletinManager
-import com.sha.bulletin.isDisplayed
+import com.sha.bulletin.*
 
 /**
  * Created by Sha on 12/24/19.
@@ -31,7 +29,7 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
     open var isDisplayed: Boolean = false
     open var hasTitle: Boolean = false
 
-    abstract var ignoreIfSameContentDisplayed: Boolean
+    abstract var duplicateStrategy: DuplicateStrategy
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,7 +58,7 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
      * Show this [Bulletin]
      */
     open fun show(activity: FragmentActivity) {
-        if (ignoreIfSameContentDisplayed && isDisplayed(name, content)) return
+        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
         if (isDisplayed) return
         show(activity.supportFragmentManager, name)
         isDisplayed = true
