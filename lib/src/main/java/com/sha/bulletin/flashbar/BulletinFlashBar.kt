@@ -10,9 +10,9 @@ abstract class BulletinFlashBar(builder: Builder): Flashbar(builder), Bulletin {
      * Show this [Bulletin]
      */
     override fun show() {
-        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
-        super.show()
+        if (duplicateStrategy.shouldIgnore(this, BulletinManager.bulletins)) return
         BulletinManager.add(this)
+        super.show()
     }
 
     override fun onDestroy() {

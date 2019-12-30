@@ -12,7 +12,7 @@ class LoadingDialog : BulletinDialog() {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
-    override val content: String = options.content
+    override val content: String by lazy { options.content }
     override var layoutId: Int = R.layout.frag_dialog_loading
     override fun isCancelable(): Boolean  = options.isCancellableOnTouchOutside
     private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }

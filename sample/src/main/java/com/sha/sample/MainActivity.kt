@@ -74,10 +74,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
     private fun manageBulletins() {
         btnDismissAllBulletins.setOnClickListener {
-            showErrorInFlashBar("Will be dismissed after 2 seconds!")
             showMessageSheet("Will be dismissed after 2 seconds!")
             showRetryDialog("Will be dismissed after 2 seconds!")
             longToast("Will be dismissed after 2 seconds!")
+            showErrorInFlashBar("Will be dismissed after 2 seconds!")
             // Dismiss all bulletins after 2 seconds
             Handler().postDelayed({ dismissAll() }, TimeUnit.SECONDS.toMillis(2))
         }

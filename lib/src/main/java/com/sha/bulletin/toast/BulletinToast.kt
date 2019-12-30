@@ -18,10 +18,9 @@ abstract class BulletinToast(context: Context): Toast(context), Bulletin {
      * Show this [Bulletin]
      */
     override fun show() {
-        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
-        super.show()
+        if (duplicateStrategy.shouldIgnore(this, BulletinManager.bulletins)) return
         BulletinManager.add(this)
-
+        super.show()
         // schedule removing from bulletins
         val duration = if(duration == LENGTH_LONG) 3.5 else 2.toDouble()
         Handler().postDelayed({ BulletinManager.remove(this) },  TimeUnit.SECONDS.toMillis(duration.toLong()) )

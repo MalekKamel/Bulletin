@@ -10,7 +10,7 @@ class InfoDialog : BulletinDialog() {
     var options: Options = Options.default()
     override var layoutId: Int = R.layout.frag_dialog_info
     override val name: String = javaClass.name
-    override val content: String = options.content
+    override val content: String by lazy { options.content }
     override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     private val tvTitle: TextView by lazy { view!!.findViewById<TextView>(R.id.tvTitle) }

@@ -10,7 +10,7 @@ package com.sha.bulletin
  */
 object BulletinConfig {
     var isCancellableOnTouchOutside: Boolean = true
-    var duplicateStrategy: DuplicateStrategy = DefaultDuplicateStrategy()
+    var duplicateStrategy: DuplicateStrategy = ContentDuplicateStrategy()
     var iconSetup: IconSetup = IconSetup.default()
 
     class Builder {

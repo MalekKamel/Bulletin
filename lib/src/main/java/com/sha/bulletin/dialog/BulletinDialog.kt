@@ -58,11 +58,11 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
      * Show this [Bulletin]
      */
     open fun show(activity: FragmentActivity) {
-        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
+        if (duplicateStrategy.shouldIgnore(this, BulletinManager.bulletins)) return
         if (isDisplayed) return
+        BulletinManager.add(this)
         show(activity.supportFragmentManager, name)
         isDisplayed = true
-        BulletinManager.add(this)
     }
 
     fun onDismissListener(callback: () -> Unit): BulletinDialog {

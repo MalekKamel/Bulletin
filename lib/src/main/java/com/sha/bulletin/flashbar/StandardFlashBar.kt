@@ -8,7 +8,7 @@ class StandardFlashBar(builder: Builder): BulletinFlashBar(builder) {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
-    override val content: String = builder.message ?: ""
+    override val content: String by lazy { builder.message ?: "" }
     override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     data class Options(

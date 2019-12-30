@@ -9,7 +9,7 @@ import com.sha.bulletin.*
 class RetrySheet : BulletinSheet() {
     var options: Options = Options.default()
     override val name: String = javaClass.name
-    override val content: String = options.content
+    override val content: String by lazy { options.content }
     override var layoutId: Int = R.layout.frag_dialog_retry
     override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
