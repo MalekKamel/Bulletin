@@ -2,7 +2,7 @@
 # Bulletin 
 An abstraction for alert messages in android.
 
-<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram.png" height="400">
+<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram2.png" height="400">
 
 ### License
 
