@@ -18,7 +18,7 @@ abstract class BulletinToast(context: Context): Toast(context), Bulletin {
      * Show this [Bulletin]
      */
     override fun show() {
-        if (duplicateStrategy.shouldIgnore(this, bulletins)) return
+        if (duplicateStrategy.shouldIgnore(this, BulletinManager.bulletins)) return
         BulletinManager.add(this)
         super.show()
         // schedule removing from bulletins

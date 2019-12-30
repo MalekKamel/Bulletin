@@ -42,7 +42,11 @@ class BulletinManager {
          * @param name of the bulletin
          */
         @JvmStatic
-        fun isAnyDisplayed(name: String) = bulletins.any { it.name == name }
+        fun isAnyDisplayed(name: String): Boolean {
+          return bulletins.any {
+                it.name == name
+            }
+        }
 
         /**
          * Returns true if the [Bulletin] is displayed

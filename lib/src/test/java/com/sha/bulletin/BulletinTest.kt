@@ -9,7 +9,7 @@ class BulletinTest {
     @Before
     fun setup() {
         bulletin = FakeBulletin()
-        bulletins = mutableSetOf(bulletin)
+        BulletinManager.bulletins = mutableSetOf(bulletin)
     }
 
     @Test
@@ -55,12 +55,4 @@ class BulletinTest {
         dismiss(bulletin.name, bulletin.content)
         assert(bulletin.isDismissed)
     }
-}
-
-class FakeBulletin: Bulletin {
-    override val name: String = javaClass.name
-    override val content: String = "content"
-
-    var isDismissed = false
-    override fun dismiss() { isDismissed = true }
 }

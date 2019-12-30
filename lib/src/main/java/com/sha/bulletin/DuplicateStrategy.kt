@@ -20,7 +20,7 @@ class ContentDuplicateStrategy: DuplicateStrategy {
     }
 }
 
-class NameAndContentDuplicateStrategy: DuplicateStrategy {
+class NameContentDuplicateStrategy: DuplicateStrategy {
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: MutableSet<Bulletin>): Boolean {
         return isAnyDisplayed(bulletin.name, bulletin.content)
     }
