@@ -4,8 +4,12 @@ An abstraction for alert messages in android.
 
 <img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram2.png" height="400">
 
-### License
-
+### 🛡 License
+<details>
+    <summary>
+        click to reveal License
+    </summary>
+    
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,5 +24,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-### Credit
- [Android Form EditText](https://github.com/vekexasia/android-edittext-validator).
+</details>
