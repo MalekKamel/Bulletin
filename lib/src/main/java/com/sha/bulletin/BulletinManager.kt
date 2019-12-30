@@ -117,11 +117,6 @@ class BulletinManager {
 }
 
 /**
- * @see [BulletinManager.bulletins]
- */
-var bulletins: MutableSet<Bulletin> = BulletinManager.bulletins
-
-/**
  * @see [BulletinManager.isAnyDisplayed]
  */
 fun isAnyDisplayed(bulletin: Bulletin) = BulletinManager.isAnyDisplayed(bulletin)
