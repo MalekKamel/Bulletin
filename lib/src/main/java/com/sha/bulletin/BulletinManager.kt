@@ -54,7 +54,8 @@ class BulletinManager {
         fun dismissAll() {
             // toMutableList() creates a copy of the set, why?
             // to avoid ConcurrentModificationException as Bulletin.dismiss removes the
-            // Bulletin from the set while we're looping over it.
+            // Bulletin from the set while we're looping over it. The solution is to loop
+            // over the copied list while we remove the items from the original list.
             bulletins.toMutableList().forEach { it.dismiss() }
         }
 
