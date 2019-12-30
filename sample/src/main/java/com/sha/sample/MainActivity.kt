@@ -28,10 +28,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     }
 
     private fun sheet() {
-        btnMessageSheet.setOnClickListener {
-            showMessageSheet(message)
-            showMessageSheet(message)
-        }
+        btnMessageSheet.setOnClickListener { showMessageSheet(message) }
 
         btnWarningSheet.setOnClickListener {
             showInfoSheet(InfoSheet.Options.create {
@@ -42,7 +39,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                     containerColorRes = R.color.colorPrimary
                 }
             })
-            showWarningSheet(message)
         }
 
         btnErrorSheet.setOnClickListener { showErrorSheet(message) }
@@ -53,18 +49,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         btnMessageDialog.setOnClickListener { showMessageDialog(message)  }
         btnWarningDialog.setOnClickListener { showWarningDialog(message) }
         btnErrorDialog.setOnClickListener { showErrorDialog(message) }
-
-        btnRetryDialog.setOnClickListener {
-            showRetryDialog(message)
-            showRetryDialog(message)
-        }
+        btnRetryDialog.setOnClickListener { showRetryDialog(message) }
     }
 
     private fun flashBar() {
-        btnFlashBar.setOnClickListener {
-            showErrorInFlashBar(message)
-            showErrorInFlashBar(message)
-        }
+        btnFlashBar.setOnClickListener { showErrorInFlashBar(message) }
     }
 
     private fun toast() {
