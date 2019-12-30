@@ -13,9 +13,9 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sha.bulletin.Bulletin
+import com.sha.bulletin.BulletinManager
 import com.sha.bulletin.R
-import com.sha.bulletin.bulletins
-import com.sha.bulletin.isBulletinDisplayed
+import com.sha.bulletin.isDisplayed
 
 /**
  * Created by Sha on 9/24/17.
@@ -65,11 +65,11 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
      * Show this [Bulletin]
      */
     open fun show(activity: FragmentActivity) {
-        if (ignoreIfSameContentDisplayed && isBulletinDisplayed(name, content)) return
+        if (ignoreIfSameContentDisplayed && isDisplayed(name, content)) return
         if (isDisplayed) return
         show(activity.supportFragmentManager, name)
         isDisplayed = true
-        bulletins.add(this)
+        BulletinManager.add(this)
     }
 
     fun onDismissListener(callback: () -> Unit) {
@@ -80,12 +80,12 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
         isDisplayed = false
-        bulletins.remove(this)
+        BulletinManager.remove(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isDisplayed = false
-        bulletins.remove(this)
+        BulletinManager.remove(this)
     }
 }

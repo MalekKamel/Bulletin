@@ -2,8 +2,8 @@ package com.sha.bulletin.flashbar
 
 import com.andrognito.flashbar.Flashbar
 import com.sha.bulletin.Bulletin
-import com.sha.bulletin.bulletins
-import com.sha.bulletin.isBulletinDisplayed
+import com.sha.bulletin.BulletinManager
+import com.sha.bulletin.isDisplayed
 
 abstract class BulletinFlashBar(builder: Builder): Flashbar(builder), Bulletin {
     abstract var ignoreIfSameContentDisplayed: Boolean
@@ -12,13 +12,13 @@ abstract class BulletinFlashBar(builder: Builder): Flashbar(builder), Bulletin {
      * Show this [Bulletin]
      */
     override fun show() {
-        if (ignoreIfSameContentDisplayed && isBulletinDisplayed(name, content)) return
+        if (ignoreIfSameContentDisplayed && isDisplayed(name, content)) return
         super.show()
-        bulletins.add(this)
+        BulletinManager.add(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        bulletins.remove(this)
+        BulletinManager.remove(this)
     }
 }

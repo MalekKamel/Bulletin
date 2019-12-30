@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Alertable
 import com.sha.bulletin.IconSetup
-import com.sha.bulletin.dismissAllBulletins
+import com.sha.bulletin.dismissAll
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.formvalidatorsample.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -79,7 +79,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             showRetryDialog("Will be dismissed after 2 seconds!")
             longToast("Will be dismissed after 2 seconds!")
             // Dismiss all bulletins after 2 seconds
-            Handler().postDelayed({ dismissAllBulletins() }, TimeUnit.SECONDS.toMillis(2))
+            Handler().postDelayed({ dismissAll() }, TimeUnit.SECONDS.toMillis(2))
         }
     }
 

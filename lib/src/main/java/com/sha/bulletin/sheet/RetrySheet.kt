@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import com.sha.bulletin.*
+import com.sha.bulletin.BulletinConfig
+import com.sha.bulletin.IconContainer
+import com.sha.bulletin.IconSetup
+import com.sha.bulletin.R
 
 class RetrySheet : BulletinSheet() {
     var options: Options = Options.default()

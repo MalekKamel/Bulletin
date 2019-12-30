@@ -9,50 +9,50 @@ class BulletinTest {
     @Before
     fun setup() {
         bulletin = FakeBulletin()
-        bulletins = mutableSetOf(bulletin)
+        BulletinManager.bulletins = mutableSetOf(bulletin)
     }
 
     @Test
     fun isBulletinDisplayedWithInstance_returnsTrue() {
-        assert(isBulletinDisplayed(bulletin))
+        assert(isDisplayed(bulletin))
     }
 
     @Test
     fun isBulletinDisplayedWithName_returnsTrue() {
-        assert(isBulletinDisplayed(bulletin.name))
+        assert(isDisplayed(bulletin.name))
     }
 
     @Test
     fun isBulletinDisplayedWithContent_returnsTrue() {
-        assert(isBulletinDisplayed(bulletin.name))
+        assert(isDisplayed(bulletin.name))
     }
 
     @Test
     fun isBulletinDisplayedWithNameAndContent_returnsTrue() {
-        assert(isBulletinDisplayed(bulletin.name, bulletin.content))
+        assert(isDisplayed(bulletin.name, bulletin.content))
     }
 
     @Test
     fun dismissAllBulletins_dismissShouldBeCalled() {
-        dismissAllBulletins()
+        dismissAll()
         assert(bulletin.isDismissed)
     }
 
     @Test
     fun dismissBulletinWithName_dismissShouldBeCalled() {
-        dismissBulletinWithName(bulletin.name)
+        dismissWithName(bulletin.name)
         assert(bulletin.isDismissed)
     }
 
     @Test
     fun dismissBulletinWithContent_dismissShouldBeCalled() {
-        dismissBulletinWithContent(bulletin.content)
+        dismissWithContent(bulletin.content)
         assert(bulletin.isDismissed)
     }
 
     @Test
     fun dismissBulletinWithNameAndContent_dismissShouldBeCalled() {
-        dismissBulletin(bulletin.name, bulletin.content)
+        dismiss(bulletin.name, bulletin.content)
         assert(bulletin.isDismissed)
     }
 }
