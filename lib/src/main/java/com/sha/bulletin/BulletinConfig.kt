@@ -12,7 +12,7 @@ object BulletinConfig {
     var isCancellableOnTouchOutside: Boolean = true
     var duplicateStrategy: DuplicateStrategy = DefaultDuplicateStrategy()
     var iconSetup: IconSetup = IconSetup.default()
-
+    var flashBarDuration = 6000L
     class Builder {
 
         /**

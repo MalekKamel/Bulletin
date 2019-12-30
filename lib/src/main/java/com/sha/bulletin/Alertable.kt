@@ -248,32 +248,32 @@ interface FlashBarAlertable {
     fun activity(): FragmentActivity?
 
     @JvmDefault
-    fun showMessageInFlashBar(content: String, duration: Long = 6000) {
+    fun showMessageInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
         activity()?.run { showFlashBar(content, duration, R.color.white) }
     }
 
     @JvmDefault
-    fun showMessageInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
+    fun showMessageInFlashBar(@StringRes contentRes: Int, duration: Long = BulletinConfig.flashBarDuration) {
         activity()?.run { showFlashBar(getString(contentRes), duration, R.color.white) }
     }
 
     @JvmDefault
-    fun showWarningInFlashBar(content: String, duration: Long = 6000) {
+    fun showWarningInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
         activity()?.run { showFlashBar(content, duration, R.color.warning) }
     }
 
     @JvmDefault
-    fun showWarningInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
+    fun showWarningInFlashBar(@StringRes contentRes: Int, duration: Long = BulletinConfig.flashBarDuration) {
         activity()?.run { showFlashBar(getString(contentRes), duration, R.color.warning) }
     }
 
     @JvmDefault
-    fun showErrorInFlashBar(content: String, duration: Long = 6000) {
+    fun showErrorInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
         activity()?.run { showFlashBar(content, duration, R.color.error) }
     }
 
     @JvmDefault
-    fun showErrorInFlashBar(@StringRes contentRes: Int, duration: Long = 6000) {
+    fun showErrorInFlashBar(@StringRes contentRes: Int, duration: Long = BulletinConfig.flashBarDuration) {
         activity()?.run { showFlashBar(getString(contentRes), duration, R.color.error) }
     }
 
