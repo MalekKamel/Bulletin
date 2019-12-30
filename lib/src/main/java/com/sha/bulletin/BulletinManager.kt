@@ -10,33 +10,39 @@ class BulletinManager {
          * [Bulletin] instances, this set contains the displayed [Bulletin]s only.
          * The instance is added when the [Bulletin] is displayed and removed when it's destroyed.
          */
+        @JvmStatic
         var bulletins: MutableSet<Bulletin> = mutableSetOf()
 
         /**
          * The [Bulletin] is added only if it's visible or will be visible to the user
          */
+        @JvmStatic
         fun add(bulletin: Bulletin) = bulletins.add(bulletin)
 
         /**
          * The [Bulletin] is removed only if it's destroyed or will be destroyed.
          */
+        @JvmStatic
         fun remove(bulletin: Bulletin) = bulletins.remove(bulletin)
 
         /**
          * Returns true if the [Bulletin] is displayed
          */
+        @JvmStatic
         fun isDisplayed(bulletin: Bulletin) = bulletins.any { it == bulletin }
 
         /**
          * Returns true if the [Bulletin] is displayed
          * @param name of the bulletin
          */
+        @JvmStatic
         fun isDisplayed(name: String) = bulletins.any { it.name == name }
 
         /**
          * Returns true if the [Bulletin] is displayed
          * @param content of the bulletin
          */
+        @JvmStatic
         fun isDisplayedWithContent(content: String) = bulletins.any { it.content == content }
 
         /**
@@ -44,6 +50,7 @@ class BulletinManager {
          * @param name of the bulletin
          * @param content of the bulletin
          */
+        @JvmStatic
         fun isDisplayed(name: String, content: String): Boolean {
             return bulletins.filter { it.name == name }.any { it.content == content }
         }
@@ -51,6 +58,7 @@ class BulletinManager {
         /**
          * Dismiss all [Bulletin]s
          */
+        @JvmStatic
         fun dismissAll() {
             // toMutableList() creates a copy of the set, why?
             // to avoid ConcurrentModificationException as Bulletin.dismiss removes the
@@ -63,6 +71,7 @@ class BulletinManager {
          * Dismiss [Bulletin] with its name
          * @param name of the bulletin
          */
+        @JvmStatic
         fun dismissWithName(name: String) {
             // Look at dismissAll()
             bulletins.toMutableList()
@@ -74,6 +83,7 @@ class BulletinManager {
          * Dismiss [Bulletin] with its content
          * @param content of the bulletin
          */
+        @JvmStatic
         fun dismissWithContent(content: String) {
             // Look at dismissAll()
             bulletins.toMutableList()
@@ -86,13 +96,13 @@ class BulletinManager {
          * @param name of the [Bulletin]
          * @param content of the [Bulletin]
          */
+        @JvmStatic
         fun dismiss(name: String, content: String) {
             // Look at dismissAll()
             bulletins.toMutableList()
                     .filter { it.name == name && it.content == content }
                     .forEach { it.dismiss() }
         }
-        
     }
 }
 
