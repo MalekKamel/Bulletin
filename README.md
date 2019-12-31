@@ -2,7 +2,9 @@
 # Bulletin 
 An abstraction for alert messages in android.
 
-<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram2.png" height="400">
+More and more times you need to report messages (bulletins) to the user and you spread its code everywhere.  And in a lot of cases you need to avoid duplicate messages and 
+
+<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram3.png" height="400">
 
 ### 🛡 License
 <details>
