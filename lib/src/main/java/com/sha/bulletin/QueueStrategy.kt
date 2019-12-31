@@ -5,36 +5,64 @@ import com.sha.bulletin.flashbar.BulletinFlashBar
 import com.sha.bulletin.sheet.BulletinSheet
 import com.sha.bulletin.toast.BulletinToast
 
+/**
+ * A strategy allows adding a queuing behavior for a specific [Bulletin]. The [Bulletin] is qualified
+ * for queuing if there's a strategy allows queuing. You can add any number of strategies, and if
+ * there's at least one strategy allows queuing the [Bulletin], it will be queued. The queued [Bulletin]
+ * will be displayed when the displayed [Bulletin] is dismissed.
+ */
 interface QueueStrategy {
     fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean
 }
 
+/**
+ * This strategy disables any [Bulletin] queuing. This is the default behavior ot the library.
+ */
 class NoneQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = false
 }
 
+/**
+ * This strategy allows queuing any [Bulletin].
+ */
 class AllQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = true
 }
 
+/**
+ * This strategy allows queuing of [BulletinDialog] only. If there's any number of [BulletinDialog]
+ * displayed, the new [Bulletin] will be queued and will be displayed once the displayed one is dismissed.
+ */
 class DialogQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
        return bulletin is BulletinDialog && displayedBulletins.any { it is BulletinDialog }
     }
 }
 
+/**
+ * This strategy allows queuing of [BulletinSheet] only. If there's any number of [BulletinSheet]
+ * displayed, the new [Bulletin] will be queued and will be displayed once the displayed one is dismissed.
+ */
 class SheetQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return bulletin is BulletinSheet && displayedBulletins.any { it is BulletinSheet }
     }
 }
 
+/**
+ * This strategy allows queuing of [BulletinFlashBar] only. If there's any number of [BulletinFlashBar]
+ * displayed, the new [Bulletin] will be queued and will be displayed once the displayed one is dismissed.
+ */
 class FlashBarQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return bulletin is BulletinFlashBar && displayedBulletins.any { it is BulletinFlashBar }
     }
 }
 
+/**
+ * This strategy allows queuing of [BulletinToast] only. If there's any number of [BulletinToast]
+ * displayed, the new [Bulletin] will be queued and will be displayed once the displayed one is dismissed.
+ */
 class ToastQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return bulletin is BulletinToast && displayedBulletins.any { it is BulletinToast }
