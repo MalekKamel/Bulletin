@@ -63,7 +63,7 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
      */
     open fun show(activity: FragmentActivity) {
         if (isDisplayed) return
-        BulletinManager.add(this)
+        BulletinManager.addToDisplayed(this)
         show(activity.supportFragmentManager, name)
         isDisplayed = true
     }
@@ -77,12 +77,12 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
         isDisplayed = false
-        BulletinManager.remove(this, activity)
+        BulletinManager.removeFromDisplayed(this, activity)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isDisplayed = false
-        BulletinManager.remove(this, activity)
+        BulletinManager.removeFromDisplayed(this, activity)
     }
 }

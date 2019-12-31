@@ -67,7 +67,7 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
      */
     fun show(activity: FragmentActivity) {
         if (isDisplayed) return
-        BulletinManager.add(this)
+        BulletinManager.addToDisplayed(this)
         show(activity.supportFragmentManager, name)
         isDisplayed = true
     }
@@ -80,12 +80,12 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
         isDisplayed = false
-        BulletinManager.remove(this, activity)
+        BulletinManager.removeFromDisplayed(this, activity)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isDisplayed = false
-        BulletinManager.remove(this, activity)
+        BulletinManager.removeFromDisplayed(this, activity)
     }
 }

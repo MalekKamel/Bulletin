@@ -15,12 +15,12 @@ abstract class BulletinFlashBar(val builder: Builder): Flashbar(builder), Bullet
      * Show this [Bulletin]
      */
     override fun show() {
-        BulletinManager.add(this)
+        BulletinManager.addToDisplayed(this)
         super.show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        BulletinManager.remove(this, builder.activity)
+        BulletinManager.removeFromDisplayed(this, builder.activity)
     }
 }

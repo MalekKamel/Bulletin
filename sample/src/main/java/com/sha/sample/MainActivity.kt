@@ -20,6 +20,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         setContentView(R.layout.activity_main)
 
         BulletinConfig.queueStrategies = mutableSetOf(
+                AllQueueStrategy(),
                 DialogQueueStrategy(),
                 SheetQueueStrategy(),
                 FlashBarQueueStrategy(),

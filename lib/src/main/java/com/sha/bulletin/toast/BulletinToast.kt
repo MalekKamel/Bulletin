@@ -13,7 +13,7 @@ abstract class BulletinToast(private val activity: FragmentActivity): Toast(acti
 
     override fun dismiss() {
         cancel()
-        BulletinManager.remove(this, activity)
+        BulletinManager.removeFromDisplayed(this, activity)
     }
 
     override fun showBulletin(activity: FragmentActivity?) = show()
@@ -21,11 +21,11 @@ abstract class BulletinToast(private val activity: FragmentActivity): Toast(acti
      * Show this [Bulletin]
      */
     override fun show() {
-        BulletinManager.add(this)
+        BulletinManager.addToDisplayed(this)
         super.show()
         // schedule removing from bulletins
         val duration = if(duration == LENGTH_LONG) 3.5 else 2.toDouble()
-        Handler().postDelayed({ BulletinManager.remove(this, activity) },  TimeUnit.SECONDS.toMillis(duration.toLong()) )
+        Handler().postDelayed({ BulletinManager.removeFromDisplayed(this, activity) },  TimeUnit.SECONDS.toMillis(duration.toLong()) )
     }
 
 }

@@ -1,14 +1,12 @@
 package com.sha.bulletin
 
 import androidx.fragment.app.FragmentActivity
-import java.util.*
 
 /**
  * This class is responsible for managing [Bulletin]s like storing bulletin instances,
  * adding & removing bulletins, and checking if a bulletin is displayed.
  */
-class BulletinManager {
-    companion object {
+object BulletinManager {
         /**
          * [Bulletin] instances, this set contains the displayed [Bulletin]s only.
          * The instance is added when the [Bulletin] is displayed and removed when it's destroyed.
@@ -20,13 +18,13 @@ class BulletinManager {
          * The [Bulletin] is added only if it's visible or will be visible to the user
          */
         @JvmStatic
-        fun add(bulletin: Bulletin) = displayedBulletins.add(bulletin)
+        fun addToDisplayed(bulletin: Bulletin) = displayedBulletins.add(bulletin)
 
         /**
          * The [Bulletin] is removed only if it's destroyed or will be destroyed.
          */
         @JvmStatic
-        fun remove(bulletin: Bulletin, activity: FragmentActivity?) {
+        fun removeFromDisplayed(bulletin: Bulletin, activity: FragmentActivity?) {
             displayedBulletins.remove(bulletin)
             QueueManager.showNext(activity)
         }
@@ -125,7 +123,6 @@ class BulletinManager {
                     .filter { it.name == name && it.content == content }
                     .forEach { it.dismiss() }
         }
-    }
 }
 
 /**

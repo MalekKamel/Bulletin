@@ -9,10 +9,12 @@ interface QueueStrategy {
     fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean
 }
 
-class DefaultQueueStrategy: QueueStrategy {
-    override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
-        return false
-    }
+class NoneQueueStrategy: QueueStrategy {
+    override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = false
+}
+
+class AllQueueStrategy: QueueStrategy {
+    override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = true
 }
 
 class DialogQueueStrategy: QueueStrategy {
