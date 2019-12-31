@@ -33,7 +33,7 @@ class RetryDialog : BulletinDialog() {
         tvContent.text = options.content
 
         btnRetry.setOnClickListener {
-            options.onRetry?.invoke()
+            options.onRetryClicked?.invoke()
             dismiss()
         }
 
@@ -46,7 +46,7 @@ class RetryDialog : BulletinDialog() {
     data class Options(
             var title: String = "",
             var content: String = "",
-            var onRetry: (() -> Unit)? = null,
+            var onRetryClicked: (() -> Unit)? = null,
             var onDismissClicked: (() -> Unit)? = null,
             var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside,
             var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
@@ -74,8 +74,8 @@ class RetryDialog : BulletinDialog() {
             /**
              * Callback invoked on clicking retry button
              */
-            fun onRetry(callback: (() -> Unit)?): Builder {
-                options.onRetry = callback
+            fun onRetryClicked(callback: (() -> Unit)?): Builder {
+                options.onRetryClicked = callback
                 return this
             }
 

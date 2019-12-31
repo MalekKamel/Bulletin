@@ -48,6 +48,13 @@ class InfoSheet : BulletinSheet() {
             private val options = Options()
 
             /**
+             * Title for the [Bulletin]
+             */
+            fun title(title: String): Builder {
+                options.title = title
+                return this
+            }
+            /**
              * Content to be displayed
              */
             fun content(content: String): Builder {
@@ -77,14 +84,6 @@ class InfoSheet : BulletinSheet() {
              */
             fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
                 options.duplicateStrategy = strategy
-                return this
-            }
-
-            /**
-             * Title for the [Bulletin]
-             */
-            fun title(title: String): Builder {
-                options.title = title
                 return this
             }
 

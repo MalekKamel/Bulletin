@@ -27,20 +27,20 @@ class RetrySheetTest {
 
     @Test
     fun retryCallback() {
-        options.retryCallback {}
-        assert(options.build().retryCallback != null)
+        options.onRetryClicked {}
+        assert(options.build().onRetryClicked != null)
     }
 
     @Test
     fun dismissCallback() {
-        options.dismissCallback {}
-        assert(options.build().dismissCallback != null)
+        options.onDismissClicked {}
+        assert(options.build().onDismissClicked != null)
     }
 
     @Test
     fun isCancellable() {
-        options.isCancellable(false)
-        assert(!options.build().isCancellable)
+        options.isCancellableOnTouchOutside(false)
+        assert(!options.build().isCancellableOnTouchOutside)
     }
 
     @Test

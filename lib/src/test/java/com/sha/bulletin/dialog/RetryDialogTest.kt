@@ -27,8 +27,8 @@ class RetryDialogTest {
 
     @Test
     fun retryCallback() {
-        options.onRetry {}
-        assert(options.build().onRetry != null)
+        options.onRetryClicked {}
+        assert(options.build().onRetryClicked != null)
     }
 
     @Test

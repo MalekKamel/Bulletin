@@ -20,7 +20,7 @@ class RetrySheet : BulletinSheet() {
     private val iconContainer: IconContainer by lazy { view!!.findViewById<IconContainer>(R.id.iconContainer) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dialog?.setCanceledOnTouchOutside(options.isCancellable)
+        dialog?.setCanceledOnTouchOutside(options.isCancellableOnTouchOutside)
 
         iconContainer.setup(options.iconSetup)
 
@@ -32,12 +32,12 @@ class RetrySheet : BulletinSheet() {
         tvContent.text = options.content
      
         btnRetry.setOnClickListener {
-            options.retryCallback?.invoke()
+            options.onRetryClicked?.invoke()
             dismiss()
         }
 
         btnDismiss.setOnClickListener {
-            options.dismissCallback?.invoke()
+            options.onDismissClicked?.invoke()
             dismiss()
         }
     }
@@ -45,27 +45,51 @@ class RetrySheet : BulletinSheet() {
     data class Options(
             var title: String = "",
             var content: String = "",
-            var retryCallback: (() -> Unit)? = null,
-            var dismissCallback: (() -> Unit)? = null,
-            var isCancellable: Boolean = BulletinConfig.isCancellableOnTouchOutside,
+            var onRetryClicked: (() -> Unit)? = null,
+            var onDismissClicked: (() -> Unit)? = null,
+            var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside,
             var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
             var iconSetup: IconSetup = BulletinConfig.iconSetup
     ){
         class Builder {
             private val options = Options()
 
-            fun retryCallback(callback: (() -> Unit)?): Builder {
-                options.retryCallback = callback
+            /**
+             * Title for the [Bulletin]
+             */
+            fun title(title: String): Builder {
+                options.title = title
+                return this
+            }
+            /**
+             * Content to be displayed
+             */
+            fun content(content: String): Builder {
+                options.content = content
                 return this
             }
 
-            fun dismissCallback(callback: (() -> Unit)?): Builder {
-                options.dismissCallback = callback
+            /**
+             * Callback invoked on clicking retry button
+             */
+            fun onRetryClicked(callback: (() -> Unit)?): Builder {
+                options.onRetryClicked = callback
                 return this
             }
 
-            fun isCancellable(cancellable: Boolean): Builder {
-                options.isCancellable = cancellable
+            /**
+             * Callback invoked on clicking dismiss button
+             */
+            fun onDismissClicked(callback: (() -> Unit)?): Builder {
+                options.onDismissClicked = callback
+                return this
+            }
+
+            /**
+             * If true, the [Bulletin] can be cancelled on touch outside
+             */
+            fun isCancellableOnTouchOutside(cancellable: Boolean): Builder {
+                options.isCancellableOnTouchOutside = cancellable
                 return this
             }
 
@@ -78,35 +102,46 @@ class RetrySheet : BulletinSheet() {
                 return this
             }
 
-            fun content(content: String): Builder {
-                options.content = content
-                return this
-            }
-
-            fun title(title: String): Builder {
-                options.title = title
-                return this
-            }
-
+            /**
+             * Setup icon
+             */
             fun iconSetup(setup: IconSetup): Builder {
                 options.iconSetup = setup
                 return this
             }
 
+            /**
+             * Returns an instance of this options
+             */
             fun build() = options
         }
 
         companion object {
+            /**
+             * Create the default options
+             */
             fun default(): Options = Builder().build()
-            fun create(message: String, block: Options.() -> Unit) = Options().apply {
-                this.content = message
+            /**
+             * Create the options
+             * @param block DSL for creating the options
+             */
+            fun create(content: String, block: Options.() -> Unit) = Options().apply {
+                this.content = content
                 block()
             }
         }
     }
 
     companion object {
+        /**
+         * Create the [Bulletin]
+         * @param block DSL for creating the options
+         */
         fun create(block: Options.() -> Unit) = RetrySheet().apply { options = Options().apply { block() } }
+        /**
+         * Create the [Bulletin]
+         * @param options for the [Bulletin]
+         */
         fun create(options: Options) = RetrySheet().apply { this.options = options }
     }
 
