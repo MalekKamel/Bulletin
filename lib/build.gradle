@@ -24,4 +24,5 @@ dependencies {
     testImplementation TestDeps.junit
     testImplementation TestDeps.androidx_junit
     testImplementation TestDeps.androidx_test_core_ktx
+    testImplementation TestDeps.mockito_kotlin
 }
