@@ -1,5 +1,8 @@
 package com.sha.bulletin
 
+import androidx.fragment.app.FragmentActivity
+import java.util.*
+
 /**
  * This class is responsible for managing [Bulletin]s like storing bulletin instances,
  * adding & removing bulletins, and checking if a bulletin is displayed.
@@ -11,45 +14,58 @@ class BulletinManager {
          * The instance is added when the [Bulletin] is displayed and removed when it's destroyed.
          */
         @JvmStatic
-        var bulletins: MutableSet<Bulletin> = mutableSetOf()
+        var displayedBulletins: MutableSet<Bulletin> = mutableSetOf()
 
         /**
          * The [Bulletin] is added only if it's visible or will be visible to the user
          */
         @JvmStatic
-        fun add(bulletin: Bulletin) = bulletins.add(bulletin)
+        fun add(bulletin: Bulletin) = displayedBulletins.add(bulletin)
 
         /**
          * The [Bulletin] is removed only if it's destroyed or will be destroyed.
          */
         @JvmStatic
-        fun remove(bulletin: Bulletin) = bulletins.remove(bulletin)
+        fun remove(bulletin: Bulletin, activity: FragmentActivity?) {
+            displayedBulletins.remove(bulletin)
+            QueueManager.showNext(activity)
+        }
+
+        fun show(bulletin: Bulletin,
+                 activity: FragmentActivity?,
+                 duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy) {
+            activity?.run {
+                if (duplicateStrategy.shouldIgnore(bulletin, displayedBulletins)) return
+                if(QueueManager.canQueue(bulletin)) return
+                bulletin.showBulletin(activity)
+            }
+        }
 
         /**
          * Returns true if the [Bulletin] is displayed
          */
         @JvmStatic
-        fun isAnyDisplayed(bulletin: Bulletin) = bulletins.any { it == bulletin }
+        fun isAnyDisplayed(bulletin: Bulletin) = displayedBulletins.any { it == bulletin }
 
         /**
          * Returns true if any [Bulletin] is displayed
          */
         @JvmStatic
-        fun isAnyDisplayed() = bulletins.isNotEmpty()
+        fun isAnyDisplayed() = displayedBulletins.isNotEmpty()
 
         /**
          * Returns true if the [Bulletin] is displayed
          * @param name of the bulletin
          */
         @JvmStatic
-        fun isAnyDisplayed(name: String): Boolean = bulletins.any { it.name == name }
+        fun isAnyDisplayed(name: String): Boolean = displayedBulletins.any { it.name == name }
 
         /**
          * Returns true if the [Bulletin] is displayed
          * @param content of the bulletin
          */
         @JvmStatic
-        fun isAnyDisplayedWithContent(content: String) = bulletins.any { it.content == content }
+        fun isAnyDisplayedWithContent(content: String) = displayedBulletins.any { it.content == content }
 
         /**
          * Returns true if the [Bulletin] is displayed
@@ -58,7 +74,7 @@ class BulletinManager {
          */
         @JvmStatic
         fun isAnyDisplayed(name: String, content: String): Boolean {
-            return bulletins.filter { it.name == name }.any { it.content == content }
+            return displayedBulletins.filter { it.name == name }.any { it.content == content }
         }
 
         /**
@@ -70,7 +86,7 @@ class BulletinManager {
             // to avoid ConcurrentModificationException as Bulletin.dismiss removes the
             // Bulletin from the set while we're looping over it. The solution is to loop
             // over the copied list while we remove the items from the original list.
-            bulletins.toMutableList().forEach { it.dismiss() }
+            displayedBulletins.toMutableList().forEach { it.dismiss() }
         }
 
         /**
@@ -80,7 +96,7 @@ class BulletinManager {
         @JvmStatic
         fun dismissWithName(name: String) {
             // Look at dismissAll()
-            bulletins.toMutableList()
+            displayedBulletins.toMutableList()
                     .filter { it.name == name }
                     .forEach { it.dismiss() }
         }
@@ -92,7 +108,7 @@ class BulletinManager {
         @JvmStatic
         fun dismissWithContent(content: String) {
             // Look at dismissAll()
-            bulletins.toMutableList()
+            displayedBulletins.toMutableList()
                     .filter { it.content == content }
                     .forEach { it.dismiss() }
         }
@@ -105,7 +121,7 @@ class BulletinManager {
         @JvmStatic
         fun dismiss(name: String, content: String) {
             // Look at dismissAll()
-            bulletins.toMutableList()
+            displayedBulletins.toMutableList()
                     .filter { it.name == name && it.content == content }
                     .forEach { it.dismiss() }
         }

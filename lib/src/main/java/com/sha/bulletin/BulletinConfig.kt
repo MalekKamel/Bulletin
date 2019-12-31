@@ -11,10 +11,11 @@ package com.sha.bulletin
 object BulletinConfig {
     var isCancellableOnTouchOutside: Boolean = true
     var duplicateStrategy: DuplicateStrategy = DefaultDuplicateStrategy()
+    var queueStrategies = mutableSetOf<QueueStrategy>()
     var iconSetup: IconSetup = IconSetup.default()
     var flashBarDuration = 6000L
-    class Builder {
 
+    class Builder {
         /**
          * If true, the bulletin can be cancelled on touch outside
          */
@@ -29,6 +30,14 @@ object BulletinConfig {
          */
         fun duplicateStrategy(strategy: DuplicateStrategy): Builder {
             duplicateStrategy = strategy
+            return this
+        }
+
+        /**
+         * [QueueStrategy] for managing [Bulletin] queuing
+         */
+        fun queueStrategies(strategies: Set<QueueStrategy>): Builder {
+            queueStrategies = strategies.toMutableSet()
             return this
         }
 

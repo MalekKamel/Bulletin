@@ -3,12 +3,13 @@ package com.sha.bulletin.toast
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.DuplicateStrategy
 import com.sha.bulletin.R
 
-class StandardToast(context: Context): BulletinToast(context) {
+class StandardToast(activity: FragmentActivity): BulletinToast(activity) {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
@@ -63,26 +64,26 @@ class StandardToast(context: Context): BulletinToast(context) {
          * Create the bulletin
          * @param block DSL for creating the options
          */
-        fun create(context: Context, block: Options.() -> Unit): StandardToast {
-           return create(context, Options().apply(block), null)
+        fun create(activity: FragmentActivity, block: Options.() -> Unit): StandardToast {
+           return create(activity, Options().apply(block), null)
         }
 
         /**
          * Create the bulletin
          */
-        fun create(context: Context, options: Options): StandardToast {
-            return create(context, options, null)
+        fun create(activity: FragmentActivity, options: Options): StandardToast {
+            return create(activity, options, null)
         }
 
         /**
          * Create the bulletin
          * @param options for the bulletin
          */
-        fun create(context: Context,
+        fun create(activity: FragmentActivity,
                    options: Options,
                    block: (StandardToast.() -> Unit)?): StandardToast {
-           return StandardToast(context).apply {
-               view = LayoutInflater.from(context).inflate(R.layout.toast, null)
+           return StandardToast(activity).apply {
+               view = LayoutInflater.from(activity).inflate(R.layout.toast, null)
                view.findViewById<TextView>(R.id.message).text = options.content
                block?.invoke(this)
                this.options = options

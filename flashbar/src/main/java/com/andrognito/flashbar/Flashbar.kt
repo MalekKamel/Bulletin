@@ -10,6 +10,7 @@ import android.widget.ImageView.ScaleType
 import android.widget.ImageView.ScaleType.CENTER_CROP
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.andrognito.flashbar.Flashbar.Gravity.BOTTOM
 import com.andrognito.flashbar.Flashbar.Gravity.TOP
 import com.andrognito.flashbar.anim.FlashAnim
@@ -147,7 +148,7 @@ open class Flashbar(private var builder: Builder) {
         }
     }
 
-    class Builder(internal var activity: Activity) {
+    class Builder(var activity: FragmentActivity) {
         internal var gravity: Gravity = BOTTOM
         internal var backgroundColor: Int? = null
         internal var backgroundDrawable: Drawable? = null

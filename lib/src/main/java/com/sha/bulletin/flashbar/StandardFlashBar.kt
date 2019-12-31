@@ -1,6 +1,5 @@
 package com.sha.bulletin.flashbar
 
-import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.DuplicateStrategy
 

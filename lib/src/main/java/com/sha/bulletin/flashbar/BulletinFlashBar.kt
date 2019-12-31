@@ -1,22 +1,26 @@
 package com.sha.bulletin.flashbar
 
+import androidx.fragment.app.FragmentActivity
 import com.andrognito.flashbar.Flashbar
 import com.sha.bulletin.*
 
-abstract class BulletinFlashBar(builder: Builder): Flashbar(builder), Bulletin {
+abstract class BulletinFlashBar(val builder: Builder): Flashbar(builder), Bulletin {
     abstract var duplicateStrategy: DuplicateStrategy
+
+    override fun showBulletin(activity: FragmentActivity?){
+        builder.build(this).show()
+    }
 
     /**
      * Show this [Bulletin]
      */
     override fun show() {
-        if (duplicateStrategy.shouldIgnore(this, BulletinManager.bulletins)) return
         BulletinManager.add(this)
         super.show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        BulletinManager.remove(this)
+        BulletinManager.remove(this, builder.activity)
     }
 }

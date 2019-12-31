@@ -81,7 +81,9 @@ interface InfoDialogAlertable {
 
     @JvmDefault
     fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.default()) {
-        activity()?.let { InfoDialog.create(options).show(it) }
+        activity()?.run {
+            BulletinManager.show(InfoDialog.create(options), this, options.duplicateStrategy)
+        }
     }
 }
 
@@ -142,7 +144,9 @@ interface InfoSheetAlertable {
 
     @JvmDefault
     fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.default()) {
-        activity()?.let { InfoSheet.create(options).show(it) }
+        activity()?.run {
+            BulletinManager.show(InfoSheet.create(options), this, options.duplicateStrategy)
+        }
     }
 }
 
@@ -161,7 +165,9 @@ interface RetryDialogAlertable {
             content: String,
             options: RetryDialog.Options = RetryDialog.Options.default()) {
         options.content = content
-        activity()?.let { RetryDialog.create(options).show(it) }
+        activity()?.run {
+            BulletinManager.show(RetryDialog.create(options), this, options.duplicateStrategy)
+        }
     }
 }
 
@@ -180,7 +186,9 @@ interface RetrySheetAlertable {
             content: String,
             options: RetrySheet.Options = RetrySheet.Options.default()) {
         options.content = content
-        activity()?.let { RetrySheet.create(options).show(it) }
+        activity()?.run {
+            BulletinManager.show(RetrySheet.create(options), this, options.duplicateStrategy)
+        }
     }
 
 }
@@ -218,7 +226,8 @@ interface ToastAlertable {
               options: StandardToast.Options = StandardToast.Options.default()) {
         activity()?.run {
             options.content = content
-            StandardToast.create(this, options) { this.duration = duration }.show()
+            val toast = StandardToast.create(this, options) { this.duration = duration }
+            BulletinManager.show(toast,this, options.duplicateStrategy)
         }
     }
 }
@@ -240,7 +249,9 @@ interface LoadingDialogAlertable {
 
     @JvmDefault
     fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()) {
-        activity()?.let { LoadingDialog.create(options).show(it) }
+        activity()?.run {
+            BulletinManager.show(LoadingDialog.create(options), this, options.duplicateStrategy)
+        }
     }
 }
 
@@ -249,7 +260,7 @@ interface FlashBarAlertable {
 
     @JvmDefault
     fun showMessageInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
-        activity()?.run { showFlashBar(content, duration, R.color.white) }
+        showFlashBar(content, duration, R.color.white)
     }
 
     @JvmDefault
@@ -259,7 +270,7 @@ interface FlashBarAlertable {
 
     @JvmDefault
     fun showWarningInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
-        activity()?.run { showFlashBar(content, duration, R.color.warning) }
+        showFlashBar(content, duration, R.color.warning)
     }
 
     @JvmDefault
@@ -269,7 +280,7 @@ interface FlashBarAlertable {
 
     @JvmDefault
     fun showErrorInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
-        activity()?.run { showFlashBar(content, duration, R.color.error) }
+        showFlashBar(content, duration, R.color.error)
     }
 
     @JvmDefault
@@ -293,6 +304,8 @@ interface FlashBarAlertable {
     @JvmDefault
     fun showFlashBar(builder: Flashbar.Builder,
                      options: StandardFlashBar.Options = StandardFlashBar.Options.default()) {
-        activity()?.run { builder.build(StandardFlashBar.create(builder, options)).show() }
+        activity()?.run {
+            BulletinManager.show(StandardFlashBar.create(builder, options), this, options.duplicateStrategy)
+        }
     }
 }

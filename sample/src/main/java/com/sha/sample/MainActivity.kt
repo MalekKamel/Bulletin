@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
-import com.sha.bulletin.Alertable
-import com.sha.bulletin.IconSetup
-import com.sha.bulletin.dismissAll
+import com.sha.bulletin.*
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.formvalidatorsample.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,6 +18,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        BulletinConfig.queueStrategies = mutableSetOf(
+                DialogQueueStrategy(),
+                SheetQueueStrategy(),
+                FlashBarQueueStrategy(),
+                ToastQueueStrategy())
+
         sheet()
         dialog()
         flashBar()
@@ -28,7 +33,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     }
 
     private fun sheet() {
-        btnMessageSheet.setOnClickListener { showMessageSheet(message) }
+        btnMessageSheet.setOnClickListener {
+            showMessageSheet(message)
+            showMessageSheet(message)
+            showMessageSheet(message)
+        }
 
         btnWarningSheet.setOnClickListener {
             showInfoSheet(InfoSheet.Options.create {
@@ -67,6 +76,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             showRetryDialog("Will be dismissed after 2 seconds!")
             longToast("Will be dismissed after 2 seconds!")
             showErrorInFlashBar("Will be dismissed after 2 seconds!")
+
             // Dismiss all bulletins after 2 seconds
             Handler().postDelayed({ dismissAll() }, TimeUnit.SECONDS.toMillis(2))
         }

@@ -18,7 +18,14 @@ class BulletinConfigTest {
     }
 
     @Test
-    fun ignoreIfSameContentDisplayed() {
+    fun queueStrategies() {
+        val strategy = DialogQueueStrategy()
+        options.queueStrategies(setOf(strategy))
+        assert(options.build().queueStrategies.size == 1 && options.build().queueStrategies.first() == strategy)
+    }
+
+    @Test
+    fun duplicateStrategy() {
         val strategy = DefaultDuplicateStrategy()
         options.duplicateStrategy(strategy)
         assert(options.build().duplicateStrategy == strategy)

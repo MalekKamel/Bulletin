@@ -54,11 +54,14 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
         return dialog
     }
 
+    override fun showBulletin(activity: FragmentActivity?) {
+        activity?.run { show(this) }
+    }
+
     /**
      * Show this [Bulletin]
      */
     open fun show(activity: FragmentActivity) {
-        if (duplicateStrategy.shouldIgnore(this, BulletinManager.bulletins)) return
         if (isDisplayed) return
         BulletinManager.add(this)
         show(activity.supportFragmentManager, name)
@@ -74,12 +77,12 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
         isDisplayed = false
-        BulletinManager.remove(this)
+        BulletinManager.remove(this, activity)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isDisplayed = false
-        BulletinManager.remove(this)
+        BulletinManager.remove(this, activity)
     }
 }

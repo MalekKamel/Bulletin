@@ -58,11 +58,14 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
         return dialog
     }
 
+    override fun showBulletin(activity: FragmentActivity?) {
+        activity?.run { show(this) }
+    }
+
     /**
      * Show this [Bulletin]
      */
-    open fun show(activity: FragmentActivity) {
-        if (duplicateStrategy.shouldIgnore(this, BulletinManager.bulletins)) return
+    fun show(activity: FragmentActivity) {
         if (isDisplayed) return
         BulletinManager.add(this)
         show(activity.supportFragmentManager, name)
@@ -77,12 +80,12 @@ abstract class BulletinSheet : BottomSheetDialogFragment(), Bulletin {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
         isDisplayed = false
-        BulletinManager.remove(this)
+        BulletinManager.remove(this, activity)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         isDisplayed = false
-        BulletinManager.remove(this)
+        BulletinManager.remove(this, activity)
     }
 }
