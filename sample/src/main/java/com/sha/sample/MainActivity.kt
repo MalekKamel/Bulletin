@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.snackbar.Snackbar
 import com.sha.bulletin.*
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.formvalidatorsample.R
@@ -30,6 +31,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         flashBar()
         toast()
         manageBulletins()
+        snackbar()
+    }
+
+    private fun snackbar() {
+        btnSnackbar.setOnClickListener { showSnackabr(coordinator, message, Snackbar.LENGTH_LONG) }
     }
 
     private fun sheet() {
@@ -81,7 +87,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             showRetryDialog("Will be dismissed after 2 seconds!")
             longToast("Will be dismissed after 2 seconds!")
             showErrorInFlashBar("Will be dismissed after 2 seconds!")
-
+            showSnackabr(coordinator, "Will be dismissed after 2 seconds!", Snackbar.LENGTH_LONG)
             // Dismiss all bulletins after 2 seconds
             Handler().postDelayed({ dismissAllBulletins() }, TimeUnit.SECONDS.toMillis(2))
         }

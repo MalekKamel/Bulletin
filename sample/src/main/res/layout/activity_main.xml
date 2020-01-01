@@ -1,36 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="40dp">
-
-        <TextView
-            android:text="SHEET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            />
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="40dp">
+
+            <TextView
+                android:text="SHEET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnMessageSheet"
+                    android:text="Message"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+                <Button
+                    android:id="@+id/btnWarningSheet"
+                    android:text="Warning"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnErrorSheet"
+                    android:text="Error"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+                <Button
+                    android:id="@+id/btnRetrySheet"
+                    android:text="Retry"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:text="DIALOG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnMessageDialog"
+                    android:text="Message"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+                <Button
+                    android:id="@+id/btnWarningDialog"
+                    android:text="Warning"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnErrorDialog"
+                    android:text="Error"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+                <Button
+                    android:id="@+id/btnRetryDialog"
+                    android:text="Retry"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+            </LinearLayout>
 
             <Button
-                android:id="@+id/btnMessageSheet"
-                android:text="Message"
+                android:id="@+id/btnCustomLoadingDialog"
+                android:text="Custom Loading Dialog"
                 android:textAllCaps="false"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Button.Round"
                 android:layout_margin="5dp"
@@ -38,221 +172,114 @@
                 android:foreground="?android:selectableItemBackground"
                 />
 
+            <TextView
+                android:text="FLASH BAR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:foreground="?android:selectableItemBackground"
+                />
+
             <Button
-                android:id="@+id/btnWarningSheet"
-                android:text="Warning"
+                android:id="@+id/btnFlashBar"
+                android:text="FlashBar"
                 android:textAllCaps="false"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Button.Round"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
+                android:foreground="?android:selectableItemBackground"
+                />
+
+            <TextView
+                android:text="TOAST"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnShortToast"
+                    android:text="Short Toast"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+                <Button
+                    android:id="@+id/btnLongToast"
+                    android:text="Long Toast"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Round"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:foreground="?android:selectableItemBackground"
+                    />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:text="SNACKBAR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <Button
+                android:id="@+id/btnSnackbar"
+                android:text="Snackbar"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
+                android:foreground="?android:selectableItemBackground"
+                />
+
+            <TextView
+                android:text="Manage Bulletins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <Button
+                android:id="@+id/btnDismissAllBulletins"
+                android:text="Dismiss All Bulletins"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Button.Round"
+                android:layout_margin="5dp"
                 android:foreground="?android:selectableItemBackground"
                 />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    </ScrollView>
 
-            <Button
-                android:id="@+id/btnErrorSheet"
-                android:text="Error"
-                android:textAllCaps="false"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/Button.Round"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:foreground="?android:selectableItemBackground"
-                />
-
-            <Button
-                android:id="@+id/btnRetrySheet"
-                android:text="Retry"
-                android:textAllCaps="false"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/Button.Round"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:foreground="?android:selectableItemBackground"
-                />
-
-        </LinearLayout>
-
-        <TextView
-            android:text="DIALOG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnMessageDialog"
-                android:text="Message"
-                android:textAllCaps="false"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/Button.Round"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:foreground="?android:selectableItemBackground"
-                />
-
-            <Button
-                android:id="@+id/btnWarningDialog"
-                android:text="Warning"
-                android:textAllCaps="false"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/Button.Round"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:foreground="?android:selectableItemBackground"
-                />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnErrorDialog"
-                android:text="Error"
-                android:textAllCaps="false"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/Button.Round"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:foreground="?android:selectableItemBackground"
-                />
-
-            <Button
-                android:id="@+id/btnRetryDialog"
-                android:text="Retry"
-                android:textAllCaps="false"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/Button.Round"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:foreground="?android:selectableItemBackground"
-                />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnCustomLoadingDialog"
-            android:text="Custom Loading Dialog"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:foreground="?android:selectableItemBackground"
-            />
-
-        <TextView
-            android:text="FLASH BAR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:foreground="?android:selectableItemBackground"
-            />
-
-        <Button
-            android:id="@+id/btnFlashBar"
-            android:text="FlashBar"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            android:foreground="?android:selectableItemBackground"
-            />
-
-        <TextView
-            android:text="TOAST"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            />
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnShortToast"
-            android:text="Short Toast"
-            android:textAllCaps="false"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:foreground="?android:selectableItemBackground"
-            />
-
-        <Button
-            android:id="@+id/btnLongToast"
-            android:text="Long Toast"
-            android:textAllCaps="false"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:foreground="?android:selectableItemBackground"
-            />
-
-
-    </LinearLayout>
-
-        <TextView
-            android:text="Manage Bulletins"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            />
-
-        <Button
-            android:id="@+id/btnDismissAllBulletins"
-            android:text="Dismiss All Bulletins"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Button.Round"
-            android:layout_margin="5dp"
-            android:foreground="?android:selectableItemBackground"
-            />
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package com.sha.bulletin
 import com.sha.bulletin.dialog.BulletinDialog
 import com.sha.bulletin.flashbar.BulletinFlashBar
 import com.sha.bulletin.sheet.BulletinSheet
+import com.sha.bulletin.snackbar.BulletinSnackbar
 import com.sha.bulletin.toast.BulletinToast
 
 /**
@@ -56,6 +57,16 @@ class SheetQueueStrategy: QueueStrategy {
 class FlashBarQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return bulletin is BulletinFlashBar && displayedBulletins.any { it is BulletinFlashBar }
+    }
+}
+
+/**
+ * This strategy allows queuing of [BulletinSnackbar] only. If there's any number of [BulletinSnackbar]
+ * displayed, the new [Bulletin] will be queued and will be displayed once the displayed one is dismissed.
+ */
+class SnackbarQueueStrategy: QueueStrategy {
+    override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
+        return bulletin is BulletinSnackbar && displayedBulletins.any { it is BulletinSnackbar }
     }
 }
 

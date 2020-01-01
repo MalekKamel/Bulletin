@@ -1,6 +1,7 @@
 package com.sha.bulletin
 
 
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -13,6 +14,7 @@ import com.sha.bulletin.dialog.RetryDialog
 import com.sha.bulletin.flashbar.StandardFlashBar
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
+import com.sha.bulletin.snackbar.StandardSnackbar
 import com.sha.bulletin.toast.StandardToast
 
 interface Alertable:
@@ -22,7 +24,8 @@ interface Alertable:
         RetrySheetAlertable,
         ToastAlertable,
         LoadingDialogAlertable,
-        FlashBarAlertable
+        FlashBarAlertable,
+        SnackbarAlertable
 
 interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
@@ -322,6 +325,44 @@ interface FlashBarAlertable {
                      options: StandardFlashBar.Options = StandardFlashBar.Options.default()): StandardFlashBar? {
         return activity()?.run {
             val bulletin = StandardFlashBar.create(builder, options)
+            showBulletin(bulletin, this)
+            bulletin
+        }
+    }
+}
+
+interface SnackbarAlertable {
+    fun activity(): FragmentActivity?
+
+    @JvmDefault
+    fun showSnackabr(coordinatorLayout: View,
+                     content: String,
+                     duration: Int): StandardSnackbar? {
+        return showSnackabr(
+                coordinatorLayout,
+                duration,
+                StandardSnackbar.Options.create { this.content = content })
+    }
+
+    @JvmDefault
+    fun showSnackabr(coordinatorLayout: View,
+                     @StringRes content: Int,
+                     duration: Int): StandardSnackbar? {
+        return activity()?.run {
+            showSnackabr(
+                    coordinatorLayout,
+                    duration,
+                    StandardSnackbar.Options.create { this.content = getString(content) })
+        }
+    }
+
+    @JvmDefault
+    fun showSnackabr(coordinatorLayout: View,
+                     duration: Int,
+                     options: StandardSnackbar.Options = StandardSnackbar.Options.default()
+    ): StandardSnackbar? {
+        return activity()?.run {
+            val bulletin = StandardSnackbar.create(this, coordinatorLayout, duration, options)
             showBulletin(bulletin, this)
             bulletin
         }
