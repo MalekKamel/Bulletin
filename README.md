@@ -8,6 +8,25 @@ More and more you need to report bulletins (messages) to the user and you spread
 
 <img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram3.png" height="400">
 
+## Installation
+
+#### Gradle:
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+        implementation 'com.github.ShabanKamell:Bulletin:x.y.z'
+}
+```
+
+(Please replace x, y and z with the latest version numbers: [![](https://jitpack.io/v/ShabanKamell/Bulletin.svg)](https://jitpack.io/#ShabanKamell/Bulletin))
+
+
 ### 🛡 License
 <details>
     <summary>
