@@ -1,15 +1,16 @@
-package com.sha.bulletin.toast
+package com.sha.bulletin.snackbar
 
 import com.sha.bulletin.DefaultDuplicateStrategy
+import com.sha.bulletin.IconSetup
 import org.junit.Before
 import org.junit.Test
 
-class StandardToastTest {
-    lateinit var options: StandardToast.Options.Builder
+class BulletinSnackbarTest {
+    lateinit var options: StandardSnackbar.Options.Builder
 
     @Before
     fun setup() {
-        options = StandardToast.Options.Builder()
+        options = StandardSnackbar.Options.Builder()
     }
 
     @Test
@@ -19,9 +20,22 @@ class StandardToastTest {
     }
 
     @Test
+    fun testSetup() {
+        options.setup {}
+        assert(options.build().setup != null)
+    }
+
+    @Test
+    fun onDismiss() {
+        options.onDismiss {}
+        assert(options.build().onDismiss != null)
+    }
+
+    @Test
     fun duplicateStrategy() {
         val strategy = DefaultDuplicateStrategy()
         options.duplicateStrategy(strategy)
         assert(options.build().duplicateStrategy == strategy)
     }
+
 }

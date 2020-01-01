@@ -27,7 +27,6 @@ class StandardSnackbar(activity: FragmentActivity,
     }
 
     data class Options(
-            var title: String = "",
             var content: String = "",
             var setup: ((Snackbar) -> Unit)? = null,
             var onDismiss: (() -> Unit)? = null,
@@ -35,14 +34,6 @@ class StandardSnackbar(activity: FragmentActivity,
     ){
         class Builder {
             private val options = Options()
-
-            /**
-             * Title for the [Bulletin]
-             */
-            fun title(title: String): Builder {
-                options.title = title
-                return this
-            }
 
             /**
              * Content to be displayed

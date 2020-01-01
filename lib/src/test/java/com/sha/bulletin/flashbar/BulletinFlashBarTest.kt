@@ -13,7 +13,7 @@ class StandardFlashBarTest {
     }
 
     @Test
-    fun ignoreIfSameContentDisplayed() {
+    fun duplicateStrategy() {
         val strategy = DefaultDuplicateStrategy()
         options.duplicateStrategy(strategy)
         assert(options.build().duplicateStrategy == strategy)
