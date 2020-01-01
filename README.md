@@ -36,7 +36,7 @@ Any widget implements [Bulletin Interface](#bulletin-interface) is a Bulletin. T
 - [ ] **StandardFlashBar**: a concrete implementaion of `BulletinFlashBar`
 - [ ] **StandardToast**: a concrete implementaion of `BulletinToast`
 
-## Bulletin Interface:
+## Bulletin Interface
 `Bulletin` is implemented by all widgets of the library. If you want to create your custom bulletin, you must implement this interface.
 
 ``` kotlin
@@ -48,7 +48,7 @@ interface Bulletin {
 }
 ```
 ## Alertable Interface
-Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [The code](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all available functions.
+Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [The code](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all functionalities.
 
 ``` kotlin
 interface Alertable:
@@ -60,6 +60,18 @@ interface Alertable:
         LoadingDialogAlertable,
         FlashBarAlertable
 ```
+## BulletinManager
+It's the brain of the library that's responsible for showing/hiding bulletins, storing the current state of each bulletin and checking if a bulletin is displayed. Take a look at [The code](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/BulletinManager.kt) to see all functionalities.
+
+## Custom Bulletins
+As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization.
+
+An exmple for implementing `BulletinDialog`
+
+``` kotlin
+
+```
+
 
 
 ### 🛡 License
