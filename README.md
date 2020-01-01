@@ -27,9 +27,12 @@ dependencies {
 (Please replace x, y and z with the latest version numbers: [![](https://jitpack.io/v/ShabanKamell/Bulletin.svg)](https://jitpack.io/#ShabanKamell/Bulletin))
 
 ## Bulletins
-any widget implements [Bulletin_Interface](#bulletin-interface) is a Bulletin. There're 4 predefined widgets in the library:
+Any widget implements [Bulletin Interface](#bulletin-interface) is a Bulletin. There're 7 predefined widgets in the library:
 - [] **InfoDialog**: a concrete implementaion of `BulletinDialog`
+- [] **RetryDialog**: a concrete implementaion of `BulletinDialog`
+- [] **LoadingDialog**: a concrete implementaion of `BulletinDialog`
 - [] **InfoSheet**: a concrete implementaion of `BulletinSheet`
+- [] **RetrySheet**: a concrete implementaion of `BulletinSheet`
 - [] **StandardFlashBar**: a concrete implementaion of `BulletinFlashBar`
 - [] **StandardToast**: a concrete implementaion of `BulletinToast`
 
@@ -45,6 +48,20 @@ interface Bulletin {
 }
 ```
 ## Alertable Interface
+Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [The code](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all available functions.
+
+``` kotlin
+interface Alertable:
+        InfoDialogAlertable,
+        InfoSheetAlertable,
+        RetryDialogAlertable,
+        RetrySheetAlertable,
+        ToastAlertable,
+        LoadingDialogAlertable,
+        FlashBarAlertable
+```
+
+
 ### 🛡 License
 <details>
     <summary>
