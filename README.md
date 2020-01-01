@@ -2,9 +2,65 @@
 # Bulletin 
 An abstraction for alert messages in android.
 
-More and more times you need to report messages (bulletins) to the user and you spread its code everywhere.  And in a lot of cases you need to avoid duplicate messages and 
+More and more you need to report bulletins (messages) to the user and you spread its code everywhere. And sometimes you ask yoursef, what if I want to avoid duplicate bulletins at the same time? what if I want to queue bulletins? what if I want to apply default configurations to each bulletin only in one place? what if I want to manage all bulletins?.....  👿 👿
+
+**Bulletin** can answer all you queustions!  🙏 🙏
 
 <img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram3.png" height="400">
+
+## Installation
+
+#### Gradle:
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+        implementation 'com.github.ShabanKamell:Bulletin:x.y.z'
+}
+```
+
+(Please replace x, y and z with the latest version numbers: [![](https://jitpack.io/v/ShabanKamell/Bulletin.svg)](https://jitpack.io/#ShabanKamell/Bulletin))
+
+## Bulletins
+Any widget implements [Bulletin Interface](#bulletin-interface) is a Bulletin. There're 7 predefined widgets in the library:
+- [ ] **InfoDialog**: a concrete implementaion of `BulletinDialog`
+- [ ] **RetryDialog**: a concrete implementaion of `BulletinDialog`
+- [ ] **LoadingDialog**: a concrete implementaion of `BulletinDialog`
+- [ ] **InfoSheet**: a concrete implementaion of `BulletinSheet`
+- [ ] **RetrySheet**: a concrete implementaion of `BulletinSheet`
+- [ ] **StandardFlashBar**: a concrete implementaion of `BulletinFlashBar`
+- [ ] **StandardToast**: a concrete implementaion of `BulletinToast`
+
+## Bulletin Interface:
+`Bulletin` is implemented by all widgets of the library. If you want to create your custom bulletin, you must implement this interface.
+
+``` kotlin
+interface Bulletin {
+    val name: String
+    val content: String
+    fun showBulletin(activity: FragmentActivity?)
+    fun dismiss()
+}
+```
+## Alertable Interface
+Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [The code](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all available functions.
+
+``` kotlin
+interface Alertable:
+        InfoDialogAlertable,
+        InfoSheetAlertable,
+        RetryDialogAlertable,
+        RetrySheetAlertable,
+        ToastAlertable,
+        LoadingDialogAlertable,
+        FlashBarAlertable
+```
+
 
 ### 🛡 License
 <details>
