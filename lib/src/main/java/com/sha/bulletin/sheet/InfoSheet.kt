@@ -10,7 +10,7 @@ class InfoSheet : BulletinSheet() {
     var options: Options = Options.default()
     override val name: String = javaClass.name
     override val content: String by lazy { options.content }
-    override var layoutId: Int = R.layout.frag_sheet_info
+    override var layoutId: Int = R.layout.sheet_info
     override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     private val tvTitle: TextView by lazy { view!!.findViewById<TextView>(R.id.tvTitle) }
@@ -34,11 +34,16 @@ class InfoSheet : BulletinSheet() {
             options.dismissCallback?.invoke()
             dismiss()
         }
+
+        options.setupTitleTextView?.invoke(tvTitle)
+        options.setupContentTextView?.invoke(tvContent)
     }
 
     data class Options(
             var title: String = "",
             var content: String = "",
+            var setupTitleTextView: ((TextView) -> Unit)? = null,
+            var setupContentTextView: ((TextView) -> Unit)? = null,
             var dismissCallback: (() -> Unit)? = null,
             var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside,
             var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
@@ -59,6 +64,22 @@ class InfoSheet : BulletinSheet() {
              */
             fun content(content: String): Builder {
                 options.content = content
+                return this
+            }
+
+            /**
+             * Customize title [TextView] here.
+             */
+            fun setupTitleTextView(callback: ((TextView) -> Unit)?): Builder {
+                options.setupTitleTextView = callback
+                return this
+            }
+
+            /**
+             * Customize content [TextView] here.
+             */
+            fun setupContentTextView(callback: ((TextView) -> Unit)?): Builder {
+                options.setupContentTextView = callback
                 return this
             }
 

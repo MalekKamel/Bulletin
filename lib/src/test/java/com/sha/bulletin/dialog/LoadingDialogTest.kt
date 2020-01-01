@@ -19,6 +19,12 @@ class LoadingDialogTest {
     }
 
     @Test
+    fun setupContentTextView() {
+        options.setupContentTextView {}
+        assert(options.build().setupContentTextView != null)
+    }
+
+    @Test
     fun dismissCallback() {
         options.onDismissClicked {}
         assert(options.build().onDismissClicked != null)

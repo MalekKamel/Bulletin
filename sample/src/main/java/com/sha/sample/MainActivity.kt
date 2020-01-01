@@ -10,7 +10,7 @@ import com.sha.formvalidatorsample.R
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity(), Alertable {
+class MainActivity : AppCompatActivity(), MyAlertable {
 
     private val message = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat    """.trimIndent()
@@ -60,6 +60,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         btnWarningDialog.setOnClickListener { showWarningDialog(message) }
         btnErrorDialog.setOnClickListener { showErrorDialog(message) }
         btnRetryDialog.setOnClickListener { showRetryDialog(message) }
+        btnCustomLoadingDialog.setOnClickListener { showCustomLoadingDialog(message) }
     }
 
     private fun flashBar() {

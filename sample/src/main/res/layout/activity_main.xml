@@ -156,6 +156,18 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnCustomLoadingDialog"
+            android:text="Custom Loading Dialog"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Button.Round"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:foreground="?android:selectableItemBackground"
+            />
+
         <TextView
             android:text="FLASH BAR"
             android:layout_width="match_parent"

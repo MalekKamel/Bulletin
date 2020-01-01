@@ -8,7 +8,7 @@ import com.sha.bulletin.*
 
 class InfoDialog : BulletinDialog() {
     var options: Options = Options.default()
-    override var layoutId: Int = R.layout.frag_dialog_info
+    override var layoutId: Int = R.layout.dialog_info
     override val name: String = javaClass.name
     override val content: String by lazy { options.content }
     override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
@@ -33,11 +33,16 @@ class InfoDialog : BulletinDialog() {
             options.onDismiss?.invoke()
             dismiss()
         }
+
+        options.setupTitleTextView?.invoke(tvTitle)
+        options.setupContentTextView?.invoke(tvContent)
     }
     
     data class Options(
             var title: String = "",
             var content: String = "",
+            var setupContentTextView: ((TextView) -> Unit)? = null,
+            var setupTitleTextView: ((TextView) -> Unit)? = null,
             var onDismiss: (() -> Unit)? = null,
             var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside,
             var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
@@ -59,6 +64,22 @@ class InfoDialog : BulletinDialog() {
              */
             fun content(content: String): Builder {
                 options.content = content
+                return this
+            }
+
+            /**
+             * Customize title [TextView] here.
+             */
+            fun setupTitleTextView(callback: ((TextView) -> Unit)?): Builder {
+                options.setupTitleTextView = callback
+                return this
+            }
+
+            /**
+             * Customize content [TextView] here.
+             */
+            fun setupContentTextView(callback: ((TextView) -> Unit)?): Builder {
+                options.setupContentTextView = callback
                 return this
             }
 

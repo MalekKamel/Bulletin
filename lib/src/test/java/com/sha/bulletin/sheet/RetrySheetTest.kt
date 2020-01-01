@@ -26,6 +26,18 @@ class RetrySheetTest {
     }
 
     @Test
+    fun setupTitleTextView() {
+        options.setupTitleTextView {}
+        assert(options.build().setupTitleTextView != null)
+    }
+
+    @Test
+    fun setupContentTextView() {
+        options.setupContentTextView {}
+        assert(options.build().setupContentTextView != null)
+    }
+
+    @Test
     fun retryCallback() {
         options.onRetryClicked {}
         assert(options.build().onRetryClicked != null)

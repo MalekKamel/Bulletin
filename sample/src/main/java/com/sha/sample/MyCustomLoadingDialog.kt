@@ -1,4 +1,4 @@
-package com.sha.bulletin.dialog
+package com.sha.sample
 
 import android.os.Bundle
 import android.view.View
@@ -6,27 +6,27 @@ import android.widget.TextView
 import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.DuplicateStrategy
-import com.sha.bulletin.R
+import com.sha.bulletin.dialog.BulletinDialog
+import com.sha.formvalidatorsample.R
+import kotlinx.android.synthetic.main.custom_loading_dialog.*
 
-class LoadingDialog : BulletinDialog() {
+class MyCustomLoadingDialog: BulletinDialog() {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
     override val content: String by lazy { options.content }
-    override var layoutId: Int = R.layout.dialog_loading
-    override fun isCancelable(): Boolean  = options.isCancellableOnTouchOutside
+    override var layoutId: Int = R.layout.custom_loading_dialog
     private val tvContent: TextView by lazy { view!!.findViewById<TextView>(R.id.tvContent) }
     override var duplicateStrategy: DuplicateStrategy = options.duplicateStrategy
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.setCanceledOnTouchOutside(options.isCancellableOnTouchOutside)
         tvContent.text = options.content
-        options.setupContentTextView?.invoke(tvContent)
+        progressBar.show()
     }
-    
+
     data class Options(
             var content: String = "",
-            var setupContentTextView: ((TextView) -> Unit)? = null,
             var onDismissClicked: (() -> Unit)? = null,
             var duplicateStrategy: DuplicateStrategy = BulletinConfig.duplicateStrategy,
             var isCancellableOnTouchOutside: Boolean = BulletinConfig.isCancellableOnTouchOutside
@@ -40,14 +40,6 @@ class LoadingDialog : BulletinDialog() {
              */
             fun content(content: String): Builder {
                 options.content = content
-                return this
-            }
-
-            /**
-             * Customize content [TextView] here.
-             */
-            fun setupContentTextView(callback: ((TextView) -> Unit)?): Builder {
-                options.setupContentTextView = callback
                 return this
             }
 
@@ -100,12 +92,12 @@ class LoadingDialog : BulletinDialog() {
          * Create the [Bulletin]
          * @param block DSL for creating the options
          */
-        fun create(block: Options.() -> Unit) = LoadingDialog().apply { options = Options().apply { block() } }
+        fun create(block: Options.() -> Unit) = MyCustomLoadingDialog().apply { options = Options().apply { block() } }
 
         /**
          * Create the [Bulletin]
          * @param options for the [Bulletin]
          */
-        fun create(options: Options) = LoadingDialog().apply { this.options = options }
+        fun create(options: Options) = MyCustomLoadingDialog().apply { this.options = options }
     }
 }

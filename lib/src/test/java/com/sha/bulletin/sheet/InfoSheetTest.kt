@@ -26,6 +26,18 @@ class InfoSheetTest {
     }
 
     @Test
+    fun setupTitleTextView() {
+        options.setupTitleTextView {}
+        assert(options.build().setupTitleTextView != null)
+    }
+
+    @Test
+    fun setupContentTextView() {
+        options.setupContentTextView {}
+        assert(options.build().setupContentTextView != null)
+    }
+
+    @Test
     fun dismissCallback() {
         options.dismissCallback {}
         assert(options.build().dismissCallback != null)
