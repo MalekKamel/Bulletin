@@ -29,46 +29,46 @@ interface InfoDialogAlertable {
 
     @JvmDefault
     fun showMessageDialog(content: String, @DrawableRes iconRes: Int = R.drawable.ic_info,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        showInfoDialog(content, iconRes, iconContainerColorRes)
+                         @ColorRes iconContainerColorRes: Int = -1): InfoDialog? {
+        return showInfoDialog(content, iconRes, iconContainerColorRes)
     }
 
     @JvmDefault
     fun showMessageDialog(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        activity()?.run { showMessageDialog(getString(contentRes), iconRes, iconContainerColorRes) }
+                         @ColorRes iconContainerColorRes: Int = -1): InfoDialog? {
+        return activity()?.run { showMessageDialog(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
     @JvmDefault
     fun showWarningDialog(content: String, @DrawableRes iconRes: Int = R.drawable.ic_warning,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        showInfoDialog(content, iconRes, iconContainerColorRes)
+                         @ColorRes iconContainerColorRes: Int = -1): InfoDialog? {
+        return showInfoDialog(content, iconRes, iconContainerColorRes)
     }
 
     @JvmDefault
     fun showWarningDialog(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        activity()?.run { showWarningDialog(getString(contentRes), iconRes, iconContainerColorRes) }
+                         @ColorRes iconContainerColorRes: Int = -1): InfoDialog? {
+       return activity()?.run { showWarningDialog(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
     @JvmDefault
     fun showErrorDialog(content: String, @DrawableRes iconRes: Int = R.drawable.ic_error,
-                       @ColorRes iconContainerColorRes: Int = -1) {
-        showInfoDialog(content, iconRes, iconContainerColorRes)
+                       @ColorRes iconContainerColorRes: Int = -1): InfoDialog? {
+        return showInfoDialog(content, iconRes, iconContainerColorRes)
     }
 
     @JvmDefault
     fun showErrorDialog(@StringRes errorRes: Int, @DrawableRes iconRes: Int,
-                       @ColorRes iconContainerColorRes: Int = -1) {
-        activity()?.run { showErrorDialog(getString(errorRes), iconRes, iconContainerColorRes) }
+                       @ColorRes iconContainerColorRes: Int = -1): InfoDialog? {
+        return activity()?.run { showErrorDialog(getString(errorRes), iconRes, iconContainerColorRes) }
     }
 
     @JvmDefault
     fun showInfoDialog(
             content: String,
             @DrawableRes iconRes: Int,
-            @ColorRes iconContainerColorRes: Int) {
-        activity()?.let {
+            @ColorRes iconContainerColorRes: Int): InfoDialog? {
+       return activity()?.let {
             showInfoDialog(InfoDialog.Options.create {
                 this.content = content
                 iconSetup = IconSetup.create {
@@ -80,9 +80,11 @@ interface InfoDialogAlertable {
     }
 
     @JvmDefault
-    fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.default()) {
-        activity()?.run {
-            BulletinManager.show(InfoDialog.create(options), this, options.duplicateStrategy)
+    fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.default()): InfoDialog? {
+        return activity()?.run {
+            val bulletin = InfoDialog.create(options)
+            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            bulletin
         }
     }
 }
@@ -92,60 +94,60 @@ interface InfoSheetAlertable {
 
     @JvmDefault
     fun showMessageSheet(content: String, @DrawableRes iconRes: Int = R.drawable.ic_info,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        showInfoSheet(content, iconRes, iconContainerColorRes)
+                         @ColorRes iconContainerColorRes: Int = -1): InfoSheet? {
+        return showInfoSheet(content, iconRes, iconContainerColorRes)
     }
 
     @JvmDefault
     fun showMessageSheet(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        activity()?.run { showMessageSheet(getString(contentRes), iconRes, iconContainerColorRes) }
+                         @ColorRes iconContainerColorRes: Int = -1): InfoSheet? {
+        return activity()?.run { showMessageSheet(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
     @JvmDefault
     fun showWarningSheet(content: String, @DrawableRes iconRes: Int = R.drawable.ic_warning,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        showInfoSheet(content, iconRes, iconContainerColorRes)
+                         @ColorRes iconContainerColorRes: Int = -1): InfoSheet? {
+        return showInfoSheet(content, iconRes, iconContainerColorRes)
     }
 
     @JvmDefault
     fun showWarningSheet(@StringRes contentRes: Int, @DrawableRes iconRes: Int,
-                         @ColorRes iconContainerColorRes: Int = -1) {
-        activity()?.run { showWarningSheet(getString(contentRes), iconRes, iconContainerColorRes) }
+                         @ColorRes iconContainerColorRes: Int = -1): InfoSheet? {
+        return activity()?.run { showWarningSheet(getString(contentRes), iconRes, iconContainerColorRes) }
     }
 
     @JvmDefault
     fun showErrorSheet(content: String, @DrawableRes iconRes: Int = R.drawable.ic_error,
-                       @ColorRes iconContainerColorRes: Int = -1) {
-        showInfoSheet(content, iconRes, iconContainerColorRes)
+                       @ColorRes iconContainerColorRes: Int = -1): InfoSheet? {
+        return showInfoSheet(content, iconRes, iconContainerColorRes)
     }
 
     @JvmDefault
     fun showErrorSheet(@StringRes errorRes: Int, @DrawableRes iconRes: Int,
-                       @ColorRes iconContainerColorRes: Int = -1) {
-        activity()?.run { showErrorSheet(getString(errorRes), iconRes, iconContainerColorRes) }
+                       @ColorRes iconContainerColorRes: Int = -1): InfoSheet? {
+       return activity()?.run { showErrorSheet(getString(errorRes), iconRes, iconContainerColorRes) }
     }
 
     @JvmDefault
     fun showInfoSheet(
             content: String,
             @DrawableRes iconRes: Int,
-            @ColorRes iconContainerColorRes: Int) {
-        activity()?.let {
-            showInfoSheet(InfoSheet.Options.create {
+            @ColorRes iconContainerColorRes: Int): InfoSheet? {
+      return showInfoSheet(InfoSheet.Options.create {
                 this.content = content
                 iconSetup = IconSetup.create {
                     this.iconDrawableRes = iconRes
                     containerColorRes = iconContainerColorRes
                 }
             })
-        }
     }
 
     @JvmDefault
-    fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.default()) {
-        activity()?.run {
-            BulletinManager.show(InfoSheet.create(options), this, options.duplicateStrategy)
+    fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.default()): InfoSheet? {
+        return activity()?.run {
+            val bulletin = InfoSheet.create(options)
+            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            bulletin
         }
     }
 }
@@ -156,17 +158,19 @@ interface RetryDialogAlertable {
     @JvmDefault
     fun showRetryDialog(
             @StringRes contentRes: Int,
-            options: RetryDialog.Options = RetryDialog.Options.default()) {
-        activity()?.run { showRetryDialog(getString(contentRes), options) }
+            options: RetryDialog.Options = RetryDialog.Options.default()): RetryDialog? {
+      return activity()?.run { showRetryDialog(getString(contentRes), options) }
     }
 
     @JvmDefault
     fun showRetryDialog(
             content: String,
-            options: RetryDialog.Options = RetryDialog.Options.default()) {
+            options: RetryDialog.Options = RetryDialog.Options.default()): RetryDialog? {
         options.content = content
-        activity()?.run {
-            BulletinManager.show(RetryDialog.create(options), this, options.duplicateStrategy)
+        return activity()?.run {
+            val bulletin = RetryDialog.create(options)
+            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            bulletin
         }
     }
 }
@@ -177,17 +181,19 @@ interface RetrySheetAlertable {
     @JvmDefault
     fun showRetrySheet(
             @StringRes contentRes: Int,
-            options: RetrySheet.Options = RetrySheet.Options.default()) {
-        activity()?.run { showRetrySheet(getString(contentRes), options) }
+            options: RetrySheet.Options = RetrySheet.Options.default()): RetrySheet? {
+        return activity()?.run { showRetrySheet(getString(contentRes), options) }
     }
 
     @JvmDefault
     fun showRetrySheet(
             content: String,
-            options: RetrySheet.Options = RetrySheet.Options.default()) {
+            options: RetrySheet.Options = RetrySheet.Options.default()): RetrySheet? {
         options.content = content
-        activity()?.run {
-            BulletinManager.show(RetrySheet.create(options), this, options.duplicateStrategy)
+        return activity()?.run {
+            val bulletin = RetrySheet.create(options)
+            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            bulletin
         }
     }
 
@@ -198,36 +204,37 @@ interface ToastAlertable {
 
     @JvmDefault
     fun longToast(@StringRes content: Int,
-                  options: StandardToast.Options = StandardToast.Options.default()) {
-        activity()?.run { toast(getString(content), Toast.LENGTH_LONG, options) }
+                  options: StandardToast.Options = StandardToast.Options.default()): StandardToast? {
+        return activity()?.run { toast(getString(content), Toast.LENGTH_LONG, options) }
     }
 
     @JvmDefault
     fun longToast(content: String,
-                  options: StandardToast.Options = StandardToast.Options.default()) {
-        toast(content, Toast.LENGTH_LONG, options)
+                  options: StandardToast.Options = StandardToast.Options.default()): StandardToast? {
+       return toast(content, Toast.LENGTH_LONG, options)
     }
 
     @JvmDefault
     fun shortToast(content: String,
-                   options: StandardToast.Options = StandardToast.Options.default()) {
-        toast(content, Toast.LENGTH_SHORT, options)
+                   options: StandardToast.Options = StandardToast.Options.default()): StandardToast? {
+       return toast(content, Toast.LENGTH_SHORT, options)
     }
 
     @JvmDefault
     fun shortToast(@StringRes content: Int,
-                   options: StandardToast.Options = StandardToast.Options.default()) {
-        activity()?.run { toast(getString(content), Toast.LENGTH_SHORT, options) }
+                   options: StandardToast.Options = StandardToast.Options.default()): StandardToast? {
+        return activity()?.run { toast(getString(content), Toast.LENGTH_SHORT, options) }
     }
 
     @JvmDefault
     fun toast(content: String,
               duration: Int,
-              options: StandardToast.Options = StandardToast.Options.default()) {
-        activity()?.run {
+              options: StandardToast.Options = StandardToast.Options.default()): StandardToast? {
+        return activity()?.run {
             options.content = content
-            val toast = StandardToast.create(this, options) { this.duration = duration }
-            BulletinManager.show(toast,this, options.duplicateStrategy)
+            val bulletin = StandardToast.create(this, options) { this.duration = duration }
+            BulletinManager.show(bulletin,this, options.duplicateStrategy)
+            bulletin
         }
     }
 }
@@ -236,21 +243,23 @@ interface LoadingDialogAlertable {
     fun activity(): FragmentActivity?
 
     @JvmDefault
-    fun showLoadingDialog(content: String = "") {
-        showLoadingDialog(LoadingDialog.Options.create { this.content = content })
+    fun showLoadingDialog(content: String = ""): LoadingDialog? {
+       return showLoadingDialog(LoadingDialog.Options.create { this.content = content })
     }
 
     @JvmDefault
-    fun showLoadingDialog(@StringRes contentRes: Int) {
-        activity()?.run {
-            showLoadingDialog(LoadingDialog.Options.create { content = getString(contentRes) })
+    fun showLoadingDialog(@StringRes contentRes: Int): LoadingDialog? {
+        return activity()?.run {
+             showLoadingDialog(LoadingDialog.Options.create { content = getString(contentRes) })
         }
     }
 
     @JvmDefault
-    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()) {
-        activity()?.run {
+    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()): LoadingDialog? {
+        return activity()?.run {
+            val bulletin = LoadingDialog.create(options)
             BulletinManager.show(LoadingDialog.create(options), this, options.duplicateStrategy)
+            bulletin
         }
     }
 }
@@ -259,53 +268,62 @@ interface FlashBarAlertable {
     fun activity(): FragmentActivity?
 
     @JvmDefault
-    fun showMessageInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
-        showFlashBar(content, duration, R.color.white)
+    fun showMessageInFlashBar(content: String,
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+        return showFlashBar(content, duration, R.color.white)
     }
 
     @JvmDefault
-    fun showMessageInFlashBar(@StringRes contentRes: Int, duration: Long = BulletinConfig.flashBarDuration) {
-        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.white) }
+    fun showMessageInFlashBar(@StringRes contentRes: Int,
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+        return activity()?.run { showFlashBar(getString(contentRes), duration, R.color.white) }
     }
 
     @JvmDefault
-    fun showWarningInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
-        showFlashBar(content, duration, R.color.warning)
+    fun showWarningInFlashBar(content: String,
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+        return showFlashBar(content, duration, R.color.warning)
     }
 
     @JvmDefault
-    fun showWarningInFlashBar(@StringRes contentRes: Int, duration: Long = BulletinConfig.flashBarDuration) {
-        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.warning) }
+    fun showWarningInFlashBar(@StringRes contentRes: Int,
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+        return activity()?.run { showFlashBar(getString(contentRes), duration, R.color.warning) }
     }
 
     @JvmDefault
-    fun showErrorInFlashBar(content: String, duration: Long = BulletinConfig.flashBarDuration) {
-        showFlashBar(content, duration, R.color.error)
+    fun showErrorInFlashBar(content: String,
+                            duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+        return showFlashBar(content, duration, R.color.error)
     }
 
     @JvmDefault
-    fun showErrorInFlashBar(@StringRes contentRes: Int, duration: Long = BulletinConfig.flashBarDuration) {
-        activity()?.run { showFlashBar(getString(contentRes), duration, R.color.error) }
+    fun showErrorInFlashBar(@StringRes contentRes: Int,
+                            duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+        return activity()?.run { showFlashBar(getString(contentRes), duration, R.color.error) }
     }
 
     @JvmDefault
-    fun showFlashBar(content: String, duration: Long, @ColorRes backgroundColor: Int) {
-        activity()?.run {
+    fun showFlashBar(content: String, duration: Long,
+                     @ColorRes backgroundColor: Int): StandardFlashBar? {
+        return activity()?.run {
            val builder = Flashbar.Builder(this)
                     .message(content)
                     .gravity(Flashbar.Gravity.TOP)
                     .duration(duration)
                     .enableSwipeToDismiss()
                     .backgroundColorRes(backgroundColor)
-            showFlashBar(builder)
+           showFlashBar(builder)
         }
     }
 
     @JvmDefault
     fun showFlashBar(builder: Flashbar.Builder,
-                     options: StandardFlashBar.Options = StandardFlashBar.Options.default()) {
-        activity()?.run {
-            BulletinManager.show(StandardFlashBar.create(builder, options), this, options.duplicateStrategy)
+                     options: StandardFlashBar.Options = StandardFlashBar.Options.default()): StandardFlashBar? {
+        return activity()?.run {
+            val bulletin = StandardFlashBar.create(builder, options)
+            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            bulletin
         }
     }
 }

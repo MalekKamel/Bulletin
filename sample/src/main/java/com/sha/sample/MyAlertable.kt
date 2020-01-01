@@ -9,21 +9,23 @@ interface MyAlertable: Alertable, CustomLoadingDialogAlertable
 interface CustomLoadingDialogAlertable: Alertable {
 
     @JvmDefault
-    fun showCustomLoadingDialog(content: String = "") {
-        showCustomLoadingDialog(MyCustomLoadingDialog.Options.create { this.content = content })
+    fun showCustomLoadingDialog(content: String = ""): MyCustomLoadingDialog? {
+       return showCustomLoadingDialog(MyCustomLoadingDialog.Options.create { this.content = content })
     }
 
     @JvmDefault
-    fun showCustomLoadingDialog(@StringRes contentRes: Int) {
-        activity()?.run {
+    fun showCustomLoadingDialog(@StringRes contentRes: Int): MyCustomLoadingDialog? {
+       return activity()?.run {
             showCustomLoadingDialog(MyCustomLoadingDialog.Options.create { content = getString(contentRes) })
         }
     }
 
     @JvmDefault
-    fun showCustomLoadingDialog(options: MyCustomLoadingDialog.Options = MyCustomLoadingDialog.Options.default()) {
-        activity()?.run {
-            BulletinManager.show(MyCustomLoadingDialog.create(options), this, options.duplicateStrategy)
+    fun showCustomLoadingDialog(options: MyCustomLoadingDialog.Options = MyCustomLoadingDialog.Options.default()): MyCustomLoadingDialog? {
+        return activity()?.run {
+            val bulletin = MyCustomLoadingDialog.create(options)
+            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            bulletin
         }
     }
 }
