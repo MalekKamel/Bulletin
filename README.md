@@ -2,7 +2,9 @@
 # Bulletin 
 An abstraction for alert messages in android.
 
-More and more times you need to report messages (bulletins) to the user and you spread its code everywhere.  And in a lot of cases you need to avoid duplicate messages and 
+More and more you need to report bulletins (messages) to the user and you spread its code everywhere. And sometimes you ask yoursef, what if I want to avoid duplicate bulletins at the same time? what if I want to queue bulletins? what if I want to apply default configurations to each bulletin only in one place? what if I want to manage all bulletins?.....  👿 👿
+
+**Bulletin** can answer all you queustions!  🙏 🙏
 
 <img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram3.png" height="400">
 
