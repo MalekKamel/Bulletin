@@ -26,10 +26,8 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
     protected open var isCanceledOnTouchOutside: Boolean = false
     private var onDismissListener: (() -> Unit)? = null
     abstract var layoutId: Int
-    open var isDisplayed: Boolean = false
     open var hasTitle: Boolean = false
-
-    abstract var duplicateStrategy: DuplicateStrategy
+    override var status: BulletinStatus = BulletinStatus.PENDING
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,10 +60,7 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
      * Show this [Bulletin]
      */
     open fun show(activity: FragmentActivity) {
-        if (isDisplayed) return
-        BulletinManager.addToDisplayed(this)
         show(activity.supportFragmentManager, name)
-        isDisplayed = true
     }
 
     fun onDismissListener(callback: () -> Unit): BulletinDialog {
@@ -76,13 +71,6 @@ abstract class BulletinDialog : DialogFragment(), Bulletin {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDismissListener?.invoke()
-        isDisplayed = false
-        BulletinManager.removeFromDisplayed(this, activity)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        isDisplayed = false
-        BulletinManager.removeFromDisplayed(this, activity)
+        BulletinManager.onDismiss(this, activity)
     }
 }

@@ -3,6 +3,7 @@ package com.sha.sample
 import androidx.annotation.StringRes
 import com.sha.bulletin.Alertable
 import com.sha.bulletin.BulletinManager
+import com.sha.bulletin.showBulletin
 
 interface MyAlertable: Alertable, CustomLoadingDialogAlertable
 
@@ -24,7 +25,7 @@ interface CustomLoadingDialogAlertable: Alertable {
     fun showCustomLoadingDialog(options: MyCustomLoadingDialog.Options = MyCustomLoadingDialog.Options.default()): MyCustomLoadingDialog? {
         return activity()?.run {
             val bulletin = MyCustomLoadingDialog.create(options)
-            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }

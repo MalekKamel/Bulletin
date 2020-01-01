@@ -14,45 +14,45 @@ class BulletinTest {
 
     @Test
     fun isBulletinDisplayedWithInstance_returnsTrue() {
-        assert(isAnyDisplayed(bulletin))
+        assert(isAnyBulletinDisplayed(bulletin))
     }
 
     @Test
     fun isBulletinDisplayedWithName_returnsTrue() {
-        assert(isAnyDisplayed(bulletin.name))
+        assert(isAnyBulletinDisplayed(bulletin.name))
     }
 
     @Test
     fun isBulletinDisplayedWithContent_returnsTrue() {
-        assert(isAnyDisplayed(bulletin.name))
+        assert(isAnyBulletinDisplayed(bulletin.name))
     }
 
     @Test
     fun isBulletinDisplayedWithNameAndContent_returnsTrue() {
-        assert(isAnyDisplayed(bulletin.name, bulletin.content))
+        assert(isAnyBulletinDisplayed(bulletin.name, bulletin.content))
     }
 
     @Test
     fun dismissAllBulletins_dismissShouldBeCalled() {
-        dismissAll()
+        dismissAllBulletins()
         assert(bulletin.isDismissed)
     }
 
     @Test
     fun dismissBulletinWithName_dismissShouldBeCalled() {
-        dismissWithName(bulletin.name)
+        dismissBulletinWithName(bulletin.name)
         assert(bulletin.isDismissed)
     }
 
     @Test
     fun dismissBulletinWithContent_dismissShouldBeCalled() {
-        dismissWithContent(bulletin.content)
+        dismissBulletinWithContent(bulletin.content)
         assert(bulletin.isDismissed)
     }
 
     @Test
     fun dismissBulletinWithNameAndContent_dismissShouldBeCalled() {
-        dismiss(bulletin.name, bulletin.content)
+        dismissBulletin(bulletin.name, bulletin.content)
         assert(bulletin.isDismissed)
     }
 }

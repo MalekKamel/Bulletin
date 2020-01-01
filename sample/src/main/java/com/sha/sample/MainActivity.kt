@@ -19,12 +19,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        BulletinConfig.queueStrategies = mutableSetOf(
-                AllQueueStrategy(),
-                DialogQueueStrategy(),
-                SheetQueueStrategy(),
-                FlashBarQueueStrategy(),
-                ToastQueueStrategy())
+
+        BulletinConfig.queueStrategies {
+            + SheetQueueStrategy()
+            + ToastQueueStrategy()
+        }
 
         sheet()
         dialog()
@@ -35,9 +34,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
     private fun sheet() {
         btnMessageSheet.setOnClickListener {
-            showMessageSheet(message)
-            showMessageSheet(message)
-            showMessageSheet(message)
+            showMessageSheet("Sheet1, after dismissing, Sheet2 will be displayed!")
+            showMessageSheet("Sheet2, after dismissing, Sheet3 will be displayed!")
+            showMessageSheet("Sheet3")
         }
 
         btnWarningSheet.setOnClickListener {
@@ -68,7 +67,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     }
 
     private fun toast() {
-        btnShortToast.setOnClickListener { shortToast(message) }
+        btnShortToast.setOnClickListener {
+            shortToast("Toast1! after dismissing, Toast2 will be displayed!")
+            shortToast("Toast2! after dismissing, Toast3 will be displayed!")
+            shortToast("Toast3")
+        }
         btnLongToast.setOnClickListener { longToast(message) }
     }
 
@@ -80,7 +83,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             showErrorInFlashBar("Will be dismissed after 2 seconds!")
 
             // Dismiss all bulletins after 2 seconds
-            Handler().postDelayed({ dismissAll() }, TimeUnit.SECONDS.toMillis(2))
+            Handler().postDelayed({ dismissAllBulletins() }, TimeUnit.SECONDS.toMillis(2))
         }
     }
 

@@ -20,7 +20,7 @@ class DefaultDuplicateStrategy: DuplicateStrategy {
  */
 class NameDuplicateStrategy: DuplicateStrategy {
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
-        return isAnyDisplayed(bulletin.name)
+        return isAnyBulletinDisplayed(bulletin.name)
     }
 }
 
@@ -40,7 +40,7 @@ class ContentDuplicateStrategy: DuplicateStrategy {
  */
 class NameContentDuplicateStrategy: DuplicateStrategy {
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
-        return isAnyDisplayed(bulletin.name, bulletin.content)
+        return isAnyBulletinDisplayed(bulletin.name, bulletin.content)
     }
 }
 
@@ -50,5 +50,5 @@ class NameContentDuplicateStrategy: DuplicateStrategy {
  * and ignores any other bulletins.
  */
 class SingleDuplicateStrategy: DuplicateStrategy {
-    override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = isAnyDisplayed()
+    override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = isAnyBulletinDisplayed()
 }

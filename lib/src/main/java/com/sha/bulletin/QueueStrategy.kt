@@ -16,7 +16,7 @@ interface QueueStrategy {
 }
 
 /**
- * This strategy disables any [Bulletin] queuing. This is the default behavior ot the library.
+ * This strategy disables any [Bulletin] queuing. This is the default behavior of the library.
  */
 class NoneQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = false
@@ -67,4 +67,29 @@ class ToastQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return bulletin is BulletinToast && displayedBulletins.any { it is BulletinToast }
     }
+}
+
+
+/**
+ * Holds all [QueueStrategy]s and provides operators for adding strategies.
+ */
+class QueueStrategies {
+    private var strategies = mutableListOf<QueueStrategy>()
+
+    operator fun <T: QueueStrategy> T.unaryPlus() = strategies.add(this)
+    operator fun <T: QueueStrategy> T.plus(other: QueueStrategy) {
+        strategies.add(other)
+    }
+
+    fun add(strategy: QueueStrategy) = strategies.add(strategy)
+
+    @SafeVarargs
+    fun <E: QueueStrategy> addAll(vararg elements: E) = strategies.addAll(elements)
+    fun <E: QueueStrategy> addAll(elements: Collection<E>) = strategies.addAll(elements)
+    val size = strategies.size
+    fun first() = strategies.first()
+    fun any(predicate: (QueueStrategy) -> Boolean) = strategies.any(predicate)
+    fun remove(element: QueueStrategy) = strategies.remove(element)
+    fun removeAll(elements: Collection<QueueStrategy>) = strategies.removeAll(elements)
+    fun clear() = strategies.clear()
 }

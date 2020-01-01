@@ -1,10 +1,8 @@
 package com.sha.bulletin.toast
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import com.sha.bulletin.Bulletin
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.DuplicateStrategy
 import com.sha.bulletin.R

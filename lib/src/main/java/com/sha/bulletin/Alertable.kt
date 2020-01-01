@@ -83,7 +83,7 @@ interface InfoDialogAlertable {
     fun showInfoDialog(options: InfoDialog.Options = InfoDialog.Options.default()): InfoDialog? {
         return activity()?.run {
             val bulletin = InfoDialog.create(options)
-            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }
@@ -146,7 +146,7 @@ interface InfoSheetAlertable {
     fun showInfoSheet(options: InfoSheet.Options = InfoSheet.Options.default()): InfoSheet? {
         return activity()?.run {
             val bulletin = InfoSheet.create(options)
-            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }
@@ -169,7 +169,7 @@ interface RetryDialogAlertable {
         options.content = content
         return activity()?.run {
             val bulletin = RetryDialog.create(options)
-            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }
@@ -192,7 +192,7 @@ interface RetrySheetAlertable {
         options.content = content
         return activity()?.run {
             val bulletin = RetrySheet.create(options)
-            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }
@@ -233,7 +233,7 @@ interface ToastAlertable {
         return activity()?.run {
             options.content = content
             val bulletin = StandardToast.create(this, options) { this.duration = duration }
-            BulletinManager.show(bulletin,this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }
@@ -258,7 +258,7 @@ interface LoadingDialogAlertable {
     fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()): LoadingDialog? {
         return activity()?.run {
             val bulletin = LoadingDialog.create(options)
-            BulletinManager.show(LoadingDialog.create(options), this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }
@@ -322,7 +322,7 @@ interface FlashBarAlertable {
                      options: StandardFlashBar.Options = StandardFlashBar.Options.default()): StandardFlashBar? {
         return activity()?.run {
             val bulletin = StandardFlashBar.create(builder, options)
-            BulletinManager.show(bulletin, this, options.duplicateStrategy)
+            showBulletin(bulletin, this)
             bulletin
         }
     }
