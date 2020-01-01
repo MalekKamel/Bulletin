@@ -28,13 +28,13 @@ dependencies {
 
 ## Bulletins
 Any widget implements [Bulletin Interface](#bulletin-interface) is a Bulletin. There're 7 predefined widgets in the library:
-- [] **InfoDialog**: a concrete implementaion of `BulletinDialog`
-- [] **RetryDialog**: a concrete implementaion of `BulletinDialog`
-- [] **LoadingDialog**: a concrete implementaion of `BulletinDialog`
-- [] **InfoSheet**: a concrete implementaion of `BulletinSheet`
-- [] **RetrySheet**: a concrete implementaion of `BulletinSheet`
-- [] **StandardFlashBar**: a concrete implementaion of `BulletinFlashBar`
-- [] **StandardToast**: a concrete implementaion of `BulletinToast`
+- [ ] **InfoDialog**: a concrete implementaion of `BulletinDialog`
+- [ ] **RetryDialog**: a concrete implementaion of `BulletinDialog`
+- [ ] **LoadingDialog**: a concrete implementaion of `BulletinDialog`
+- [ ] **InfoSheet**: a concrete implementaion of `BulletinSheet`
+- [ ] **RetrySheet**: a concrete implementaion of `BulletinSheet`
+- [ ] **StandardFlashBar**: a concrete implementaion of `BulletinFlashBar`
+- [ ] **StandardToast**: a concrete implementaion of `BulletinToast`
 
 ## Bulletin Interface:
 `Bulletin` is implemented by all widgets of the library. If you want to create your custom bulletin, you must implement this interface.
