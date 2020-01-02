@@ -48,6 +48,10 @@ interface Bulletin {
     fun dismiss()
 }
 ```
+
+## BulletinManager
+It's the brain of the library that's responsible for showing/hiding bulletins, storing the current state of each bulletin and checking if a bulletin is displayed. Take a look at [Alertable](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/BulletinManager.kt) to see all functionalities.
+
 ## Alertable Interface
 Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [The code](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all functionalities.
 
@@ -61,8 +65,35 @@ interface Alertable:
         LoadingDialogAlertable,
         FlashBarAlertable
 ```
-## BulletinManager
-It's the brain of the library that's responsible for showing/hiding bulletins, storing the current state of each bulletin and checking if a bulletin is displayed. Take a look at [Alertable](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/BulletinManager.kt) to see all functionalities.
+
+## Duplicate Strategy
+What if you there are 2 netwrok responses display the same content in a dialog and you don't need to show 2 dialogs with the same content? OR in another words you want to ignore the dialog if there's a dialog with the same content displayed?
+
+``` kotlin
+    BulletinConfig.duplicateStrategy = NameDuplicateStrategy()
+```
+
+In the previous code, we tell bulletin to show only one bulletin at a time and ignore any other bulletins.
+
+BUT what happens to the ignored bulletins? see [Bulletin Ignore Duplicate Strategy](#ignore-duplicate_strategy)
+
+## Ignore Duplicate Strategy
+If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2 behaviors for the ignored bulletin:
+- [ ] Drop: The bulletin will be dropped and won't be displayed forever.
+- [ ] Queue: The bulletin will be queued, and will be displayed once it's the first bulletin in the queue.
+
+## Duplicate Strategy Interface:
+
+``` kotlin
+interface DuplicateStrategy {
+    var onIgnoreStrategy: IgnoreDuplicateStrategy
+    fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean
+}
+```
+
+``` kotlin
+BulletinConfig.queueStrategies { + SheetQueueStrategy() }
+```
 
 ## Custom Bulletins
 As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization. see [MyCstomLadingDialog](https://github.com/ShabanKamell/Bulletin/blob/master/sample/src/main/java/com/sha/sample/MyCustomLoadingDialog.kt)
