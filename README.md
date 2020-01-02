@@ -70,7 +70,7 @@ interface Alertable:
 ```
 
 ## Duplicate Strategy
-What if you there are 2 netwrok responses display the same content in a dialog and you don't need to show 2 dialogs with the same content? OR in another words you want to ignore the dialog if there's a dialog with the same content displayed?
+What if you there are 2 or more netwrok responses display the same content in a dialog and you don't need to show all dialogs with the same content? OR in another words you want to ignore the dialog if there's a dialog with the same content displayed?
 
 ``` kotlin
     BulletinConfig.duplicateStrategy = NameDuplicateStrategy()
