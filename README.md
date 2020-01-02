@@ -223,6 +223,9 @@ enum class BulletinStatus {
 ## Custom Bulletins
 As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization. see [MyCstomLadingDialog](https://github.com/ShabanKamell/Bulletin/blob/master/sample/src/main/java/com/sha/sample/MyCustomLoadingDialog.kt)
 
+## Credit
+Flashbar is a clone of  [![](https://github.com/aritraroy/Flashbar)) [Flashbar]()
+
 ### 🛡 License
 <details>
     <summary>
