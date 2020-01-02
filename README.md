@@ -94,10 +94,6 @@ interface DuplicateStrategy {
 }
 ```
 
-``` kotlin
-BulletinConfig.queueStrategies { + SheetQueueStrategy() }
-```
-
 ### Predefined Duplicate Strategies
 
 |         **Name**                 |                        **Description**          | **Default IgnoreDuplicateStrategy** |
@@ -112,6 +108,10 @@ BulletinConfig.queueStrategies { + SheetQueueStrategy() }
 What if you need to show 2 bulletins or more in sequntial order? In another worders, show each bulletin after dismissing the previous one?
 
 [`QueueStrategy`](#queue_strategy_interface) interface provides a solution for queuing problem
+
+``` kotlin
+BulletinConfig.queueStrategies { + SheetQueueStrategy() }
+```
 
 ### Queue Strategy Interface:
 
