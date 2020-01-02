@@ -77,7 +77,7 @@ What if there are 2 or more netwrok responses display the same content in a dial
 [DuplicateStrategy](#duplicate-strategy-interface) provides the solution:
 
 ``` kotlin
-    BulletinConfig.duplicateStrategy = ContentDuplicateStrategy()
+  BulletinConfig.duplicateStrategy = ContentDuplicateStrategy()
 ```
 
 The previous line tells **Bulletin** to ignore the new bulletin as long as a bulletin with the same content is displayed.
@@ -91,7 +91,7 @@ interface DuplicateStrategy {
 }
 ```
 
-BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)
+BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)  🤔 🤔
 
 There are multiple predefined implementaions for DuplicateStrategy you can find them in the next section. However, you can define you custom strategy.
 
