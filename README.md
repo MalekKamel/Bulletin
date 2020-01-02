@@ -43,6 +43,15 @@ More and more you need to report bulletins (messages) to the user and you spread
    BulletinManager.dismissAll()
 ```
 
+## Features
+
+- [ ] Resuable widgets.
+- [ ] Predefined APIs for displaying bulletins.
+- [ ] Define queue strategies.
+- [ ] Define duplicate strategies
+- [ ] Global configuration for all bulletins
+- [ ] Manage all bulletins
+
 ## Installation
 
 #### Gradle:
@@ -190,6 +199,25 @@ There are multiple predefined implementaions for `QueueStrategy` you can find th
 | **FlashbarQueueStrategy**        | Queue if a `BulletinFlashbar` is displayed.                    |
 | **SnackbarQueueStrategy**        | Queue if a `BulletinSnackar` is displayed.                     |
 | **ToastQueueStrategy**           | Queue if a `BulletinToast` is displayed.                       |
+
+## Bulletin Status
+Each `Bulletin` has a status of 5 statuses defined in `BulletinStatus`
+
+``` kotlin
+enum class BulletinStatus {
+    PENDING,
+    DISPLAYED,
+    QUEUED,
+    IGNORED,
+    DISMISSED
+}
+```
+
+- [ ] PENDING: The default status, means the bulletin is created.
+- [ ] DISPLAYED: The bulleitn is visible on the screen.
+- [ ] QUEUED: The bulletin is queued because 1) it's queued by a `QueueStratedy` 2) it's ignored by a `DuplicateStratedy` then queued, see [Ignore Duplicate Strategy](#ignore-duplicate-strategy).
+- [ ] IGNORED: The bulletin ignored by a `QueueStratedy`
+- [ ] DISMISSED: The bulletin is no longer visible.
 
 ## Custom Bulletins
 As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization. see [MyCstomLadingDialog](https://github.com/ShabanKamell/Bulletin/blob/master/sample/src/main/java/com/sha/sample/MyCustomLoadingDialog.kt)
