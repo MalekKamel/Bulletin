@@ -21,6 +21,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         setContentView(R.layout.activity_main)
 
 
+        // avoid duplicate content
+        BulletinConfig.duplicateStrategy = NameDuplicateStrategy()
+
+        // queue BulletinSheet & BulletinToast in duplicates found
         BulletinConfig.queueStrategies {
             + SheetQueueStrategy()
             + ToastQueueStrategy()
@@ -56,7 +60,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
             })
         }
 
-        btnErrorSheet.setOnClickListener { showErrorSheet(message) }
+        btnErrorSheet.setOnClickListener {
+            showErrorSheet(message)
+            // will be ignored as its content is similar to the previous displayed bulletin
+            // NOTE: remember that we use ContentDuplicateStrategy
+            showErrorSheet(message)
+        }
         btnRetrySheet.setOnClickListener { showRetrySheet(message) }
     }
 

@@ -10,7 +10,7 @@ package com.sha.bulletin
  */
 object BulletinConfig {
     var isCancellableOnTouchOutside: Boolean = true
-    var duplicateStrategy: DuplicateStrategy = NameDuplicateStrategy()
+    var duplicateStrategy: DuplicateStrategy = DefaultDuplicateStrategy()
     val queueStrategies = QueueStrategies()
     var iconSetup: IconSetup = IconSetup.default()
     var flashBarDuration = 6000L

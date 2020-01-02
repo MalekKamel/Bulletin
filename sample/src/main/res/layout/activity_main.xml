@@ -269,7 +269,7 @@
 
             <Button
                 android:id="@+id/btnDismissAllBulletins"
-                android:text="Dismiss All Bulletins"
+                android:text="Dismiss All Bulletins After 2 sec"
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
