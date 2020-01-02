@@ -90,9 +90,7 @@ If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2
 #### IgnoreDuplicateStrategy Enum
 
 ``` kotlin
-enum class IgnoreDuplicateStrategy {
-    DROP, QUEUE, TRY_QUEUE
-}
+enum class IgnoreDuplicateStrategy { DROP, QUEUE, TRY_QUEUE }
 ```
 
 ### Duplicate Strategy Interface:
