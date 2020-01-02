@@ -93,7 +93,7 @@ interface DuplicateStrategy {
 
 BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)  🤔 🤔
 
-There are multiple predefined implementaions for DuplicateStrategy you can find them in the next section. However, you can define you custom strategy.
+There are multiple predefined implementaions for `DuplicateStrategy` you can find them in the next section. However, you can define your own custom strategy.
 
 ### Predefined Duplicate Strategies
 
@@ -108,7 +108,8 @@ There are multiple predefined implementaions for DuplicateStrategy you can find 
 
 ### Ignore Duplicate Strategy
 
-If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 3 behaviors for the ignored bulletin:
+If a `Bulletin` has been ignored bucause it's a duplicate one, you can define 1 of 3 behaviors for the ignored bulletin:
+
 - [ ] Drop: The bulletin will be dropped and won't be displayed forever.
 - [ ] Queue: The bulletin will be queued, and will be displayed once it's the first bulletin in the queue.
 - [ ] Try Queue: The bulletin will be queued only if there's any [Duplicate Strategy](#duplicate-strategy) allows queuing the bulletin.
@@ -123,9 +124,9 @@ enum class IgnoreDuplicateStrategy { DROP, QUEUE, TRY_QUEUE }
 ```
 
 ## Queue Strategy
-What if you need to show 2 bulletins or more in sequntial order? In another worders, show each bulletin after dismissing the previous one?
+What if you need to show 2 bulletins or more in a sequntial order? In another worders, what if you want to show each bulletin after dismissing the previous one?
 
-[`QueueStrategy`](#queue-strategy-interface) interface provides a solution for queuing problem
+[`QueueStrategy`](#queue-strategy-interface) interface provides a solution for queuing problem:
 
 ``` kotlin
 BulletinConfig.queueStrategies { +SheetQueueStrategy() }
@@ -139,6 +140,8 @@ interface QueueStrategy {
 }
 ```
 
+There are multiple predefined implementaions for `QueueStrategy` you can find them in the next section. However, you can define your own custom strategy.
+
 ### Predefined Queue Strategies
 
 |         **Name**                 |                        **Description**                         |
@@ -150,7 +153,6 @@ interface QueueStrategy {
 | **FlashbarQueueStrategy**        | Queue if a `BulletinFlashbar` is displayed.                    |
 | **SnackbarQueueStrategy**        | Queue if a `BulletinSnackar` is displayed.                     |
 | **ToastQueueStrategy**           | Queue if a `BulletinToast` is displayed.                       |
-
 
 ## Custom Bulletins
 As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization. see [MyCstomLadingDialog](https://github.com/ShabanKamell/Bulletin/blob/master/sample/src/main/java/com/sha/sample/MyCustomLoadingDialog.kt)
