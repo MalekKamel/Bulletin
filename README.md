@@ -82,8 +82,6 @@ What if there are 2 or more netwrok responses display the same content in a dial
 
 The previous line tells **Bulletin** to ignore the new bulletin as long as a bulletin with the same content is displayed.
 
-BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)
-
 ### Duplicate Strategy Interface:
 
 ``` kotlin
@@ -93,18 +91,9 @@ interface DuplicateStrategy {
 }
 ```
 
-### Ignore Duplicate Strategy
+BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)
 
-If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2 behaviors for the ignored bulletin:
-- [ ] Drop: The bulletin will be dropped and won't be displayed forever.
-- [ ] Queue: The bulletin will be queued, and will be displayed once it's the first bulletin in the queue.
-- [ ] Try Queue: The bulletin will be queued only if there's any [Duplicate Strategy](#duplicate-strategy) allows queuing the bulletin.
-
-#### IgnoreDuplicateStrategy Enum
-
-``` kotlin
-enum class IgnoreDuplicateStrategy { DROP, QUEUE, TRY_QUEUE }
-```
+There are multiple predefined implementaions for DuplicateStrategy you can find them in the next section. However, you can define you custom strategy.
 
 ### Predefined Duplicate Strategies
 
@@ -115,6 +104,23 @@ enum class IgnoreDuplicateStrategy { DROP, QUEUE, TRY_QUEUE }
 | **ContentDuplicateStrategy**     | Ignore if a Bulletin with the same **CONTENT** is displayed.          |   DROP        |
 | **NameContentDuplicateStrategy** | Ignore if a Bulletin with the same **NAME & CONTENT** is displayed.   |   DROP        |
 | **SingleDuplicateStrategy**      | Display a single Bulletin at a time    .                              |   QUEUE       |
+
+
+### Ignore Duplicate Strategy
+
+If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 3 behaviors for the ignored bulletin:
+- [ ] Drop: The bulletin will be dropped and won't be displayed forever.
+- [ ] Queue: The bulletin will be queued, and will be displayed once it's the first bulletin in the queue.
+- [ ] Try Queue: The bulletin will be queued only if there's any [Duplicate Strategy](#duplicate-strategy) allows queuing the bulletin.
+
+These behavioiors are defined in[IgnoreDuplicateStrategy](#ignoreDuplicateStrategy-enum).
+
+#### IgnoreDuplicateStrategy Enum
+`IgnoreDuplicateStrategy` contains the ignoring behaviors that can be defined in in [DuplicateStrategy Inteface](#duplicate-strategy-interface).
+
+``` kotlin
+enum class IgnoreDuplicateStrategy { DROP, QUEUE, TRY_QUEUE }
+```
 
 ## Queue Strategy
 What if you need to show 2 bulletins or more in sequntial order? In another worders, show each bulletin after dismissing the previous one?
