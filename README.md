@@ -75,7 +75,7 @@ What if you there are 2 netwrok responses display the same content in a dialog a
 
 In the previous code, we tell bulletin to show only one bulletin at a time and ignore any other bulletins.
 
-BUT what happens to the ignored bulletins? see [Bulletin Ignore Duplicate Strategy](#ignore-duplicate_strategy)
+BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate_strategy)
 
 ### Ignore Duplicate Strategy
 If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2 behaviors for the ignored bulletin:
@@ -104,6 +104,32 @@ BulletinConfig.queueStrategies { + SheetQueueStrategy() }
 | **ContentDuplicateStrategy**     | Ignore if a Bulletin with the same **CONTENT** is displayed.          |   DROP        |
 | **NameContentDuplicateStrategy** | Ignore if a Bulletin with the same **NAME & CONTENT** is displayed.   |   DROP        |
 | **SingleDuplicateStrategy**      | Display a single Bulletin at a time    .                              |   QUEUE       |
+
+## Queue Strategy
+What if you need to show 2 bulletins or more in sequntial order? In another worders, show each bulletin after dismissing the previous one?
+
+[`QueueStrategy`](#queue_strategy_interface) interface provides a solution for queuing problem
+
+### Queue Strategy Interface:
+
+``` kotlin
+interface QueueStrategy {
+    fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean
+}
+```
+
+### Predefined Queue Strategies
+
+|         **Name**                 |                        **Description**                         |
+| -------------------------------- | ---------------------------------------------------------------|
+| **NoneQueueStrategy**            | Don't queue any bulletin. This is the default behavior         |
+| **AllQueueStrategy**             | Queue all bulletins                                            |
+| **DialogQueueStrategy**          | Queue if a `BulletinDialog` is displayed.                      |
+| **SheetQueueStrategy**           | Queue if a `BulletinSheet` is displayed.                       |
+| **FlashBarQueueStrategy**        | Queue if a `BulletinFlashbar` is displayed.                    |
+| **SnackbarQueueStrategy**        | Queue if a `BulletinSnackbar` is displayed.                    |
+| **ToastQueueStrategy**           | Queue if a `BulletinToast` is displayed.                       |
+
 
 ## Custom Bulletins
 As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization. see [MyCstomLadingDialog](https://github.com/ShabanKamell/Bulletin/blob/master/sample/src/main/java/com/sha/sample/MyCustomLoadingDialog.kt)
