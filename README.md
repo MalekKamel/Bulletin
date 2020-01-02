@@ -118,7 +118,7 @@ What if you need to show 2 bulletins or more in sequntial order? In another word
 [`QueueStrategy`](#queue-strategy-interface) interface provides a solution for queuing problem
 
 ``` kotlin
-BulletinConfig.queueStrategies { + SheetQueueStrategy() }
+BulletinConfig.queueStrategies { +SheetQueueStrategy() }
 ```
 
 ### Queue Strategy Interface:
