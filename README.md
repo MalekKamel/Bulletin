@@ -28,14 +28,17 @@ dependencies {
 
 ## Bulletins
 Any widget implements [Bulletin Interface](#bulletin-interface) is a Bulletin. There're 8 predefined widgets in the library:
-- [ ] **InfoDialog**: a concrete implementaion of `BulletinDialog`
-- [ ] **RetryDialog**: a concrete implementaion of `BulletinDialog`
-- [ ] **LoadingDialog**: a concrete implementaion of `BulletinDialog`
-- [ ] **InfoSheet**: a concrete implementaion of `BulletinSheet`
-- [ ] **RetrySheet**: a concrete implementaion of `BulletinSheet`
-- [ ] **StandardFlashBar**: a concrete implementaion of `BulletinFlashBar`
-- [ ] **StandardToast**: a concrete implementaion of `BulletinToast`
-- [ ] **StandardSnackbar**: a concrete implementaion of `BulletinSnackbar`
+
+|         **Name**                 |                        **Description**                         |
+| -------------------------------- | ---------------------------------------------------------------|
+| **InfoDialog**                   | A concrete implementaion of `BulletinDialog`                   |
+| **RetryDialog**                  | A concrete implementaion of `BulletinDialog`                   |
+| **LoadingDialog**                | A concrete implementaion of `BulletinDialog`                   |
+| **InfoSheet**                    | A concrete implementaion of `BulletinSheet`                    |
+| **RetrySheet**                   | A concrete implementaion of `BulletinSheet`                    |
+| **StandardFlashBar**             | A concrete implementaion of `BulletinFlashBar`                 |
+| **StandardToast**                | A concrete implementaion of `BulletinToast`                    |
+| **StandardSnackbar**             | A concrete implementaion of `BulletinSnackbar`                 |
 
 ## Bulletin Interface
 `Bulletin` is implemented by all widgets of the library. If you want to create your custom bulletin, you must implement this interface.
@@ -127,7 +130,7 @@ interface QueueStrategy {
 | **DialogQueueStrategy**          | Queue if a `BulletinDialog` is displayed.                      |
 | **SheetQueueStrategy**           | Queue if a `BulletinSheet` is displayed.                       |
 | **FlashbarQueueStrategy**        | Queue if a `BulletinFlashbar` is displayed.                    |
-| **SnackbarQueueStrategy**        | Queue if a `BulletinSnackar` is displayed.                    |
+| **SnackbarQueueStrategy**        | Queue if a `BulletinSnackar` is displayed.                     |
 | **ToastQueueStrategy**           | Queue if a `BulletinToast` is displayed.                       |
 
 
