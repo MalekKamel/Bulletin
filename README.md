@@ -6,7 +6,7 @@ More and more you need to report bulletins (messages) to the user and you spread
 
 **Bulletin** can answer all you queustions!  🙏 🙏
 
-<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram3.png" height="400">
+<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram4.png" height="400">
 
 ## Installation
 
@@ -65,12 +65,6 @@ It's the brain of the library that's responsible for showing/hiding bulletins, s
 
 ## Custom Bulletins
 As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization.
-
-An exmple for implementing `BulletinDialog`
-
-``` kotlin
-
-```
 
 
 
