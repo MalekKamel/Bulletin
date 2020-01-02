@@ -8,6 +8,33 @@ More and more you need to report bulletins (messages) to the user and you spread
 
 <img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram4.png" height="600">
 
+``` kotlin
+   // show one bulletin with the same name
+   BulletinConfig.duplicateStrategy = NameDuplicateStrategy()
+   
+   // queue BulletinSheet & BulletinToast if more than one 
+   // will be displayed at the same time
+   BulletinConfig.queueStrategies {
+       + SheetQueueStrategy()
+       + ToastQueueStrategy()
+   }
+   
+   // will be queued as we deined SheetQueueStrategy
+   showMessageSheet("Sheet1, after dismissing, Sheet2 will be displayed!")
+   showMessageSheet("Sheet2, after dismissing, Sheet3 will be displayed!")
+   showMessageSheet("Sheet3")
+   
+   // Will be displayed
+   showErrorSheet("Error Sheet")
+   
+   // will be ignored as its content is similar to the previous displayed bulletin
+   // NOTE: remember that we defined ContentDuplicateStrategy
+   showErrorSheet("Error Sheet")
+   
+   // Will dismiss any displayed Bulletin
+   BulletinManager.dismissAll()
+```
+
 ## Installation
 
 #### Gradle:
@@ -47,6 +74,8 @@ Any widget implements [Bulletin Interface](#bulletin-interface) is a Bulletin. T
 interface Bulletin {
     val name: String
     val content: String
+    var status: BulletinStatus
+    var duplicateStrategy: DuplicateStrategy
     fun showBulletin(activity: FragmentActivity?)
     fun dismiss()
 }
