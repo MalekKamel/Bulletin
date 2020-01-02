@@ -95,6 +95,16 @@ interface DuplicateStrategy {
 BulletinConfig.queueStrategies { + SheetQueueStrategy() }
 ```
 
+## Predefined Duplicate Strategies
+
+|         **Name**                 |                        **Description**          | **Default IgnoreDuplicateStrategy** |
+| -------------------------------- | --------------------------------------------------------------------- | ------------- |
+| **DefaultDuplicateStrategy**     | Allows any diplication                                                |   DROP        |
+| **NameDuplicateStrategy**        | Ignore if a `Bulletin` with the same **NAME** is displayed.           |   QUEUE       |
+| **ContentDuplicateStrategy**     | Ignore if a `Bulletin` with the same **CONTENT** is displayed.        |   DROP        |
+| **NameContentDuplicateStrategy** | Ignore if a `Bulletin` with the same **NAME & CONTENT** is displayed. |   DROP        |
+| **SingleDuplicateStrategy**      | Display a single `Bulletin` at a time    .                            |   QUEUE       |
+
 ## Custom Bulletins
 As mentioned in [Bulletin Interface](#bulletin-interface), you can create your custom bulletin by implementing [Bulletin] interface. Alternatively, you can extend abstract widget like `BulletinDialog` and implement your customization. see [MyCstomLadingDialog](https://github.com/ShabanKamell/Bulletin/blob/master/sample/src/main/java/com/sha/sample/MyCustomLoadingDialog.kt)
 
