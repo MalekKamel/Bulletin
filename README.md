@@ -227,7 +227,7 @@ As mentioned in [Bulletin Interface](#bulletin-interface), you can create your c
 - [ ] Flashbar is a clone of [aritraroy/Flashbar](https://github.com/aritraroy/Flashbar)
 - [ ] Dialog style is borrowed from [andyxialm/ColorDialog](https://github.com/andyxialm/ColorDialog)
 
-### 🛡 License
+## 🛡 License
 <details>
     <summary>
         click to reveal License
