@@ -47,6 +47,7 @@ More and more you need to report bulletins (messages) to the user and you spread
 
 - [ ] Resuable widgets.
 - [ ] Predefined APIs for displaying bulletins.
+- [ ] Fully customizable.
 - [ ] Define queue strategies.
 - [ ] Define duplicate strategies
 - [ ] Global configuration for all bulletins
