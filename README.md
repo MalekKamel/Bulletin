@@ -9,27 +9,33 @@ More and more you need to report bulletins (messages) to the user and you spread
 <img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram4.png" height="600">
 
 ``` kotlin
-   // show one bulletin with the same name
-   BulletinConfig.duplicateStrategy = NameDuplicateStrategy()
+   // ignore any Bulletin if another Bulletin is diplayed with the
+   // same content
+   BulletinConfig.duplicateStrategy = ContentDuplicateStrategy()
    
-   // queue BulletinSheet & BulletinToast if more than one 
-   // will be displayed at the same time
+   // queue any BulletinSheet if another BulletinSheet is diplayed 
+   // and show the next queued one after dismissing the current.
+   // the same applies to BulletinToast.
    BulletinConfig.queueStrategies {
        + SheetQueueStrategy()
        + ToastQueueStrategy()
    }
    
-   // will be queued as we deined SheetQueueStrategy
+   // Will be displayed
    showMessageSheet("Sheet1, after dismissing, Sheet2 will be displayed!")
+   
+   // will be queued as we deined SheetQueueStrategy
    showMessageSheet("Sheet2, after dismissing, Sheet3 will be displayed!")
+   
+   // will be queued like Sheet2
    showMessageSheet("Sheet3")
    
    // Will be displayed
-   showErrorSheet("Error Sheet")
+   shortToast("Toast")
    
    // will be ignored as its content is similar to the previous displayed bulletin
    // NOTE: remember that we defined ContentDuplicateStrategy
-   showErrorSheet("Error Sheet")
+   shortToast("Toast")
    
    // Will dismiss any displayed Bulletin
    BulletinManager.dismissAll()
