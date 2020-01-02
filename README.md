@@ -80,7 +80,7 @@ What if there are 2 or more netwrok responses display the same content in a dial
     BulletinConfig.duplicateStrategy = ContentDuplicateStrategy()
 ```
 
-The previous line tells **Bulletin** to ignore the bulletin as long a a bulletin with the same content is displayed.
+The previous line tells **Bulletin** to ignore the new bulletin as long as a bulletin with the same content is displayed.
 
 BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)
 
