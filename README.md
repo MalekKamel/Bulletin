@@ -77,12 +77,12 @@ In the previous code, we tell bulletin to show only one bulletin at a time and i
 
 BUT what happens to the ignored bulletins? see [Bulletin Ignore Duplicate Strategy](#ignore-duplicate_strategy)
 
-## Ignore Duplicate Strategy
+### Ignore Duplicate Strategy
 If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2 behaviors for the ignored bulletin:
 - [ ] Drop: The bulletin will be dropped and won't be displayed forever.
 - [ ] Queue: The bulletin will be queued, and will be displayed once it's the first bulletin in the queue.
 
-## Duplicate Strategy Interface:
+### Duplicate Strategy Interface:
 
 ``` kotlin
 interface DuplicateStrategy {
@@ -95,7 +95,7 @@ interface DuplicateStrategy {
 BulletinConfig.queueStrategies { + SheetQueueStrategy() }
 ```
 
-## Predefined Duplicate Strategies
+### Predefined Duplicate Strategies
 
 |         **Name**                 |                        **Description**          | **Default IgnoreDuplicateStrategy** |
 | -------------------------------- | --------------------------------------------------------------------- | ------------- |
