@@ -12,7 +12,8 @@ internal object DuplicateManager {
     private fun tryQue(bulletin: Bulletin) {
         when(bulletin.duplicateStrategy.onIgnoreStrategy) {
             IgnoreDuplicateStrategy.DROP -> { bulletin.status = BulletinStatus.IGNORED }
-            IgnoreDuplicateStrategy.QUEUE -> { QueueManager.tryQueue(bulletin) }
+            IgnoreDuplicateStrategy.QUEUE -> { QueueManager.queue(bulletin) }
+            IgnoreDuplicateStrategy.TRY_QUEUE -> { QueueManager.tryQueue(bulletin) }
         }
     }
 

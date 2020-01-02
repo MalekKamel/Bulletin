@@ -3,7 +3,7 @@ package com.sha.bulletin.flashbar
 import com.sha.bulletin.BulletinConfig
 import com.sha.bulletin.DuplicateStrategy
 
-class StandardFlashBar(builder: Builder): BulletinFlashBar(builder) {
+class StandardFlashbar(builder: Builder): BulletinFlashbar(builder) {
     var options: Options = Options.default()
 
     override val name: String = javaClass.name
@@ -49,16 +49,16 @@ class StandardFlashBar(builder: Builder): BulletinFlashBar(builder) {
          * Create the bulletin
          * @param block DSL for creating the options
          */
-        fun create(builder: Builder, block: Options.() -> Unit): StandardFlashBar {
-           return StandardFlashBar(builder).apply { options = Options().apply { block() } }
+        fun create(builder: Builder, block: Options.() -> Unit): StandardFlashbar {
+           return StandardFlashbar(builder).apply { options = Options().apply { block() } }
         }
 
         /**
          * Create the bulletin
          * @param options for the bulletin
          */
-        fun create(builder: Builder, options: Options): StandardFlashBar {
-           return StandardFlashBar(builder).apply { this.options = options }
+        fun create(builder: Builder, options: Options): StandardFlashbar {
+           return StandardFlashbar(builder).apply { this.options = options }
         }
     }
 

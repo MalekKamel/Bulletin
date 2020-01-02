@@ -1,7 +1,7 @@
 package com.sha.bulletin
 
 import com.sha.bulletin.dialog.BulletinDialog
-import com.sha.bulletin.flashbar.BulletinFlashBar
+import com.sha.bulletin.flashbar.BulletinFlashbar
 import com.sha.bulletin.sheet.BulletinSheet
 import com.sha.bulletin.snackbar.BulletinSnackbar
 import com.sha.bulletin.toast.BulletinToast
@@ -51,12 +51,12 @@ class SheetQueueStrategy: QueueStrategy {
 }
 
 /**
- * This strategy allows queuing of [BulletinFlashBar] only. If there's any number of [BulletinFlashBar]
+ * This strategy allows queuing of [BulletinFlashbar] only. If there's any number of [BulletinFlashbar]
  * displayed, the new [Bulletin] will be queued and will be displayed once the displayed one is dismissed.
  */
 class FlashBarQueueStrategy: QueueStrategy {
     override fun shouldQueue(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
-        return bulletin is BulletinFlashBar && displayedBulletins.any { it is BulletinFlashBar }
+        return bulletin is BulletinFlashbar && displayedBulletins.any { it is BulletinFlashbar }
     }
 }
 

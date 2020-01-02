@@ -5,11 +5,11 @@ import org.junit.Before
 import org.junit.Test
 
 class StandardFlashBarTest {
-    lateinit var options: StandardFlashBar.Options.Builder
+    lateinit var options: StandardFlashbar.Options.Builder
 
     @Before
     fun setup() {
-        options = StandardFlashBar.Options.Builder()
+        options = StandardFlashbar.Options.Builder()
     }
 
     @Test

@@ -11,7 +11,7 @@ import com.andrognito.flashbar.Flashbar
 import com.sha.bulletin.dialog.InfoDialog
 import com.sha.bulletin.dialog.LoadingDialog
 import com.sha.bulletin.dialog.RetryDialog
-import com.sha.bulletin.flashbar.StandardFlashBar
+import com.sha.bulletin.flashbar.StandardFlashbar
 import com.sha.bulletin.sheet.InfoSheet
 import com.sha.bulletin.sheet.RetrySheet
 import com.sha.bulletin.snackbar.StandardSnackbar
@@ -272,43 +272,43 @@ interface FlashBarAlertable {
 
     @JvmDefault
     fun showMessageInFlashBar(content: String,
-                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashbar? {
         return showFlashBar(content, duration, R.color.white)
     }
 
     @JvmDefault
     fun showMessageInFlashBar(@StringRes contentRes: Int,
-                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashbar? {
         return activity()?.run { showFlashBar(getString(contentRes), duration, R.color.white) }
     }
 
     @JvmDefault
     fun showWarningInFlashBar(content: String,
-                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashbar? {
         return showFlashBar(content, duration, R.color.warning)
     }
 
     @JvmDefault
     fun showWarningInFlashBar(@StringRes contentRes: Int,
-                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+                              duration: Long = BulletinConfig.flashBarDuration): StandardFlashbar? {
         return activity()?.run { showFlashBar(getString(contentRes), duration, R.color.warning) }
     }
 
     @JvmDefault
     fun showErrorInFlashBar(content: String,
-                            duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+                            duration: Long = BulletinConfig.flashBarDuration): StandardFlashbar? {
         return showFlashBar(content, duration, R.color.error)
     }
 
     @JvmDefault
     fun showErrorInFlashBar(@StringRes contentRes: Int,
-                            duration: Long = BulletinConfig.flashBarDuration): StandardFlashBar? {
+                            duration: Long = BulletinConfig.flashBarDuration): StandardFlashbar? {
         return activity()?.run { showFlashBar(getString(contentRes), duration, R.color.error) }
     }
 
     @JvmDefault
     fun showFlashBar(content: String, duration: Long,
-                     @ColorRes backgroundColor: Int): StandardFlashBar? {
+                     @ColorRes backgroundColor: Int): StandardFlashbar? {
         return activity()?.run {
            val builder = Flashbar.Builder(this)
                     .message(content)
@@ -322,9 +322,9 @@ interface FlashBarAlertable {
 
     @JvmDefault
     fun showFlashBar(builder: Flashbar.Builder,
-                     options: StandardFlashBar.Options = StandardFlashBar.Options.default()): StandardFlashBar? {
+                     options: StandardFlashbar.Options = StandardFlashbar.Options.default()): StandardFlashbar? {
         return activity()?.run {
-            val bulletin = StandardFlashBar.create(builder, options)
+            val bulletin = StandardFlashbar.create(builder, options)
             showBulletin(bulletin, this)
             bulletin
         }

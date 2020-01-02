@@ -1,8 +1,6 @@
 package com.sha.bulletin
 
-enum class IgnoreDuplicateStrategy {
-    DROP, QUEUE
-}
+enum class IgnoreDuplicateStrategy { DROP, QUEUE, TRY_QUEUE }
 
 /**
  * A strategy used to manage duplicate bulletins behavior.
