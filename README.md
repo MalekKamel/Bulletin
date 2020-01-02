@@ -56,7 +56,7 @@ interface Bulletin {
 It's the brain of the library that's responsible for showing/hiding bulletins, storing the current state of each bulletin and checking if a bulletin is displayed. Take a look at [BulletinManager](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/BulletinManager.kt) to see all functionalities.
 
 ## Alertable Interface
-Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [The code](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all functionalities.
+Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [Alertable](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all functionalities.
 
 ``` kotlin
 interface Alertable:
