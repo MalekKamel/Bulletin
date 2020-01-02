@@ -6,9 +6,9 @@ More and more you need to report bulletins (messages) to the user and you spread
 
 **Bulletin** can answer all you queustions!  🙏 🙏
 
-<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram4.png" height="600">
+<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/demo.gif" height="500">
 
-<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/demo.gif" height="300">
+<img src="https://github.com/ShabanKamell/Bulletin/blob/master/blob/master/raw/diagram4.png" height="600">
 
 ``` kotlin
    // ignore any Bulletin if another Bulletin is diplayed with the
