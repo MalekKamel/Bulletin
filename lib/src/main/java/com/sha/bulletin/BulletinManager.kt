@@ -11,8 +11,7 @@ object BulletinManager {
      * [Bulletin] instances, this set contains the displayed [Bulletin]s only.
      * The instance is added when the [Bulletin] is displayed and removed when it's destroyed.
      */
-    @JvmStatic
-    var displayedBulletins: MutableSet<Bulletin> = mutableSetOf()
+    internal var displayedBulletins: MutableSet<Bulletin> = mutableSetOf()
 
     /**
      * This function is called on dismissing a [Bulletin]. If you implement your custom bulletin,
@@ -48,7 +47,7 @@ object BulletinManager {
      * Returns true if the [Bulletin] is displayed
      */
     @JvmStatic
-    fun isAnyDisplayed(bulletin: Bulletin) = displayedBulletins.any { it == bulletin }
+    fun isDisplayed(bulletin: Bulletin) = displayedBulletins.any { it == bulletin }
 
     /**
      * Returns true if any [Bulletin] is displayed
@@ -131,17 +130,17 @@ object BulletinManager {
 }
 
 /**
- * @see [BulletinManager.isAnyDisplayed]
+ * @see [BulletinManager.isDisplayed]
  */
-fun isAnyBulletinDisplayed(bulletin: Bulletin) = BulletinManager.isAnyDisplayed(bulletin)
+fun isBulletinDisplayed(bulletin: Bulletin) = BulletinManager.isDisplayed(bulletin)
 
 /**
- * @see [BulletinManager.isAnyDisplayed]
+ * @see [BulletinManager.isDisplayed]
  */
 fun isAnyBulletinDisplayed() = BulletinManager.isAnyDisplayed()
 
 /**
- * @see [BulletinManager.isAnyDisplayed]
+ * @see [BulletinManager.isDisplayed]
  */
 fun isAnyBulletinDisplayed(name: String) = BulletinManager.isAnyDisplayed(name)
 
@@ -151,7 +150,7 @@ fun isAnyBulletinDisplayed(name: String) = BulletinManager.isAnyDisplayed(name)
 fun isAnyDisplayedWithContent(content: String) = BulletinManager.isAnyDisplayedWithContent(content)
 
 /**
- * @see [BulletinManager.isAnyDisplayed]
+ * @see [BulletinManager.isDisplayed]
  */
 fun isAnyBulletinDisplayed(name: String, content: String) = BulletinManager.isAnyDisplayed(name, content)
 

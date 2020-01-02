@@ -14,7 +14,7 @@ class BulletinTest {
 
     @Test
     fun isBulletinDisplayedWithInstance_returnsTrue() {
-        assert(isAnyBulletinDisplayed(bulletin))
+        assert(isBulletinDisplayed(bulletin))
     }
 
     @Test
