@@ -84,6 +84,14 @@ BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#igno
 If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2 behaviors for the ignored bulletin:
 - [ ] Drop: The bulletin will be dropped and won't be displayed forever.
 - [ ] Queue: The bulletin will be queued, and will be displayed once it's the first bulletin in the queue.
+- [ ] Try Queue: The bulletin will be queued only if there's any [Duplicate Strategy](#duplicate_strategy) allows queuing the bulletin.
+##### IgnoreDuplicateStrategy Enum
+
+``` kotlin
+enum class IgnoreDuplicateStrategy {
+    DROP, QUEUE, TRY_QUEUE
+}
+```
 
 ### Duplicate Strategy Interface:
 
