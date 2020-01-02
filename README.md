@@ -78,14 +78,14 @@ What if you there are 2 or more netwrok responses display the same content in a 
 
 In the previous code, we tell bulletin to show only one bulletin at a time and ignore any other bulletins.
 
-BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate_strategy)
+BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)
 
 ### Ignore Duplicate Strategy
 
 If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2 behaviors for the ignored bulletin:
 - [ ] Drop: The bulletin will be dropped and won't be displayed forever.
 - [ ] Queue: The bulletin will be queued, and will be displayed once it's the first bulletin in the queue.
-- [ ] Try Queue: The bulletin will be queued only if there's any [Duplicate Strategy](#duplicate_strategy) allows queuing the bulletin.
+- [ ] Try Queue: The bulletin will be queued only if there's any [Duplicate Strategy](#duplicate-strategy) allows queuing the bulletin.
 
 #### IgnoreDuplicateStrategy Enum
 
@@ -117,7 +117,7 @@ interface DuplicateStrategy {
 ## Queue Strategy
 What if you need to show 2 bulletins or more in sequntial order? In another worders, show each bulletin after dismissing the previous one?
 
-[`QueueStrategy`](#queue_strategy_interface) interface provides a solution for queuing problem
+[`QueueStrategy`](#queue-strategy-interface) interface provides a solution for queuing problem
 
 ``` kotlin
 BulletinConfig.queueStrategies { + SheetQueueStrategy() }
