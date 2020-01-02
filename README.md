@@ -213,10 +213,10 @@ enum class BulletinStatus {
 }
 ```
 
-- [ ] PENDING: The default status, means the bulletin is created.
+- [ ] PENDING: The bulletin is created. It's the default status.
 - [ ] DISPLAYED: The bulleitn is visible on the screen.
 - [ ] QUEUED: The bulletin is queued because 1) it's queued by a `QueueStratedy` 2) it's ignored by a `DuplicateStratedy` then queued, see [Ignore Duplicate Strategy](#ignore-duplicate-strategy).
-- [ ] IGNORED: The bulletin ignored by a `QueueStratedy`
+- [ ] IGNORED: The bulletin is ignored by a `QueueStratedy`
 - [ ] DISMISSED: The bulletin is no longer visible.
 
 ## Custom Bulletins
