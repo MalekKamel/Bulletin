@@ -6,7 +6,7 @@ import java.util.*
 internal object QueueManager {
     var queue: Queue<Bulletin> = ArrayDeque()
 
-    fun canQueue(bulletin: Bulletin): Boolean {
+    fun tryQueue(bulletin: Bulletin): Boolean {
         // don't queue if no bulletin is displayed
         if(!BulletinManager.isAnyDisplayed()) return false
 
@@ -18,6 +18,7 @@ internal object QueueManager {
         if (!canQueue) return false
 
         queue.add(bulletin)
+        bulletin.status = BulletinStatus.QUEUED
         return true
     }
 
@@ -25,4 +26,6 @@ internal object QueueManager {
         if (queue.isNotEmpty()) queue.remove().showBulletin(activity)
     }
 
+    fun clear() = queue.clear()
+    fun add(bulletin: Bulletin) = queue.add(bulletin)
 }

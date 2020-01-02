@@ -1,9 +1,14 @@
 package com.sha.bulletin
 
+enum class IgnoreDuplicateStrategy {
+    DROP, QUEUE
+}
+
 /**
  * A strategy used to manage duplicate bulletins behavior.
  */
 interface DuplicateStrategy {
+    var onIgnoreStrategy: IgnoreDuplicateStrategy
     fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean
 }
 
@@ -11,6 +16,7 @@ interface DuplicateStrategy {
  * This strategy allows all bulletins to be duplicated.
  */
 class DefaultDuplicateStrategy: DuplicateStrategy {
+    override var onIgnoreStrategy: IgnoreDuplicateStrategy = IgnoreDuplicateStrategy.DROP
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = false
 }
 
@@ -19,6 +25,7 @@ class DefaultDuplicateStrategy: DuplicateStrategy {
  * with the same name displayed.
  */
 class NameDuplicateStrategy: DuplicateStrategy {
+    override var onIgnoreStrategy: IgnoreDuplicateStrategy = IgnoreDuplicateStrategy.QUEUE
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return isAnyBulletinDisplayed(bulletin.name)
     }
@@ -29,6 +36,7 @@ class NameDuplicateStrategy: DuplicateStrategy {
  * with the same content displayed.
  */
 class ContentDuplicateStrategy: DuplicateStrategy {
+    override var onIgnoreStrategy: IgnoreDuplicateStrategy = IgnoreDuplicateStrategy.DROP
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return isAnyDisplayedWithContent(bulletin.content)
     }
@@ -39,6 +47,7 @@ class ContentDuplicateStrategy: DuplicateStrategy {
  * with the same name & content displayed.
  */
 class NameContentDuplicateStrategy: DuplicateStrategy {
+    override var onIgnoreStrategy: IgnoreDuplicateStrategy = IgnoreDuplicateStrategy.DROP
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean {
         return isAnyBulletinDisplayed(bulletin.name, bulletin.content)
     }
@@ -50,5 +59,6 @@ class NameContentDuplicateStrategy: DuplicateStrategy {
  * and ignores any other bulletins.
  */
 class SingleDuplicateStrategy: DuplicateStrategy {
+    override var onIgnoreStrategy: IgnoreDuplicateStrategy = IgnoreDuplicateStrategy.QUEUE
     override fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>) = isAnyBulletinDisplayed()
 }

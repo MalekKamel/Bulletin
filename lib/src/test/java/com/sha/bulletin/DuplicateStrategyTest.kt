@@ -12,62 +12,94 @@ class DuplicateStrategyTest {
         BulletinManager.displayedBulletins = mutableSetOf(bulletin)
     }
 
+    // DefaultDuplicateStrategy
+
     @Test
-    fun testDefaultStrategy() {
+    fun `DefaultDuplicateStrategy should return true`() {
         val strategy = DefaultDuplicateStrategy()
         assert(!strategy.shouldIgnore(bulletin, BulletinManager.displayedBulletins))
     }
 
     @Test
-    fun testNameStrategy_returnsFalse() {
+    fun `DefaultDuplicateStrategy IgnoreDuplicateStrategy should be DROP`() {
+        val strategy = DefaultDuplicateStrategy()
+        assert(strategy.onIgnoreStrategy == IgnoreDuplicateStrategy.DROP)
+    }
+
+    // NameDuplicateStrategy
+
+    @Test
+    fun `NameDuplicateStrategy should return true`() {
+        val strategy = NameDuplicateStrategy()
+        assert(strategy.shouldIgnore(FakeBulletin("FakeBulletin"), BulletinManager.displayedBulletins))
+    }
+
+    @Test
+    fun `NameDuplicateStrategy should return false`() {
         val strategy = NameDuplicateStrategy()
         assert(!strategy.shouldIgnore(FakeBulletin("x"), BulletinManager.displayedBulletins))
     }
 
     @Test
-    fun testNameStrategy_returnsTrue() {
+    fun `NameDuplicateStrategy IgnoreDuplicateStrategy should be QUEUE`() {
         val strategy = NameDuplicateStrategy()
-        val ignore = strategy.shouldIgnore(FakeBulletin("FakeBulletin"), BulletinManager.displayedBulletins)
-        assert(ignore)
+        assert(strategy.onIgnoreStrategy == IgnoreDuplicateStrategy.QUEUE)
     }
 
+    // ContentDuplicateStrategy
+
     @Test
-    fun testContentStrategy_returnsFalse() {
+    fun `ContentDuplicateStrategy should return false`() {
         val strategy = ContentDuplicateStrategy()
         assert(!strategy.shouldIgnore(FakeBulletin(content = "x"), BulletinManager.displayedBulletins))
     }
 
     @Test
-    fun testContentStrategy_returnsTrue() {
+    fun `ContentDuplicateStrategy should return true`() {
         val strategy = ContentDuplicateStrategy()
         val ignore = strategy.shouldIgnore(FakeBulletin(content = "content"), BulletinManager.displayedBulletins)
         assert(ignore)
     }
 
     @Test
-    fun testNameContentStrategy_returnsFalse() {
+    fun `ContentDuplicateStrategy IgnoreDuplicateStrategy should be DROP`() {
+        val strategy = ContentDuplicateStrategy()
+        assert(strategy.onIgnoreStrategy == IgnoreDuplicateStrategy.DROP)
+    }
+
+    // NameContentDuplicateStrategy
+
+    @Test
+    fun `NameContentDuplicateStrategy should return false`() {
         val strategy = NameContentDuplicateStrategy()
         assert(!strategy.shouldIgnore(FakeBulletin(name = "FakeBulletin", content = "x"), BulletinManager.displayedBulletins))
     }
 
     @Test
-    fun testNameContentStrategy_returnsTrue() {
-        val strategy = ContentDuplicateStrategy()
-        val ignore = strategy.shouldIgnore(FakeBulletin(content = "content"), BulletinManager.displayedBulletins)
-        assert(ignore)
+    fun `NameContentDuplicateStrategy IgnoreDuplicateStrategy should be DROP`() {
+        val strategy = NameContentDuplicateStrategy()
+        assert(strategy.onIgnoreStrategy == IgnoreDuplicateStrategy.DROP)
     }
 
+    // SingleDuplicateStrategy
+
     @Test
-    fun testSingleStrategy_returnsFalse() {
+    fun `SingleDuplicateStrategy should return false`() {
         val strategy = SingleDuplicateStrategy()
         BulletinManager.displayedBulletins = mutableSetOf()
         assert(!strategy.shouldIgnore(FakeBulletin(name = "FakeBulletin", content = "x"), BulletinManager.displayedBulletins))
     }
 
     @Test
-    fun testSingleStrategy_returnsTrue() {
+    fun `SingleDuplicateStrategy should return true`() {
         val strategy = SingleDuplicateStrategy()
         val ignore = strategy.shouldIgnore(FakeBulletin(content = "content"), BulletinManager.displayedBulletins)
         assert(ignore)
+    }
+
+    @Test
+    fun `SingleDuplicateStrategy IgnoreDuplicateStrategy should be QUEUE`() {
+        val strategy = SingleDuplicateStrategy()
+        assert(strategy.onIgnoreStrategy == IgnoreDuplicateStrategy.QUEUE)
     }
 }

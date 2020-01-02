@@ -13,7 +13,7 @@ class BulletinManagerTest {
         activity = mock()
         BulletinConfig.queueStrategies.clear()
         BulletinManager.displayedBulletins.clear()
-        QueueManager.queue.clear()
+        QueueManager.clear()
     }
 
     @Test
@@ -48,13 +48,28 @@ class BulletinManagerTest {
     }
 
     @Test
-    fun `show should set status IGNORED if it's duplicate`() {
+    fun `show should set status IGNORED if it's duplicate and IgnoreDuplicateStrategy DROP`() {
         val bulletin = FakeBulletin()
-        bulletin.duplicateStrategy = NameDuplicateStrategy()
+        val duplicateStrategy = NameDuplicateStrategy()
+        duplicateStrategy.onIgnoreStrategy = IgnoreDuplicateStrategy.DROP
+        bulletin.duplicateStrategy = duplicateStrategy
         BulletinManager.displayedBulletins.add(FakeBulletin())
 
         BulletinManager.show(bulletin, activity)
         assert(bulletin.status == BulletinStatus.IGNORED)
+    }
+
+
+    @Test
+    fun `show should set status QUEUE if it's duplicate and IgnoreDuplicateStrategy QUEUE`() {
+        val bulletin = FakeBulletin()
+        val duplicateStrategy = NameDuplicateStrategy()
+        bulletin.duplicateStrategy = duplicateStrategy
+        BulletinManager.displayedBulletins.add(FakeBulletin())
+        BulletinConfig.queueStrategies { + AllQueueStrategy() }
+
+        BulletinManager.show(bulletin, activity)
+        assert(bulletin.status == BulletinStatus.QUEUED)
     }
 
     @Test
@@ -120,7 +135,7 @@ class BulletinManagerTest {
         val bulletin = FakeBulletin()
         BulletinManager.displayedBulletins.add(bulletin)
         val next = FakeBulletin()
-        QueueManager.queue.add(next)
+        QueueManager.add(next)
 
         BulletinManager.onDismiss(bulletin, activity)
         assert(next.isShowInvoked)

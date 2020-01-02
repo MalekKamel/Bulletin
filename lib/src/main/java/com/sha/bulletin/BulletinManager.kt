@@ -29,14 +29,9 @@ object BulletinManager {
     fun show(bulletin: Bulletin, activity: FragmentActivity?) {
         activity?.run {
             if (bulletin.status == BulletinStatus.DISPLAYED) return
-            if (bulletin.duplicateStrategy.shouldIgnore(bulletin, displayedBulletins)) {
-                bulletin.status = BulletinStatus.IGNORED
-                return
-            }
-            if(QueueManager.canQueue(bulletin)) {
-                bulletin.status = BulletinStatus.QUEUED
-                return
-            }
+            if (DuplicateManager.tryIgnore(bulletin)) return
+            if(QueueManager.tryQueue(bulletin)) return
+
             bulletin.showBulletin(activity)
             bulletin.status = BulletinStatus.DISPLAYED
             displayedBulletins.add(bulletin)
