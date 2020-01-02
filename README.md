@@ -126,8 +126,8 @@ interface QueueStrategy {
 | **AllQueueStrategy**             | Queue all bulletins                                            |
 | **DialogQueueStrategy**          | Queue if a `BulletinDialog` is displayed.                      |
 | **SheetQueueStrategy**           | Queue if a `BulletinSheet` is displayed.                       |
-| **FlashBarQueueStrategy**        | Queue if a `BulletinFlashbar` is displayed.                    |
-| **SnackbarQueueStrategy**        | Queue if a `BulletinSnackbar` is displayed.                    |
+| **FlashbarQueueStrategy**        | Queue if a `BulletinFlashbar` is displayed.                    |
+| **SnackbarQueueStrategy**        | Queue if a `BulletinSnackar` is displayed.                    |
 | **ToastQueueStrategy**           | Queue if a `BulletinToast` is displayed.                       |
 
 
