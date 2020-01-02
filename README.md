@@ -74,13 +74,24 @@ In case you don't need all functions, you can implement any interface that Alert
 ## Duplicate Strategy
 What if there are 2 or more netwrok responses display the same content in a dialog and you don't need to show all dialogs with the same content? OR in another words you want to ignore the dialog if there's a dialog with the same content displayed?
 
+[DuplicateStrategy](#duplicate-strategy-interface) provides the solution:
+
 ``` kotlin
-    BulletinConfig.duplicateStrategy = NameDuplicateStrategy()
+    BulletinConfig.duplicateStrategy = ContentDuplicateStrategy()
 ```
 
-In the previous code, we tell bulletin to show only one bulletin at a time and ignore any other bulletins.
+The previous line tells **Bulletin** to ignore the bulletin as long a a bulletin with the same content is displayed.
 
 BUT what happens to the ignored bulletins? see [Ignore Duplicate Strategy](#ignore-duplicate-strategy)
+
+### Duplicate Strategy Interface:
+
+``` kotlin
+interface DuplicateStrategy {
+    var onIgnoreStrategy: IgnoreDuplicateStrategy
+    fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean
+}
+```
 
 ### Ignore Duplicate Strategy
 
@@ -93,15 +104,6 @@ If a `Bulletin` has been ignored bucause it's a duplicate, you can define 1 of 2
 
 ``` kotlin
 enum class IgnoreDuplicateStrategy { DROP, QUEUE, TRY_QUEUE }
-```
-
-### Duplicate Strategy Interface:
-
-``` kotlin
-interface DuplicateStrategy {
-    var onIgnoreStrategy: IgnoreDuplicateStrategy
-    fun shouldIgnore(bulletin: Bulletin, displayedBulletins: Set<Bulletin>): Boolean
-}
 ```
 
 ### Predefined Duplicate Strategies
