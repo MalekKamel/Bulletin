@@ -1,5 +1,8 @@
 
-# Bulletin 
+[![](https://jitpack.io/v/ShabanKamell/Bulletin.svg)](https://jitpack.io/#ShabanKamell/Bulletin)
+
+Bulletin
+========
 An abstraction for alert messages in android.
 
 More and more you need to report bulletins (messages) to the user and you spread its code everywhere. And sometimes you ask yoursef, what if I want to avoid duplicate bulletins at the same time? what if I want to queue bulletins? what if I want to apply default configurations to each bulletin only in one place? what if I want to manage all bulletins?.....  👿 👿
