@@ -103,6 +103,7 @@ interface Bulletin {
 It's the brain of the library that's responsible for showing/hiding bulletins and managing the state of each bulletin. Take a look at [BulletinManager](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/BulletinManager.kt) to see all functionalities.
 
 ## Alertable Interface
+
 Alertable interface contains a group of default functions that make it easy to show any predefined `Bulletin`. If you want to make all these functions available for your class, just implement it. The interface is a composite of interfaces for each bulletin. Take a look at [Alertable](https://github.com/ShabanKamell/Bulletin/blob/master/lib/src/main/java/com/sha/bulletin/Alertable.kt) to see all functionalities.
 
 ``` kotlin
@@ -117,6 +118,18 @@ interface Alertable:
 ```
 
 In case you don't need all functions, you can implement any interface that Alertable inhertits.
+
+##### IMPORTANT: To use Aletable with Kotlin, you must add this to apps' Gradle:
+
+``` groovy
+android {
+...
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
+    }
+}
+```
 
 ## Duplicate Strategy
 What if there are 2 or more netwrok responses display the same content in a dialog and you don't need to show all dialogs with the same content? OR in another words you want to ignore the dialog if there's a dialog with the same content displayed?
