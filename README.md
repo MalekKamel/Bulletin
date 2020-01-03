@@ -119,11 +119,12 @@ interface Alertable:
 
 In case you don't need all functions, you can implement any interface that Alertable inhertits.
 
-##### IMPORTANT: To use Aletable with Kotlin, you must add this to apps' Gradle:
+##### IMPORTANT: To use Alertable with Kotlin, you must add this to apps' Gradle:
 
 ``` groovy
 android {
 ...
+    // This configuration enables using @JvmDefault annotation with Kotlin
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
         freeCompilerArgs = ['-Xjvm-default=compatibility']
