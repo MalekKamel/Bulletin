@@ -25,7 +25,8 @@ interface Alertable:
         ToastAlertable,
         LoadingDialogAlertable,
         FlashBarAlertable,
-        SnackbarAlertable
+        SnackbarAlertable,
+        DismissAlertable
 
 interface InfoDialogAlertable {
     fun activity(): FragmentActivity?
@@ -258,7 +259,7 @@ interface LoadingDialogAlertable {
     }
 
     @JvmDefault
-    fun showLoadingDialog(options: LoadingDialog.Options = LoadingDialog.Options.default()): LoadingDialog? {
+    fun showLoadingDialog(options: LoadingDialog.Options): LoadingDialog? {
         return activity()?.run {
             val bulletin = LoadingDialog.create(options)
             showBulletin(bulletin, this)
@@ -366,5 +367,24 @@ interface SnackbarAlertable {
             showBulletin(bulletin, this)
             bulletin
         }
+    }
+}
+
+interface DismissAlertable {
+
+    fun dismissAllBulletins() {
+        BulletinManager.dismissAll()
+    }
+
+    fun dismissBulletinWithName(name: String = "") {
+        BulletinManager.dismissWithName(name)
+    }
+
+    fun dismissLoadingDialogs() {
+        BulletinManager.dismissWithName(LoadingDialog::class.java.name)
+    }
+
+    fun dismissBulletinWithContent(content: String) {
+        BulletinManager.dismissWithContent(content)
     }
 }
